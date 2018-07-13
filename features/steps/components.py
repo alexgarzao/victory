@@ -50,8 +50,7 @@ def step_impl(context):
 @given(u'vejo o {name} com o valor {expected_value}')
 @then(u'vejo o {name} com o valor {expected_value}')
 def step_impl(context, name, expected_value):
-    component = context.config.components.get_component(name)
-    element = context.config.driver.find_element(component)
+    element = context.config.driver.find_element(name)
     value = context.config.driver.search_text(element)
     assert value == expected_value
 
@@ -63,19 +62,17 @@ def step_impl(context, name, value):
         return
     if value == "<espaço>":
         value = ' '
-    component = context.config.components.get_component(name)
-    context.config.driver.find_element(component).clear()
-    context.config.driver.find_element(component).send_keys(value)
+    context.config.driver.find_element(name).clear()
+    context.config.driver.find_element(name).send_keys(value)
 
 
 @given(u'preencho e valido o {name} com o valor {value} e valor esperado {expected_value}')
 def step_impl(context, name, value, expected_value):
     if value == "<ignora>":
         return
-    component = context.config.components.get_component(name)
-    context.config.driver.find_element(component).clear()
-    context.config.driver.find_element(component).send_keys(value)
-    set_value = context.config.driver.find_element(component).get_attribute('value')
+    context.config.driver.find_element(name).clear()
+    context.config.driver.find_element(name).send_keys(value)
+    set_value = context.config.driver.find_element(name).get_attribute('value')
     assert set_value == expected_value
 
 
@@ -84,10 +81,9 @@ def step_impl(context, name, value, mask):
     if value == "<ignora>":
         return
 
-    component = context.config.components.get_component(name)
-    context.config.driver.find_element(component).clear()
-    context.config.driver.find_element(component).send_keys(value)
-    set_value = context.config.driver.find_element(component).get_attribute('value')
+    context.config.driver.find_element(name).clear()
+    context.config.driver.find_element(name).send_keys(value)
+    set_value = context.config.driver.find_element(name).get_attribute('value')
     expected_value = value_with_mask(value, mask)
     assert set_value == expected_value
 
@@ -96,12 +92,11 @@ def step_impl(context, name, value, mask):
 @given(u'clico no {name}')
 @when(u'clico no {name}')
 def step_impl(context, name):
-    component = context.config.components.get_component(name)
     #TODO: Ver se o componente pode estar visivel mas nao clicavel
     #TODO: Precisa validar se esta habilitado?!
     for i in range(0, 10):
         try:
-            context.config.driver.find_element(component).click()
+            context.config.driver.find_element(name).click()
             return
         except:
             time.sleep(1)
@@ -119,8 +114,7 @@ def step_impl(context, seconds):
 def step_impl(context, name, value):
     if value == "<ignora>":
         return
-    component = context.config.components.get_component(name)
-    select = Select(context.config.driver.find_element(component))
+    select = Select(context.config.driver.find_element(name))
     select.select_by_visible_text(value)
     selected_option = select.first_selected_option
     set_value = selected_option.text

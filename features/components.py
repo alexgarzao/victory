@@ -1,4 +1,5 @@
 # TODO: REFACTOR: Cada componente deveria ser uma classe distinta...
+# TODO: Trocar de Component para Element...
 
 class Component(object):
     ID = 1
@@ -14,21 +15,6 @@ class Component(object):
 
     def get_internal_id(self):
         return self.internal_id
-
-    # TODO: onde o metodo abaixo esta sendo usado?
-    def get_xpath(self):
-        if self.type == ID:
-            return '//*[@id="' + self.internal_id + '"]'
-        elif self.type == TEXT:
-            return '//*[text()='+ self.internal_id +']'
-        elif self.type == NAME:
-            return self.internal_id
-        elif self.type == XPATH:
-            return self.internal_id
-        elif self.type == AUTOMATION_ID:
-            return '//*[@data-automation-id="' + self.internal_id + '"]'
-        else:
-            assert False, 'Invalid component type'
 
 
 class Components(object):

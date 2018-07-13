@@ -19,7 +19,7 @@ def step_impl(context, something):
 
 @given(u'o app a ser testado está em {app}')
 def step_impl(context, app):
-    context.config.driver = WebApp()
+    context.config.driver = WebApp(context.config.components)
     os = platform.system().lower()
     context.config.driver.chrome_driver_path = ("./chromedriver/%s/chromedriver" % os)
     context.config.server_address = app

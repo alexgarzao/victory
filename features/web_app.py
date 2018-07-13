@@ -6,10 +6,11 @@ import os
 
 
 class WebApp:
-    def __init__(self):
+    def __init__(self, components):
         self.driver = None
         self.app = None
         self.chrome_driver_path = None
+        self.components = components
 
     def open(self, headless):
         self.chrome_driver_options = webdriver.ChromeOptions()
@@ -60,7 +61,9 @@ class WebApp:
             value = elemento.text
         return value
 
-    def find_element(self, component):
+    def find_element(self, component_name):
+        component = self.components.get_component(component_name)
+
         if component.type == component.ID:
             element = self.find_element_by_xpath('//*[@id="' + component.internal_id + '"]')
         elif component.type == component.TEXT:
