@@ -1,0 +1,3 @@
+./setup/inicia_sem_headless.feature
+./setup/define_componentes.feature
+./busca/busca_simples.feature
