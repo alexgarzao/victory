@@ -12,27 +12,27 @@ def step_impl(context):
     context.config.driver.clear_elements()
 
 
-@given(u'que o componente {name} tem o id {internal_id}')
+@given(u'que o elemento {name} tem o id {internal_id}')
 def step_impl(context, name, internal_id):
     context.config.driver.new_id_element(name, internal_id)
 
 
-@given(u'que o componente {name} tem o nome {internal_name}')
+@given(u'que o elemento {name} tem o nome {internal_name}')
 def step_impl(context, name, internal_name):
     context.config.driver.new_name_element(name, internal_name)
 
 
-@given(u'que o componente {name} tem o texto {internal_text}')
+@given(u'que o elemento {name} tem o texto {internal_text}')
 def step_impl(context, name, internal_text):
     context.config.driver.new_text_element(name, internal_text)
 
 
-@given(u'que o componente {name} tem o xpath {internal_xpath}')
+@given(u'que o elemento {name} tem o xpath {internal_xpath}')
 def step_impl(context, name, internal_xpath):
     context.config.driver.new_xpath_element(name, internal_xpath)
 
 
-@given(u'que o componente {name} tem o automation id {internal_automation_id}')
+@given(u'que o elemento {name} tem o automation id {internal_automation_id}')
 def step_impl(context, name, internal_automation_id):
     context.config.driver.new_automation_id_element(name, internal_automation_id)
 
@@ -92,7 +92,7 @@ def step_impl(context, name, value, mask):
 @given(u'clico no {name}')
 @when(u'clico no {name}')
 def step_impl(context, name):
-    #TODO: Ver se o componente pode estar visivel mas nao clicavel
+    #TODO: Ver se o elemento pode estar visivel mas nao clicavel
     #TODO: Precisa validar se esta habilitado?!
     for i in range(0, 10):
         try:
