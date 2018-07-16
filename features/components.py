@@ -6,9 +6,6 @@ class Component(object):
         self.name = name
         self.internal_id = internal_id
 
-    # def get_internal_id(self):
-    #     return self.internal_id
-    #
     def find_element_by_xpath(self, xpath):
         return self.__try_to_get_element(self.driver.find_element_by_xpath, xpath)
 
@@ -96,23 +93,3 @@ class Components(object):
 
     def get_element(self, name):
         return self.list[name].find_element()
-
-    def find_element_by_xpath(self, xpath):
-        return self.__try_to_get_element(self.driver.find_element_by_xpath, xpath)
-
-    def find_element_by_id(self, id):
-        return self.__try_to_get_element(self.driver.find_element_by_id, id)
-
-    def find_element_by_name(self, name):
-        return self.__try_to_get_element(self.driver.find_element_by_name, name)
-
-    def find_element_by_automation_id(self, id):
-        return self.__try_to_get_element(self.driver.find_element_by_xpath, id)
-
-    def __try_to_get_element(self, func, parameter):
-        for retries in range(0, 5):
-            el = func(parameter)
-            if el and el.is_displayed: # and el.is_enabled:
-                return el
-            time.sleep(1)
-        return None
