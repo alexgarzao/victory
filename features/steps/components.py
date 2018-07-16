@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from common import value_with_mask
 
 
-@given(u'que quero definir os componentes da tela')
+@given(u'que quero definir os elementos da tela')
 def step_impl(context):
     context.config.driver.clear_elements()
 
@@ -37,7 +37,7 @@ def step_impl(context, name, internal_automation_id):
     context.config.driver.new_automation_id_element(name, internal_automation_id)
 
 
-@when(u'tento definir os componentes')
+@when(u'tento definir os elementos')
 def step_impl(context):
     pass
 
