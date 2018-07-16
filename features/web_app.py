@@ -4,13 +4,15 @@ from selenium.webdriver.common.keys import Keys
 import time
 import os
 
+from components import Components
+
 
 class WebApp:
-    def __init__(self, components):
+    def __init__(self):
         self.driver = None
         self.app = None
         self.chrome_driver_path = None
-        self.components = components
+        self.components = None
 
     def open(self, headless):
         self.chrome_driver_options = webdriver.ChromeOptions()
@@ -21,6 +23,7 @@ class WebApp:
         self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
         self.driver.get(self.app)
         self.driver.implicitly_wait(30)
+        self.components = Components(self.driver)
 
     def quit(self):
         if self.driver:
@@ -62,45 +65,9 @@ class WebApp:
         return value
 
     def find_element(self, component_name):
-        component = self.components.get_component(component_name)
-
-        if component.type == component.ID:
-            element = self.find_element_by_xpath('//*[@id="' + component.internal_id + '"]')
-        elif component.type == component.TEXT:
-            element = self.find_element_by_xpath('//*[text()='+ component.internal_id +']')
-        elif component.type == component.NAME:
-            element = self.find_element_by_name(component.internal_id)
-        elif component.type == component.XPATH:
-            element = self.find_element_by_xpath(component.internal_id)
-        elif component.type == component.AUTOMATION_ID:
-            element = self.find_element_by_xpath('//*[@data-automation-id="' + component.internal_id + '"]')
-        else:
-            assert False, 'Invalid component type'
-
-        assert element != None, 'Componente "%s" nao encontrado' % component.internal_id
-        return element
-
-    def find_element_by_xpath(self, xpath):
-        return self.__try_to_get_element(self.driver.find_element_by_xpath, xpath)
-
-    def find_element_by_id(self, id):
-        return self.__try_to_get_element(self.driver.find_element_by_id, id)
-
-    def find_element_by_name(self, name):
-        return self.__try_to_get_element(self.driver.find_element_by_name, name)
-
-    def find_element_by_automation_id(self, id):
-        return self.__try_to_get_element(self.driver.find_element_by_xpath, id)
+        return self.components.get_element(component_name)
 
     def screenshot(self):
         path = os.getcwd()+'/print_erros/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+".png"
         self.driver.save_screenshot(path)
         return path
-
-    def __try_to_get_element(self, func, parameter):
-        for retries in range(0, 5):
-            el = func(parameter)
-            if el and el.is_displayed: # and el.is_enabled:
-                return el
-            time.sleep(1)
-        return None

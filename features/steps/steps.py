@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 import time
-import platform
 
 from web_app import WebApp
 
@@ -19,9 +18,6 @@ def step_impl(context, something):
 
 @given(u'o app a ser testado está em {app}')
 def step_impl(context, app):
-    context.config.driver = WebApp(context.config.components)
-    os = platform.system().lower()
-    context.config.driver.chrome_driver_path = ("./chromedriver/%s/chromedriver" % os)
     context.config.server_address = app
 
 

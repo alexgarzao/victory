@@ -1,12 +1,16 @@
+import platform
+
 from test_config import TestConfig
-from components import Components
 from time import gmtime, strftime
+
+from web_app import WebApp
 
 
 def before_all(context):
     context.config = TestConfig()
-    context.config.driver = None
-    context.config.components = Components()
+    context.config.driver = WebApp()
+    os = platform.system().lower()
+    context.config.driver.chrome_driver_path = ("./chromedriver/%s/chromedriver" % os)
 
 
 def after_scenario(context, scenario):
