@@ -9,32 +9,32 @@ from common import value_with_mask
 
 @given(u'que quero definir os componentes da tela')
 def step_impl(context):
-    context.config.driver.elements.clear()
+    context.config.driver.clear_elements()
 
 
 @given(u'que o componente {name} tem o id {internal_id}')
 def step_impl(context, name, internal_id):
-    context.config.driver.elements.new_id_element(name, internal_id)
+    context.config.driver.new_id_element(name, internal_id)
 
 
 @given(u'que o componente {name} tem o nome {internal_name}')
 def step_impl(context, name, internal_name):
-    context.config.driver.elements.new_name_element(name, internal_name)
+    context.config.driver.new_name_element(name, internal_name)
 
 
 @given(u'que o componente {name} tem o texto {internal_text}')
 def step_impl(context, name, internal_text):
-    context.config.driver.elements.new_text_element(name, internal_text)
+    context.config.driver.new_text_element(name, internal_text)
 
 
 @given(u'que o componente {name} tem o xpath {internal_xpath}')
 def step_impl(context, name, internal_xpath):
-    context.config.driver.elements.new_xpath_element(name, internal_xpath)
+    context.config.driver.new_xpath_element(name, internal_xpath)
 
 
 @given(u'que o componente {name} tem o automation id {internal_automation_id}')
 def step_impl(context, name, internal_automation_id):
-    context.config.driver.elements.new_automation_id_element(name, internal_automation_id)
+    context.config.driver.new_automation_id_element(name, internal_automation_id)
 
 
 @when(u'tento definir os componentes')
@@ -63,7 +63,7 @@ def step_impl(context, name, value):
     if value == "<espaço>":
         value = ' '
     context.config.driver.find_element(name).clear()
-    context.config.driver.find_element(name).send_keys(value)
+    context.config.driver.find_element(name).send_keys(value + Keys.TAB)
 
 
 @given(u'preencho e valido o {name} com o valor {value} e valor esperado {expected_value}')

@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import os
 
-from elements import Elements
+from element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement
 
 
 class WebApp:
@@ -12,7 +12,7 @@ class WebApp:
         self.driver = None
         self.app = None
         self.chrome_driver_path = None
-        self.elements = None
+        self.elements = {}
 
     def open(self, headless):
         self.chrome_driver_options = webdriver.ChromeOptions()
@@ -23,7 +23,6 @@ class WebApp:
         self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
         self.driver.get(self.app)
         self.driver.implicitly_wait(30)
-        self.elements = Elements(self.driver)
 
     def quit(self):
         if self.driver:
@@ -49,14 +48,14 @@ class WebApp:
                 time.sleep(1)
         assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, start_url)
 
-    def fill_value_by_name(self, field, value):
-        el = self.driver.find_element_by_name(field)
-        self.__fill_value(el, value)
-
-    def __fill_value(self, el, value):
-        el.send_keys(value + Keys.TAB)
-        set_value = el.get_attribute('value')
-        assert set_value == value
+    # def fill_value_by_name(self, field, value):
+    #     el = self.driver.find_element_by_name(field)
+    #     self.__fill_value(el, value)
+    #
+    # def __fill_value(self, el, value):
+    #     el.send_keys(value + Keys.TAB)
+    #     set_value = el.get_attribute('value')
+    #     assert set_value == value
 
     def search_text(self, elemento):
         value = elemento.get_attribute('value')
@@ -65,9 +64,27 @@ class WebApp:
         return value
 
     def find_element(self, component_name):
-        return self.elements.get_element(component_name)
+        return self.elements[component_name].find_element()
 
     def screenshot(self):
         path = os.getcwd()+'/print_erros/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+".png"
         self.driver.save_screenshot(path)
         return path
+
+    def clear_elements(self):
+        self.elements.clear()
+
+    def new_id_element(self, name, internal_id):
+        self.elements[name] = IdElement(self.driver, name, internal_id)
+
+    def new_text_element(self, name, internal_id):
+        self.elements[name] = TextElement(self.driver, name, internal_id)
+
+    def new_name_element(self, name, internal_id):
+        self.elements[name] = NameElement(self.driver, name, internal_id)
+
+    def new_xpath_element(self, name, internal_id):
+        self.elements[name] = XpathElement(self.driver, name, internal_id)
+
+    def new_automation_id_element(self, name, internal_id):
+        self.elements[name] = AutomationIdElement(self.driver, name, internal_id)
