@@ -23,8 +23,7 @@ def step_impl(context, mode):
 
 @given(u'estou na tela {screen}')
 def step_impl(context, screen):
-    # TODO
-    pass
+    context.config.driver.screen_assert_equal(screen)
 
 
 @given(u'seleciono a select {name} com o texto {texto}')

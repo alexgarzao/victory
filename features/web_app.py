@@ -13,6 +13,7 @@ class WebApp:
         self.app = None
         self.chrome_driver_path = None
         self.elements = {}
+        self.screens = {}
 
     def open(self, headless):
         self.chrome_driver_options = webdriver.ChromeOptions()
@@ -47,6 +48,17 @@ class WebApp:
             except:
                 time.sleep(1)
         assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, start_url)
+
+    def screen_assert_equal(self, screen):
+        url = self.screens[screen]
+        for i in range(0, 5):
+            try:
+                current_url = self.driver.current_url[-len(url):]
+                assert current_url == url
+                return
+            except:
+                time.sleep(1)
+        assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada na tela {}: {}'.format(current_url, screen, url)
 
     # def fill_value_by_name(self, field, value):
     #     el = self.driver.find_element_by_name(field)
@@ -88,3 +100,6 @@ class WebApp:
 
     def new_automation_id_element(self, name, internal_id):
         self.elements[name] = AutomationIdElement(self.driver, name, internal_id)
+
+    def new_screen(self, name, url):
+        self.screens[name] = url

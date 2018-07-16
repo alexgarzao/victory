@@ -119,3 +119,8 @@ def step_impl(context, name, value):
     selected_option = select.first_selected_option
     set_value = selected_option.text
     assert set_value == value
+
+
+@given(u'que a tela {name} é {url}')
+def step_impl(context, name, url):
+    context.config.driver.new_screen(name, url)
