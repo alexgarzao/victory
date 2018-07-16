@@ -6,11 +6,6 @@ import time
 from web_app import WebApp
 
 
-@given(u'que quero efetuar o login')
-def step_impl(context):
-    pass
-
-
 @given(u'que quero {something}')
 def step_impl(context, something):
     pass
