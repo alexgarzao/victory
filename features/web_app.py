@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import os
 
-from components import Components
+from elements import Elements
 
 
 class WebApp:
@@ -12,7 +12,7 @@ class WebApp:
         self.driver = None
         self.app = None
         self.chrome_driver_path = None
-        self.components = None
+        self.elements = None
 
     def open(self, headless):
         self.chrome_driver_options = webdriver.ChromeOptions()
@@ -23,7 +23,7 @@ class WebApp:
         self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
         self.driver.get(self.app)
         self.driver.implicitly_wait(30)
-        self.components = Components(self.driver)
+        self.elements = Elements(self.driver)
 
     def quit(self):
         if self.driver:
@@ -65,7 +65,7 @@ class WebApp:
         return value
 
     def find_element(self, component_name):
-        return self.components.get_element(component_name)
+        return self.elements.get_element(component_name)
 
     def screenshot(self):
         path = os.getcwd()+'/print_erros/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+".png"

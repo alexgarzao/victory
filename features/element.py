@@ -1,6 +1,4 @@
-# TODO: Trocar de Component para Element...
-
-class Component(object):
+class BaseElement(object):
     def __init__(self, driver, name, internal_id):
         self.driver = driver
         self.name = name
@@ -27,7 +25,7 @@ class Component(object):
         return None
 
 
-class IdComponent(Component):
+class IdElement(BaseElement):
     def __init__(self, driver, name, internal_id):
         super().__init__(driver, name, internal_id)
 
@@ -35,7 +33,7 @@ class IdComponent(Component):
         return self.find_element_by_xpath('//*[@id="' + self.internal_id + '"]')
 
 
-class TextComponent(Component):
+class TextElement(BaseElement):
     def __init__(self, driver, name, internal_id):
         super().__init__(driver, name, internal_id)
 
@@ -43,7 +41,7 @@ class TextComponent(Component):
         return self.find_element_by_xpath('//*[text()='+ self.internal_id +']')
 
 
-class NameComponent(Component):
+class NameElement(BaseElement):
     def __init__(self, driver, name, internal_id):
         super().__init__(driver, name, internal_id)
 
@@ -51,7 +49,7 @@ class NameComponent(Component):
         return self.find_element_by_name(self.internal_id)
 
 
-class XpathComponent(Component):
+class XpathElement(BaseElement):
     def __init__(self, driver, name, internal_id):
         super().__init__(driver, name, internal_id)
 
@@ -59,37 +57,9 @@ class XpathComponent(Component):
         return self.find_element_by_xpath(self.internal_id)
 
 
-class AutomationIdComponent(Component):
+class AutomationIdElement(BaseElement):
     def __init__(self, driver, name, internal_id):
         super().__init__(driver, name, internal_id)
 
     def find_element(self):
         return self.find_element_by_xpath('//*[@data-automation-id="' + self.internal_id + '"]')
-
-
-
-class Components(object):
-    def __init__(self, driver):
-        self.driver = driver
-        self.clear()
-
-    def clear(self):
-        self.list = {}
-
-    def new_id_component(self, name, internal_id):
-        self.list[name] = IdComponent(self.driver, name, internal_id)
-
-    def new_text_component(self, name, internal_id):
-        self.list[name] = TextComponent(self.driver, name, internal_id)
-
-    def new_name_component(self, name, internal_id):
-        self.list[name] = NameComponent(self.driver, name, internal_id)
-
-    def new_xpath_component(self, name, internal_id):
-        self.list[name] = XpathComponent(self.driver, name, internal_id)
-
-    def new_automation_id_component(self, name, internal_id):
-        self.list[name] = AutomationIdComponent(self.driver, name, internal_id)
-
-    def get_element(self, name):
-        return self.list[name].find_element()
