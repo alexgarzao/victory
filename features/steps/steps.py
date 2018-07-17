@@ -75,6 +75,6 @@ def step_impl(context):
     pass
 
 
-@then('sou direcionado para a tela de {screen}')
+@then('sou direcionado para a tela {screen}')
 def step(context, screen):
     context.config.driver.screen_assert_equal(screen)
