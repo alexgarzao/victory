@@ -3,13 +3,14 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 from common import value_with_mask
 
 
 @given(u'que quero definir os elementos da tela')
 def step_impl(context):
-    context.config.driver.clear_elements()
+    pass
 
 
 @given(u'que o elemento {name} tem o id {internal_id}')
@@ -102,10 +103,24 @@ def step_impl(context, name):
             time.sleep(1)
 
 
+@when(u'flutuo no {name}')
+def step_impl(context, name):
+    for i in range(0, 10):
+        try:
+            element_to_hover_over = context.config.driver.find_element(name)
+            hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over)
+            hover.perform()
+            return
+        except:
+            time.sleep(1)
+
+
 @when(u'aguardo {seconds:Number} segundo')
 @given(u'aguardo {seconds:Number} segundo')
+@then(u'aguardo {seconds:Number} segundo')
 @when(u'aguardo {seconds:Number} segundos')
 @given(u'aguardo {seconds:Number} segundos')
+@then(u'aguardo {seconds:Number} segundos')
 def step_impl(context, seconds):
     time.sleep(seconds)
 
