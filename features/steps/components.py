@@ -148,3 +148,13 @@ def step_impl(context):
 
     # Use the accept() method to accept the alert
     popup.accept()
+
+
+@then(u'fica visível a {element_name}')
+def step_impl(context, element_name):
+    for i in range(0, 10):
+        try:
+            assert context.config.driver.find_element(element_name).is_displayed == False
+            return
+        except:
+            time.sleep(1)
