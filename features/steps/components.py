@@ -139,3 +139,12 @@ def step_impl(context, name, value):
 @given(u'que a tela {name} é {url}')
 def step_impl(context, name, url):
     context.config.driver.new_screen(name, url)
+
+
+@then(u'eu aceito a popup')
+def step_impl(context):
+    # Switch to alert.
+    popup = context.config.driver.driver.switch_to.alert
+
+    # Use the accept() method to accept the alert
+    popup.accept()
