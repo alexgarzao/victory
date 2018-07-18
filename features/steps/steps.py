@@ -11,14 +11,15 @@ def step_impl(context, something):
     pass
 
 
-@given(u'o app a ser testado está em {app}')
-def step_impl(context, app):
-    context.config.server_address = app
+@given(u'a configuração {config_name} é {config_value}')
+def step_impl(context, config_name, config_value):
+    context.config.set(config_name, config_value)
 
 
-@given(u'quero rodar os testes no modo {mode}')
-def step_impl(context, mode):
-    context.config.headless = True
+@given(u'a configuração está na tabela abaixo')
+def step_impl(context):
+    for row in context.table:
+        context.config.set(name=row['nome'], value=row['valor'])
 
 
 @given(u'estou na tela {screen}')
@@ -61,8 +62,8 @@ def step(context, url):
 
 @when(u'tento inicializar o teste')
 def step_impl(context):
-    context.config.driver.app = context.config.server_address
-    context.config.driver.open(context.config.headless)
+    context.config.driver.app = context.config.get_string("APP_URL")
+    context.config.driver.open(context.config.get_bool('HEADLESS'))
 
 
 @then(u'recebo um status ok')
