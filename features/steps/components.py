@@ -58,6 +58,8 @@ def step_impl(context, name, expected_value):
 
 @given(u'preencho o {name} com o valor {value}')
 @given(u'preencho a {name} com o valor {value}')
+@when(u'preencho o {name} com o valor {value}')
+@when(u'preencho a {name} com o valor {value}')
 def step_impl(context, name, value):
     if value == "<ignora>":
         return
@@ -92,6 +94,9 @@ def step_impl(context, name, value, mask):
 @then(u'clico no {name}')
 @given(u'clico no {name}')
 @when(u'clico no {name}')
+@then(u'clico em {name}')
+@given(u'clico em {name}')
+@when(u'clico em {name}')
 def step_impl(context, name):
     #TODO: Ver se o elemento pode estar visivel mas nao clicavel
     #TODO: Precisa validar se esta habilitado?!
