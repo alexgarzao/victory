@@ -1,7 +1,7 @@
 import platform
 
 from test_config import TestConfig
-from time import gmtime, strftime
+from time import gmtime, strftime, sleep
 
 from web_app import WebApp
 
@@ -22,6 +22,12 @@ def after_scenario(context, scenario):
 
         with open(log, 'a') as arq:
             arq.write(message)
+
+
+def after_step(context, step):
+    sleep_time = context.config.get_number('SLEEP_BETWEEN_STEPS')
+    if sleep_time > 0:
+        sleep(sleep_time/1000)
 
 
 def after_all(context):
