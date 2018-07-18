@@ -48,18 +48,15 @@ def step_impl(context):
     pass
 
 
-@given(u'vejo o {name} com o valor {expected_value}')
-@then(u'vejo o {name} com o valor {expected_value}')
+@step(u'vejo o {name} com o valor {expected_value}')
 def step_impl(context, name, expected_value):
     element = context.config.driver.find_element(name)
     value = context.config.driver.search_text(element)
     assert value == expected_value
 
 
-@given(u'preencho o {name} com o valor {value}')
-@given(u'preencho a {name} com o valor {value}')
-@when(u'preencho o {name} com o valor {value}')
-@when(u'preencho a {name} com o valor {value}')
+@step(u'preencho o {name} com o valor {value}')
+@step(u'preencho a {name} com o valor {value}')
 def step_impl(context, name, value):
     if value == "<ignora>":
         return
@@ -91,12 +88,8 @@ def step_impl(context, name, value, mask):
     assert set_value == expected_value
 
 
-@then(u'clico no {name}')
-@given(u'clico no {name}')
-@when(u'clico no {name}')
-@then(u'clico em {name}')
-@given(u'clico em {name}')
-@when(u'clico em {name}')
+@step(u'clico no {name}')
+@step(u'clico em {name}')
 def step_impl(context, name):
     #TODO: Ver se o elemento pode estar visivel mas nao clicavel
     #TODO: Precisa validar se esta habilitado?!
@@ -120,12 +113,8 @@ def step_impl(context, name):
             time.sleep(1)
 
 
-@when(u'aguardo {seconds:Number} segundo')
-@given(u'aguardo {seconds:Number} segundo')
-@then(u'aguardo {seconds:Number} segundo')
-@when(u'aguardo {seconds:Number} segundos')
-@given(u'aguardo {seconds:Number} segundos')
-@then(u'aguardo {seconds:Number} segundos')
+@step(u'aguardo {seconds:Number} segundo')
+@step(u'aguardo {seconds:Number} segundos')
 def step_impl(context, seconds):
     time.sleep(seconds)
 
