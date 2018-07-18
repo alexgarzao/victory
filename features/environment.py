@@ -7,6 +7,8 @@ from web_app import WebApp
 
 
 def before_all(context):
+    __load_custom_steps(context)
+
     context.config = TestConfig()
     context.config.driver = WebApp()
     os = platform.system().lower()
@@ -33,6 +35,15 @@ def after_step(context, step):
 def after_all(context):
     if context.config.driver:
         context.config.driver.quit()
+
+
+def __load_custom_steps(context):
+    userdata = context.config.userdata
+    features_path = userdata.get("features_path", "")
+    if features_path:
+        import sys
+        sys.path.insert(0, features_path)
+        import custom_steps
 
 
 # ----------------------------------------------------------------------------
