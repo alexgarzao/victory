@@ -22,6 +22,11 @@ def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
 
 
+@given(u'que vou para a tela {screen}')
+def step_impl(context, screen):
+    context.config.driver.open_screen(screen)
+
+
 @given(u'seleciono a select {name} com o texto {texto}')
 def step_impl(context, name, texto):
     if not texto == "<ignora>":
