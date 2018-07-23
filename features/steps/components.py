@@ -38,6 +38,11 @@ def step_impl(context, name, internal_automation_id):
     context.config.driver.new_automation_id_element(name, internal_automation_id)
 
 
+@then(u'o elemento {name} tem a classe {class_name}')
+def step_impl(context, name, class_name):
+    context.config.driver.new_class_name_element(name, class_name)
+
+
 @step(u'vejo o {name} com o valor {expected_value}')
 def step_impl(context, name, expected_value):
     element = context.config.driver.find_element(name)

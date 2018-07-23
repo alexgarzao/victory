@@ -16,6 +16,9 @@ class BaseElement(object):
     def find_element_by_automation_id(self, id):
         return self.__try_to_get_element(self.driver.find_element_by_xpath, id)
 
+    def find_element_by_class_name(self, name):
+        return self.__try_to_get_element(self.driver.find_element_by_class_name, name)
+
     def __try_to_get_element(self, func, parameter):
         for retries in range(0, 5):
             el = func(parameter)
@@ -30,7 +33,7 @@ class IdElement(BaseElement):
         super().__init__(driver, name, internal_id)
 
     def find_element(self):
-        return self.find_element_by_xpath('//*[@id="' + self.internal_id + '"]')
+        return self.find_element_by_id(self.internal_id)
 
 
 class TextElement(BaseElement):
@@ -63,3 +66,11 @@ class AutomationIdElement(BaseElement):
 
     def find_element(self):
         return self.find_element_by_xpath('//*[@data-automation-id="' + self.internal_id + '"]')
+
+
+class ClassNameElement(BaseElement):
+    def __init__(self, driver, name, internal_id):
+        super().__init__(driver, name, internal_id)
+
+    def find_element(self):
+        return self.find_element_by_class_name(self.internal_id)

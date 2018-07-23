@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import os
 
-from element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement
+from element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement, ClassNameElement
 
 
 class WebApp:
@@ -60,6 +60,10 @@ class WebApp:
                 time.sleep(1)
         assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada na tela {}: {}'.format(current_url, screen, url)
 
+    def open_screen(self, screen):
+        url = self.screens[screen]
+        self.driver.get(url)
+
     # def fill_value_by_name(self, field, value):
     #     el = self.driver.find_element_by_name(field)
     #     self.__fill_value(el, value)
@@ -100,6 +104,9 @@ class WebApp:
 
     def new_automation_id_element(self, name, internal_id):
         self.elements[name] = AutomationIdElement(self.driver, name, internal_id)
+
+    def new_class_name_element(self, name, class_name):
+        self.elements[name] = ClassNameElement(self.driver, name, class_name)
 
     def new_screen(self, name, url):
         self.screens[name] = url
