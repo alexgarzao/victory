@@ -6,23 +6,18 @@ import time
 from web_app import WebApp
 
 
-@given(u'que quero {something}')
-def step_impl(context, something):
-    pass
-
-
 @given(u'a configuração {config_name} é {config_value}')
 def step_impl(context, config_name, config_value):
     context.config.set(config_name, config_value)
 
 
-@given(u'a configuração está na tabela abaixo')
+@given(u'que a configuração está na tabela abaixo')
 def step_impl(context):
     for row in context.table:
         context.config.set(name=row['nome'], value=row['valor'])
 
 
-@given(u'estou na tela {screen}')
+@given(u'que estou na tela {screen}')
 def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
 
@@ -60,20 +55,10 @@ def step(context, url):
     context.config.driver.url_assert_equal(url)
 
 
-@when(u'tento inicializar o teste')
+@then(u'o teste é iniciado')
 def step_impl(context):
     context.config.driver.app = context.config.get_string("APP_URL")
     context.config.driver.open(context.config.get_bool('HEADLESS'))
-
-
-@then(u'recebo um status ok')
-def step_impl(context):
-    pass
-
-
-@then(u'finalizo o teste')
-def step_impl(context):
-    pass
 
 
 @then('sou direcionado para a tela {screen}')
