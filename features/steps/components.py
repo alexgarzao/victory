@@ -13,39 +13,29 @@ def step_impl(context):
     pass
 
 
-@given(u'que o elemento {name} tem o id {internal_id}')
+@then(u'o elemento {name} tem o id {internal_id}')
 def step_impl(context, name, internal_id):
     context.config.driver.new_id_element(name, internal_id)
 
 
-@given(u'que o elemento {name} tem o nome {internal_name}')
+@then(u'o elemento {name} tem o nome {internal_name}')
 def step_impl(context, name, internal_name):
     context.config.driver.new_name_element(name, internal_name)
 
 
-@given(u'que o elemento {name} tem o texto {internal_text}')
+@then(u'o elemento {name} tem o texto {internal_text}')
 def step_impl(context, name, internal_text):
     context.config.driver.new_text_element(name, internal_text)
 
 
-@given(u'que o elemento {name} tem o xpath {internal_xpath}')
+@then(u'o elemento {name} tem o xpath {internal_xpath}')
 def step_impl(context, name, internal_xpath):
     context.config.driver.new_xpath_element(name, internal_xpath)
 
 
-@given(u'que o elemento {name} tem o automation id {internal_automation_id}')
+@then(u'o elemento {name} tem o automation id {internal_automation_id}')
 def step_impl(context, name, internal_automation_id):
     context.config.driver.new_automation_id_element(name, internal_automation_id)
-
-
-@when(u'tento definir os elementos')
-def step_impl(context):
-    pass
-
-
-@then(u'recebo um ok')
-def step_impl(context):
-    pass
 
 
 @step(u'vejo o {name} com o valor {expected_value}')
@@ -130,7 +120,7 @@ def step_impl(context, name, value):
     assert set_value == value
 
 
-@given(u'que a tela {name} é {url}')
+@then(u'a tela {name} é {url}')
 def step_impl(context, name, url):
     context.config.driver.new_screen(name, url)
 
