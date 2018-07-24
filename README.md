@@ -14,7 +14,7 @@ Web front test automation tool.
     source <myenv>/bin/activate
     pip install -r requirements.txt
 
-Where <my-projects> must be replaced by project directory; <python-version> must be replaced by the python binary to be used; and <myenv> must be replaced by the folder that will keep the virtualenv environment. For example:
+Where `<my-projects>` must be replaced by project directory; `<python-version>` must be replaced by the python binary to be used; and `<myenv>` must be replaced by the folder that will keep the virtualenv environment. For example:
 
     cd projects
     git clone https://github.com/alexgarzao/beeweb.git
