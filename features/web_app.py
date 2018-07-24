@@ -21,6 +21,31 @@ class WebApp:
             self.chrome_driver_options.add_argument('headless')
             self.chrome_driver_options.add_argument('no-sandbox')
 
+        self.chrome_driver_options.add_argument('test-type')
+        self.chrome_driver_options.add_argument("disable-popup-blocking");
+        self.chrome_driver_options.add_argument("incognito");
+        self.chrome_driver_options.add_argument("disable-default-apps");
+        self.chrome_driver_options.add_argument("disable-infobars");
+        self.chrome_driver_options.add_argument("disable-extensions");
+
+        ##############
+        self.chrome_driver_options.add_argument("no-sandbox")
+        self.chrome_driver_options.add_argument("disable-impl-side-painting")
+        self.chrome_driver_options.add_argument("disable-setuid-sandbox")
+        self.chrome_driver_options.add_argument("disable-seccomp-filter-sandbox")
+        self.chrome_driver_options.add_argument("disable-breakpad")
+        self.chrome_driver_options.add_argument("disable-client-side-phishing-detection")
+        self.chrome_driver_options.add_argument("disable-cast")
+        self.chrome_driver_options.add_argument("disable-cast-streaming-hw-encoding")
+        self.chrome_driver_options.add_argument("disable-cloud-import")
+        self.chrome_driver_options.add_argument("disable-popup-blocking")
+        self.chrome_driver_options.add_argument("ignore-certificate-errors")
+        self.chrome_driver_options.add_argument("disable-session-crashed-bubble")
+        self.chrome_driver_options.add_argument("disable-ipv6")
+        self.chrome_driver_options.add_argument("allow-http-screen-capture")
+        self.chrome_driver_options.add_argument("start-maximized")
+        #############
+
         self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
         self.driver.get(self.app)
         self.driver.implicitly_wait(30)
@@ -53,7 +78,7 @@ class WebApp:
         url = self.screens[screen]
         for i in range(0, 5):
             try:
-                current_url = self.driver.current_url[-len(url):]
+                current_url = self.driver.current_url[0:len(url)]
                 assert current_url == url
                 return
             except:
