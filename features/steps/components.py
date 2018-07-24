@@ -61,6 +61,33 @@ def step_impl(context, name, value):
     context.config.driver.find_element(name).send_keys(value + Keys.TAB)
 
 
+@step(u'seleciono o {name} e digito {value}')
+@step(u'seleciono a {name} e digito {value}')
+def step_impl(context, name, value):
+    if value == "<ignora>":
+        return
+    if value == "<espaço>":
+        value = ' '
+    element_to_hover_over = context.config.driver.find_element(name)
+    hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over).click().send_keys(value + Keys.ENTER)
+    hover.perform()
+
+
+@step(u'seleciono o {name} e pressiono a seta para baixo {value:d} vezes')
+@step(u'seleciono a {name} e pressiono a seta para baixo {value:d} vezes')
+def step_impl(context, name, value):
+    element_to_hover_over = context.config.driver.find_element(name)
+
+    keys = ''
+    for k in range(value):
+        keys += Keys.DOWN
+
+    keys += Keys.ENTER
+
+    hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over).click().send_keys(keys).perform()
+
+
+
 @given(u'preencho e valido o {name} com o valor {value} e valor esperado {expected_value}')
 def step_impl(context, name, value, expected_value):
     if value == "<ignora>":
