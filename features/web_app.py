@@ -113,7 +113,7 @@ class WebApp:
         wait = WebDriverWait(self.driver, 15)
         try:
             wait.until(lambda driver: self.driver.execute_script("return jQuery.active == 0"))
-            wait.until(lambda driver: self.driver.execute_script('return document.readyState == complete'))
+            wait.until(lambda driver: self.driver.execute_script('return document.readyState == "complete"'))
         except Exception as e:
             pass
 
