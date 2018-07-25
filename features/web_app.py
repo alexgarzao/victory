@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 import time
@@ -105,7 +106,16 @@ class WebApp:
         return value
 
     def find_element(self, component_name):
+        self.__wait_for_ajax()
         return self.elements[component_name].find_element()
+
+    def __wait_for_ajax(self):
+        wait = WebDriverWait(self.driver, 15)
+        try:
+            wait.until(lambda driver: self.driver.execute_script("return jQuery.active == 0"))
+            wait.until(lambda driver: self.driver.execute_script('return document.readyState == complete'))
+        except Exception as e:
+            pass
 
     def screenshot(self):
         path = os.getcwd()+'/print_erros/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+".png"
