@@ -1,3 +1,5 @@
+import time
+
 class BaseElement(object):
     def __init__(self, driver, name, internal_id):
         self.driver = driver
