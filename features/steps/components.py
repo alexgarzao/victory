@@ -87,7 +87,6 @@ def step_impl(context, name, value):
     hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over).click().send_keys(keys).perform()
 
 
-
 @given(u'preencho e valido o {name} com o valor {value} e valor esperado {expected_value}')
 def step_impl(context, name, value, expected_value):
     if value == "<ignora>":
@@ -121,6 +120,7 @@ def step_impl(context, name):
             return
         except:
             time.sleep(1)
+    assert False, "Elemento %s nao encontrado ou nao pode receber o evento click" % name
 
 
 @when(u'flutuo no {name}')
@@ -133,6 +133,7 @@ def step_impl(context, name):
             return
         except:
             time.sleep(1)
+    assert False, "Elemento %s nao encontrado ou nao pode receber o evento hover" % name
 
 
 @step(u'aguardo {seconds:Number} segundo')
@@ -174,3 +175,4 @@ def step_impl(context, element_name):
             return
         except:
             time.sleep(1)
+    assert False, 'Elemento %s nao esta visivel' % element_name
