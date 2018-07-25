@@ -75,6 +75,8 @@ def step_impl(context, name, value):
 
 @step(u'seleciono o {name} e pressiono a seta para baixo {value:d} vezes')
 @step(u'seleciono a {name} e pressiono a seta para baixo {value:d} vezes')
+@step(u'seleciono o {name} e pressiono a seta para baixo {value:d} vez')
+@step(u'seleciono a {name} e pressiono a seta para baixo {value:d} vez')
 def step_impl(context, name, value):
     element_to_hover_over = context.config.driver.find_element(name)
 
