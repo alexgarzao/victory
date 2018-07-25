@@ -173,7 +173,7 @@ def step_impl(context):
 def step_impl(context, element_name):
     for i in range(0, 10):
         try:
-            assert context.config.driver.find_element(element_name).is_displayed == False
+            assert context.config.driver.find_element(element_name).is_displayed() == True
             return
         except:
             time.sleep(1)
