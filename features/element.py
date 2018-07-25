@@ -22,7 +22,7 @@ class BaseElement(object):
     def __try_to_get_element(self, func, parameter):
         for retries in range(0, 5):
             el = func(parameter)
-            if el and el.is_displayed: # and el.is_enabled:
+            if el and el.is_displayed and el.is_enabled:
                 return el
             time.sleep(1)
         return None
