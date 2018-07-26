@@ -22,28 +22,28 @@ class WebApp:
             self.chrome_driver_options.add_argument('headless')
             self.chrome_driver_options.add_argument('no-sandbox')
 
-        self.chrome_driver_options.add_argument('test-type')
-        self.chrome_driver_options.add_argument("disable-popup-blocking");
+        # self.chrome_driver_options.add_argument('test-type')
+        # self.chrome_driver_options.add_argument("disable-popup-blocking");
         self.chrome_driver_options.add_argument("incognito");
         self.chrome_driver_options.add_argument("disable-default-apps");
         self.chrome_driver_options.add_argument("disable-infobars");
         self.chrome_driver_options.add_argument("disable-extensions");
 
         ##############
-        self.chrome_driver_options.add_argument("no-sandbox")
-        self.chrome_driver_options.add_argument("disable-impl-side-painting")
-        self.chrome_driver_options.add_argument("disable-setuid-sandbox")
-        self.chrome_driver_options.add_argument("disable-seccomp-filter-sandbox")
-        self.chrome_driver_options.add_argument("disable-breakpad")
-        self.chrome_driver_options.add_argument("disable-client-side-phishing-detection")
-        self.chrome_driver_options.add_argument("disable-cast")
-        self.chrome_driver_options.add_argument("disable-cast-streaming-hw-encoding")
-        self.chrome_driver_options.add_argument("disable-cloud-import")
-        self.chrome_driver_options.add_argument("disable-popup-blocking")
-        self.chrome_driver_options.add_argument("ignore-certificate-errors")
-        self.chrome_driver_options.add_argument("disable-session-crashed-bubble")
-        self.chrome_driver_options.add_argument("disable-ipv6")
-        self.chrome_driver_options.add_argument("allow-http-screen-capture")
+        # self.chrome_driver_options.add_argument("no-sandbox")
+        # self.chrome_driver_options.add_argument("disable-impl-side-painting")
+        # self.chrome_driver_options.add_argument("disable-setuid-sandbox")
+        # self.chrome_driver_options.add_argument("disable-seccomp-filter-sandbox")
+        # self.chrome_driver_options.add_argument("disable-breakpad")
+        # self.chrome_driver_options.add_argument("disable-client-side-phishing-detection")
+        # self.chrome_driver_options.add_argument("disable-cast")
+        # self.chrome_driver_options.add_argument("disable-cast-streaming-hw-encoding")
+        # self.chrome_driver_options.add_argument("disable-cloud-import")
+        # self.chrome_driver_options.add_argument("disable-popup-blocking")
+        # self.chrome_driver_options.add_argument("ignore-certificate-errors")
+        # self.chrome_driver_options.add_argument("disable-session-crashed-bubble")
+        # self.chrome_driver_options.add_argument("disable-ipv6")
+        # self.chrome_driver_options.add_argument("allow-http-screen-capture")
         self.chrome_driver_options.add_argument("start-maximized")
         #############
 
