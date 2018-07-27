@@ -11,7 +11,6 @@ from element import IdElement, TextElement, NameElement, XpathElement, Automatio
 class WebApp:
     def __init__(self):
         self.driver = None
-        self.app = None
         self.chrome_driver_path = None
         self.elements = {}
         self.screens = {}
@@ -48,7 +47,6 @@ class WebApp:
         #############
 
         self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
-        self.driver.get(self.app)
         self.driver.implicitly_wait(30)
 
     def quit(self):

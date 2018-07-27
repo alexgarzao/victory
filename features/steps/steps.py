@@ -51,7 +51,6 @@ def step(context, url):
 
 @then(u'o teste é iniciado')
 def step_impl(context):
-    context.config.driver.app = context.config.get_string("APP_URL")
     context.config.driver.open(context.config.get_bool('HEADLESS'))
 
 

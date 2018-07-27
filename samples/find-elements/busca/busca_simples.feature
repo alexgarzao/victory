@@ -2,7 +2,7 @@ Funcionalidade: Realizar uma busca simples
 
   @smoke
   Cenário: Como usuário quero fazer uma busca simples - busca de elementos por xpath
-    Dado que estou na tela de busca
+    Dado que vou para a tela de busca
     E preencho a barra de busca por xpath com o valor XYZ1
     Quando clico no botão de pesquisa por xpath
     E aguardo 1 segundo
