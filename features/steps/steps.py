@@ -39,13 +39,13 @@ def step_impl(context, screen):
 
 
 @then('sou direcionado para a url que inicia em {url}')
-def step(context, url):
+def step_impl(context, url):
     context.config.driver.url_assert_start_with(url)
 
 
 @given('estou na url {url}')
 @then('sou direcionado para a url {url}')
-def step(context, url):
+def step_impl(context, url):
     context.config.driver.url_assert_equal(url)
 
 
@@ -55,5 +55,17 @@ def step_impl(context):
 
 
 @then('sou direcionado para a tela {screen}')
-def step(context, screen):
+def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
+
+
+@step(u'o evento {event_name} é')
+def step_impl(context, event_name):
+    for row in context.table:
+        context.config.driver.add_event(event_name, event_step=row['evento'])
+
+
+# @step(u'ocorre o {event_name}')
+@step(u'{event_name}')
+def step_impl(context, event_name):
+    context.config.driver.run_event(context, event_name)
