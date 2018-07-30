@@ -4,6 +4,6 @@ Funcionalidade: Configuração do teste
     Dado que a configuração está na tabela abaixo
       | nome                | valor |
       | HEADLESS            | false |
-      | SLEEP_BETWEEN_STEPS | 0     |
+      | SLEEP_BETWEEN_STEPS | 100   |
 
     Então o teste é iniciado
