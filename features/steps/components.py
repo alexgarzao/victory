@@ -13,6 +13,15 @@ def step_impl(context):
     pass
 
 
+@then(u'os elementos são')
+def step_impl(context):
+    for row in context.table:
+        element = row['elemento']
+        method = row['método']
+        id = row['identificação']
+        context.execute_steps(u'Então o elemento {} tem o {} {}'.format(element, method, id))
+
+
 @then(u'o elemento {name} tem o id {internal_id}')
 def step_impl(context, name, internal_id):
     context.config.driver.new_id_element(name, internal_id)
@@ -39,6 +48,7 @@ def step_impl(context, name, internal_automation_id):
 
 
 @then(u'o elemento {name} tem a classe {class_name}')
+@then(u'o elemento {name} tem o classe {class_name}')
 def step_impl(context, name, class_name):
     context.config.driver.new_class_name_element(name, class_name)
 
@@ -155,7 +165,7 @@ def step_impl(context, name, value):
     assert set_value == value
 
 
-@then(u'a tela {name} é {url}')
+@step(u'a tela {name} é {url}')
 def step_impl(context, name, url):
     context.config.driver.new_screen(name, url)
 

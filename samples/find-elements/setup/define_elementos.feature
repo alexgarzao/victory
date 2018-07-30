@@ -2,10 +2,12 @@ Funcionalidade: Definir o mapeamento dos elementos da interface
 
   Cenário: Definir os elementos da tela
     Dado que quero definir os elementos da tela
-    Então o elemento barra de busca por xpath tem o xpath //*[@id="lst-ib"]
-    E o elemento barra de busca por nome tem o nome q
-    E o elemento barra de busca por id tem o id lsb-ib
-    E o elemento barra de busca por classe tem a classe gsfi
-    # E o elemento barra de busca por texto tem o texto lsb-ib
-    E o elemento botão de pesquisa tem o xpath //*[@id="tsf"]/div[2]/div[3]/center/input[1]
-    E a tela de busca é https://www.google.com/
+    Então a tela de busca é https://www.google.com/
+    E os elementos são
+      | elemento                  | método | identificação                                |
+      | barra de busca por xpath  | xpath  | //*[@id="lst-ib"]                            |
+      | barra de busca por nome   | nome   | q                                            |
+      | barra de busca por id     | id     | lsb-ib                                       |
+      | barra de busca por classe | classe | gsfi                                         |
+      # E o elemento barra de busca por texto tem o texto lsb-ib
+      | botão de pesquisa         | xpath  | //*[@id="tsf"]/div[2]/div[3]/center/input[1] |
