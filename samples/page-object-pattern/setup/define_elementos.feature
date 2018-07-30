@@ -13,16 +13,9 @@ Funcionalidade: Definir o mapeamento dos elementos da interface
 
     # Mapeamento com parâmetros
     E o evento faço a pesquisa por {texto} é
-      | evento                                                                               |
-      | Dado que vou para a tela de busca                                                         |
-      | E preencho a barra de busca com o valor {texto}                                        |
-      | Quando clico no botão de pesquisa                                                           |
-      | E aguardo 1 segundo                                                                    |
+      | evento                                                                                     |
+      | Dado que vou para a tela de busca                                                          |
+      | E preencho a barra de busca com o valor {texto}                                            |
+      | Quando clico no botão de pesquisa                                                          |
+      | E aguardo 1 segundo                                                                        |
       | Então sou direcionado para a url que inicia em https://www.google.com/search?source=hp&ei= |
-
-    # # Abordagem mais complexa
-    # E o evento tento me logar com o usuário {user} e senha {password} é
-    #   | evento                                    |
-    #   | o elemento {user} tem o id user           |
-    #   | o elemento {password} tem o id j_password |
-    #   | clico no botão login                      |
