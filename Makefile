@@ -1,3 +1,5 @@
+default: all
+
 ifndef FEATURES_PATH
 $(error FEATURES_PATH is not set. Usage "make FEATURES_PATH=<DIR_FEATURES_PATH> rule", where rule=(stable|all). Optional parameters: dont_stop_on_error, debug)
 endif
