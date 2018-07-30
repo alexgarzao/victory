@@ -1,4 +1,4 @@
-Funcionalidade: Inicia os testes sem head less
+Funcionalidade: Configuração do teste
 
   Cenário: Setup do teste
     Dado que a configuração está na tabela abaixo
