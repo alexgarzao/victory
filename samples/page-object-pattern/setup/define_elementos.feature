@@ -9,12 +9,12 @@ Funcionalidade: Definir o mapeamento dos elementos da interface
       | botão de pesquisa | xpath  | //*[@id="tsf"]/div[2]/div[3]/center/input[1] |
 
     # Mapeamento sem parâmetros
-    E o evento tento pesquisar é
+    E a ação pesquisa é
       | evento                            |
       | Quando clico no botão de pesquisa |
 
     # Mapeamento com parâmetros
-    E o evento faço a pesquisa por {texto} é
+    E a ação pesquisa por {texto} é
       | evento                                                                                     |
       | Dado que vou para a tela de busca                                                          |
       | E preencho a barra de busca com o valor {texto}                                            |

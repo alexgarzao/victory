@@ -59,13 +59,13 @@ def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
 
 
-@step(u'o evento {event_name} é')
-def step_impl(context, event_name):
+@step(u'a ação {action_name} é')
+def step_impl(context, action_name):
     for row in context.table:
-        context.config.driver.add_event(event_name, event_step=row['evento'])
+        context.config.driver.add_event_in_action(action_name, event=row['evento'])
 
 
-# @step(u'ocorre o {event_name}')
-@step(u'{event_name}')
-def step_impl(context, event_name):
-    context.config.driver.run_event(context, event_name)
+@step(u'executo a {action_name}')
+@step(u'executo o {action_name}')
+def step_impl(context, action_name):
+    context.config.driver.run_action(context, action_name)

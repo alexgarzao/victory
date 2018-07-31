@@ -6,7 +6,7 @@ import time
 import os
 
 from element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement, ClassNameElement
-from events import Events
+from actions import Actions
 
 
 class WebApp:
@@ -15,7 +15,7 @@ class WebApp:
         self.chrome_driver_path = None
         self.elements = {}
         self.screens = {}
-        self.events = Events()
+        self.actions = Actions()
         self.current_screen = ''
 
     def open(self, headless):
@@ -149,11 +149,11 @@ class WebApp:
     def new_screen(self, name, url):
         self.screens[name] = url
 
-    def add_event(self, event_name, event_step):
-        self.events.add(self.__get_element_name(event_name), event_step)
+    def add_event_in_action(self, action_name, event):
+        self.actions.add(self.__get_element_name(action_name), event)
 
-    def run_event(self, context, event_name):
-        self.events.run(context, self.__get_element_name(event_name))
+    def run_action(self, context, action_name):
+        self.actions.run(context, self.__get_element_name(action_name))
 
     def __get_element_name(self, element_name):
         return self.current_screen + '/' + element_name
