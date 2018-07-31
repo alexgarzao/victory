@@ -1,7 +1,7 @@
 Funcionalidade: Definir o mapeamento dos elementos da interface
 
-  Cenário: Definir os elementos da tela
-    Dado que quero definir os elementos da tela
+  Cenário: Definir os elementos da tela de busca
+    Dado que quero definir os elementos da tela de busca
     E a tela de busca é https://www.google.com/
     Então os elementos são
       | elemento          | método | identificação                                |

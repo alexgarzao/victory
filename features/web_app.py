@@ -16,6 +16,7 @@ class WebApp:
         self.elements = {}
         self.screens = {}
         self.events = Events()
+        self.current_screen = ''
 
     def open(self, headless):
         self.chrome_driver_options = webdriver.ChromeOptions()
@@ -81,6 +82,7 @@ class WebApp:
             try:
                 current_url = self.driver.current_url[0:len(url)]
                 assert current_url == url
+                self.current_screen = screen
                 return
             except:
                 time.sleep(1)
@@ -89,6 +91,7 @@ class WebApp:
     def open_screen(self, screen):
         url = self.screens[screen]
         self.driver.get(url)
+        self.current_screen = screen
 
     # def fill_value_by_name(self, field, value):
     #     el = self.driver.find_element_by_name(field)
@@ -107,7 +110,7 @@ class WebApp:
 
     def find_element(self, component_name):
         self.__wait_for_ajax()
-        return self.elements[component_name].find_element()
+        return self.elements[self.__get_element_name(component_name)].find_element()
 
     def __wait_for_ajax(self):
         wait = WebDriverWait(self.driver, 15)
@@ -126,28 +129,31 @@ class WebApp:
         self.elements.clear()
 
     def new_id_element(self, name, internal_id):
-        self.elements[name] = IdElement(self.driver, name, internal_id)
+        self.elements[self.__get_element_name(name)] = IdElement(self.driver, name, internal_id)
 
     def new_text_element(self, name, internal_id):
-        self.elements[name] = TextElement(self.driver, name, internal_id)
+        self.elements[self.__get_element_name(name)] = TextElement(self.driver, name, internal_id)
 
     def new_name_element(self, name, internal_id):
-        self.elements[name] = NameElement(self.driver, name, internal_id)
+        self.elements[self.__get_element_name(name)] = NameElement(self.driver, name, internal_id)
 
     def new_xpath_element(self, name, internal_id):
-        self.elements[name] = XpathElement(self.driver, name, internal_id)
+        self.elements[self.__get_element_name(name)] = XpathElement(self.driver, name, internal_id)
 
     def new_automation_id_element(self, name, internal_id):
-        self.elements[name] = AutomationIdElement(self.driver, name, internal_id)
+        self.elements[self.__get_element_name(name)] = AutomationIdElement(self.driver, name, internal_id)
 
     def new_class_name_element(self, name, class_name):
-        self.elements[name] = ClassNameElement(self.driver, name, class_name)
+        self.elements[self.__get_element_name(name)] = ClassNameElement(self.driver, name, class_name)
 
     def new_screen(self, name, url):
         self.screens[name] = url
 
     def add_event(self, event_name, event_step):
-        self.events.add(event_name, event_step)
+        self.events.add(self.__get_element_name(event_name), event_step)
 
     def run_event(self, context, event_name):
-        self.events.run(context, event_name)
+        self.events.run(context, self.__get_element_name(event_name))
+
+    def __get_element_name(self, element_name):
+        return self.current_screen + '/' + element_name

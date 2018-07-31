@@ -8,9 +8,9 @@ from selenium.webdriver.common.action_chains import ActionChains
 from common import value_with_mask
 
 
-@given(u'que quero definir os elementos da tela')
-def step_impl(context):
-    pass
+@given(u'que quero definir os elementos da tela {screen_name}')
+def step_impl(context, screen_name):
+    context.config.driver.current_screen = screen_name
 
 
 @then(u'os elementos são')
