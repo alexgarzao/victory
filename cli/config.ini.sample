@@ -1,0 +1,5 @@
+[TFS]
+URL = https://tfs.url.ru
+USER = my user
+PASSWORD = my password
+AREA_PATH = my area path
