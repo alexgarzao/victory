@@ -8,6 +8,10 @@ class TfsPull:
     def run(self):
         testsuites = self.tfs.get_testsuites()
 
-        for testsuite in testsuites:
-            ts = TestSuite(self.tfs, testsuite)
-            ts.write_feature_file('./tfs_temp_features/')
+        with open('./tfs_temp_features/order.featureset', 'w') as f:
+            for testsuite in testsuites:
+                ts = TestSuite(self.tfs, testsuite)
+                new_filename = ts.write_feature_file('./tfs_temp_features/')
+                f.write(new_filename + '\n')
+
+        f.close()

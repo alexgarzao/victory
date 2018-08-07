@@ -8,9 +8,10 @@ class TestSuite:
 
     def write_feature_file(self, path_dir='./'):
         test_suite = self.test_suite
-        filename = '{}/TestSuite {}: {}.feature'.format(path_dir, test_suite['id'], test_suite['title'])
+        filename = 'TestSuite {}: {}.feature'.format(test_suite['id'], test_suite['title'])
+        full_filename = '{}/{}'.format(path_dir, filename)
 
-        with open(filename, 'w') as f:
+        with open(full_filename, 'w') as f:
             f.write("Funcionalidade: {}\n".format(test_suite['title']))
 
             testcases = self.tfs.get_testcases_from_testsuite(test_suite['id'])
@@ -20,3 +21,5 @@ class TestSuite:
                 f.write('\n' + wi.to_scenario() + '\n')
 
         f.close()
+
+        return filename

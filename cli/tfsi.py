@@ -1,5 +1,6 @@
 import configparser
 import click
+import subprocess
 
 from tfs_list import TfsList
 from tfs_pull import TfsPull
@@ -24,9 +25,16 @@ def list(ctx):
 @cli.command()
 @click.pass_context
 def pull(ctx):
-    # click.echo('Debug is %s' % (ctx.obj['DEBUG'] and 'on' or 'off'))
     tfs_pull = TfsPull(__get_tfs_connection())
     tfs_pull.run()
+
+
+@cli.command()
+@click.pass_context
+def run(ctx):
+    tfs_features_path = "./tfs_temp_features/"
+    behave_args = ["behave", "-D", "features_path={}/".format(tfs_features_path), "./features", "@{}/order.featureset".format(tfs_features_path), "--stop"]
+    subprocess.run(behave_args)
 
 
 def __get_tfs_connection():
