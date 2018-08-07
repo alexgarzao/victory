@@ -10,4 +10,4 @@ class TfsPull:
 
         for testsuite in testsuites:
             ts = TestSuite(self.tfs, testsuite)
-            ts.write_feature_file('./temp/')
+            ts.write_feature_file('./tfs_temp_features/')
