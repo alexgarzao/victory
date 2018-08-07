@@ -26,7 +26,8 @@ class TfsIntegration:
         FROM workitems
         WHERE
             [System.AreaPath] = '{}'
-        ORDER BY [System.ChangedDate]""".format(self.project)
+        ORDER BY [System.Title]""".format(self.project)
+        # ORDER BY [System.ChangedDate]""".format(self.project)
 
         wiql = self.client.run_wiql(query)
 
@@ -45,7 +46,7 @@ class TfsIntegration:
         WHERE
             [System.WorkItemType] = 'Test Case' AND
             [System.AreaPath] = '{}'
-        ORDER BY [System.ChangedDate]""".format(self.project)
+        ORDER BY [System.Title]""".format(self.project)
 
         wiql = self.client.run_wiql(query)
         return wiql.workitems
@@ -59,6 +60,9 @@ class TfsIntegration:
             if relation['rel'] == 'Microsoft.VSTS.Common.TestedBy-Forward':
                 workitem_id = self.__get_workitem_id_from_url(relation['url'])
                 testcases.append(self.get_workitem(workitem_id))
+
+        # Order by title
+        testcases = sorted(testcases, key=lambda testcase: testcase['Title'])
         return testcases
 
     @staticmethod
@@ -79,7 +83,7 @@ class TfsIntegration:
             [System.WorkItemType] = 'Test Case' AND
             [System.AreaPath] = '{}' AND
             [System.IterationPath] = @CurrentIteration
-        ORDER BY [System.ChangedDate]""".format(self.project)
+        ORDER BY [System.Title]""".format(self.project)
 
         wiql = self.client.run_wiql(query)
         return wiql.workitems
@@ -95,7 +99,7 @@ class TfsIntegration:
             [System.AreaPath] = '{}' AND
             [Related Link Count] >= 1
         ORDER BY
-            [System.ChangedDate]""".format(self.project)
+            [System.Title]""".format(self.project)
 
         wiql = self.client.run_wiql(query)
         workitems = wiql.workitems
