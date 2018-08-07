@@ -42,5 +42,8 @@ def __get_tfs_connection():
     return tfs
 
 
-if __name__ == '__main__':
+def main():
     cli(obj={})
+
+if __name__ == '__main__':
+    main()
