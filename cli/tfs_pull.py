@@ -1,4 +1,4 @@
-from bs4 import BeautifulSoup
+from work_item import WorkItem
 
 
 class TfsPull:
@@ -6,8 +6,6 @@ class TfsPull:
         self.tfs = tfs
 
     def run(self):
-        # click.echo('Debug is %s' % (ctx.obj['DEBUG'] and 'on' or 'off'))
-
         print('Listagem de todos os testsuites do projeto:')
         workitems = self.tfs.get_testsuites()
 
@@ -20,11 +18,10 @@ class TfsPull:
         workitems = self.tfs.get_testcases()
 
         for workitem in workitems:
-            print(workitem['id'], workitem['title'])
-            print(workitem['description'])
-            print('\n\n\n')
-            print(self.__convert_description_to_scenario(workitem['description']))
-            print('\n\n\n')
+            wi = WorkItem(workitem)
+            print('\n')
+            print(wi.to_scenario())
+            print('\n')
         print('Fim da listagem\n\n')
 
         print('Listagem de todos os testsuites do projeto (com seus testcases):')
@@ -36,13 +33,9 @@ class TfsPull:
             testcases = self.tfs.get_testcases_from_testsuite(testsuite['id'])
 
             for testcase in testcases:
-                print('TestCase:', testcase['id'], testcase['title'])
-                print(self.__convert_description_to_scenario(testcase['description']))
-                print('\n\n\n')
+                wi = WorkItem(testcase)
+                print('\n')
+                print(wi.to_scenario())
+                print('\n')
 
         print('Fim da listagem\n\n')
-
-    @staticmethod
-    def __convert_description_to_scenario(description):
-        soup = BeautifulSoup(description, "html.parser")
-        return soup.get_text('\n')

@@ -1,6 +1,7 @@
 import configparser
 import click
 
+from tfs_list import TfsList
 from tfs_pull import TfsPull
 from tfs_integration import TfsIntegration
 
@@ -11,9 +12,24 @@ from tfs_integration import TfsIntegration
 def cli(ctx, debug):
     ctx.obj['DEBUG'] = debug
 
+
+@cli.command()
+@click.pass_context
+def list(ctx):
+    # click.echo('Debug is %s' % (ctx.obj['DEBUG'] and 'on' or 'off'))
+    tfs_list = TfsList(__get_tfs_connection())
+    tfs_list.run()
+
+
 @cli.command()
 @click.pass_context
 def pull(ctx):
+    # click.echo('Debug is %s' % (ctx.obj['DEBUG'] and 'on' or 'off'))
+    tfs_pull = TfsPull(__get_tfs_connection())
+    tfs_pull.run()
+
+
+def __get_tfs_connection():
     config = configparser.ConfigParser(interpolation=None)
     config.read('./config.ini')
 
@@ -23,9 +39,7 @@ def pull(ctx):
     tfs_area_path = config['TFS']['AREA_PATH']
 
     tfs = TfsIntegration(tfs_url, tfs_user, tfs_password, tfs_area_path)
-
-    tfs_pull = TfsPull(tfs)
-    tfs_pull.run()
+    return tfs
 
 
 if __name__ == '__main__':
