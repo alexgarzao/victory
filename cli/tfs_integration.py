@@ -65,6 +65,24 @@ class TfsIntegration:
         testcases = sorted(testcases, key=lambda testcase: testcase['Title'])
         return testcases
 
+    def get_work_item_by_title(self, title):
+        query = """SELECT
+            [System.Id],
+            [System.WorkItemType],
+            [System.Title],
+            [System.ChangedDate]
+        FROM workitems
+        WHERE
+            [System.AreaPath] = '{}' AND
+            [System.Title] = '{}'""".format(self.project, title)
+
+        workitems = self.client.run_wiql(query).workitems
+        assert len(workitems) <= 1
+        if len(workitems) == 0:
+            return None
+
+        return workitems[0]
+
     @staticmethod
     def __get_workitem_id_from_url(url):
         # Example:
