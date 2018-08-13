@@ -4,6 +4,7 @@ import subprocess
 
 from tfs_list import TfsList
 from tfs_pull import TfsPull
+from tfs_update import TfsUpdate
 from tfs_integration import TfsIntegration
 
 
@@ -33,8 +34,15 @@ def pull(ctx):
 @click.pass_context
 def run(ctx):
     tfs_features_path = "./tfs_temp_features/"
-    behave_args = ["behave", "-D", "features_path={}/".format(tfs_features_path), "./features", "@{}/order.featureset".format(tfs_features_path), "--stop"]
+    behave_args = ["behave", "-D", "features_path={}/".format(tfs_features_path), "./features", "@{}/order.featureset".format(tfs_features_path), "--stop", "--format", "json.pretty", "--outfile", "{}/test_result.json".format(tfs_features_path)]
     subprocess.run(behave_args)
+
+
+@cli.command()
+@click.pass_context
+def update(ctx):
+    tfs_update = TfsUpdate(__get_tfs_connection())
+    tfs_update.run()
 
 
 def __get_tfs_connection():
