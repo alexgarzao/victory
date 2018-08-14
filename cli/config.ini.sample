@@ -3,3 +3,11 @@ URL = https://tfs.url.ru
 USER = my user
 PASSWORD = my password
 AREA_PATH = my area path
+
+[REPORT]
+PROJECT_NAME = My project
+SMTP_SERVER = xxx.yyy.zzz
+FROM = bdd-report@xxx.yyy.zzz
+TO = email1@xxx.com, email2@xxx.com
+USERNAME =
+PASSWORD =
