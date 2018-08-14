@@ -12,6 +12,7 @@ class TestSuite:
         full_filename = '{}/{}'.format(path_dir, filename)
 
         with open(full_filename, 'w') as f:
+            f.write("@US.{}\n".format(test_suite['id']))
             f.write("Funcionalidade: {}\n".format(test_suite['title']))
 
             testcases = self.tfs.get_testcases_from_testsuite(test_suite['id'])

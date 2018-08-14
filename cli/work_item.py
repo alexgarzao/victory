@@ -6,7 +6,8 @@ class WorkItem:
         self.tfs_work_item = tfs_work_item
 
     def to_scenario(self):
-        scenario = "Cenário: {} - TESTCASE ID: {}\n".format(self.tfs_work_item['title'], self.tfs_work_item['id'])
+        scenario = "@TestCase.{}\n".format(self.tfs_work_item['id'])
+        scenario += "Cenário: {} - TESTCASE ID: {}\n".format(self.tfs_work_item['title'], self.tfs_work_item['id'])
         scenario += self.__convert_description_to_text()
         return scenario
 
