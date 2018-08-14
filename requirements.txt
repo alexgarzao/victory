@@ -7,15 +7,20 @@ chardet==3.0.4
 click==6.7
 cryptography==2.3
 dohq-tfs==1.0.81
+future==0.16.0
 idna==2.7
+Jinja2==2.10
+MarkupSafe==1.0
 ntlm-auth==1.2.0
+oauthlib==2.1.0
 parse==1.8.4
 parse-type==0.4.2
 PTable==0.9.2
 pycparser==2.18
 requests==2.19.1
 requests-ntlm==1.1.0
+requests-oauthlib==1.0.0
 selenium==3.13.0
 six==1.11.0
--e git+https://github.com/alexgarzao/beeweb.git@ec832339ea5ca16df3901da30ce2ba3655b2572b#egg=tfsi&subdirectory=cli
+-e git+https://github.com/alexgarzao/beeweb.git@ba0b63770bd1d288c36f4fe5a11115410630fee5#egg=tfsi&subdirectory=cli
 urllib3==1.23
