@@ -28,7 +28,6 @@ class TfsUpdate:
 
 
     # def __update_testcase_status(self, scenario_name, status):
-    #     # import pdb; pdb.set_trace()
     #     test_case_id = int(scenario_name.split(' ')[-1])
     #     test_case = self.tfs.get_workitem(test_case_id)
     #     # print(test_case['state'])

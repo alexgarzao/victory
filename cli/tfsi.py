@@ -5,6 +5,7 @@ import subprocess
 from tfs_list import TfsList
 from tfs_pull import TfsPull
 from tfs_update import TfsUpdate
+from tfs_report import TfsReport
 from tfs_integration import TfsIntegration
 
 
@@ -34,7 +35,14 @@ def pull(ctx):
 @click.pass_context
 def run(ctx):
     tfs_features_path = "./tfs_temp_features/"
-    behave_args = ["behave", "-D", "features_path={}/".format(tfs_features_path), "./features", "@{}/order.featureset".format(tfs_features_path), "--stop", "--format", "json.pretty", "--outfile", "{}/test_result.json".format(tfs_features_path)]
+    behave_args = [
+            "behave",
+            "-D", "features_path={}/".format(tfs_features_path),
+            "./features", "@{}/order.featureset".format(tfs_features_path),
+            "--stop",
+            "--format", "json.pretty",
+            "--outfile", "{}/test_result.json".format(tfs_features_path),
+            ]
     subprocess.run(behave_args)
 
 
@@ -43,6 +51,28 @@ def run(ctx):
 def update(ctx):
     tfs_update = TfsUpdate(__get_tfs_connection())
     tfs_update.run()
+
+
+@cli.command()
+@click.pass_context
+def send_report(ctx):
+    report_config = ctx.obj['config']['REPORT']
+    smtp_server = report_config['SMTP_SERVER']
+    smtp_from = report_config['FROM']
+    smtp_to = report_config['TO']
+    smtp_username = report_config['USERNAME']
+    smtp_password = report_config['PASSWORD']
+    project_name = report_config['PROJECT_NAME']
+
+    tfs_report = TfsReport(__get_tfs_connection(), smtp_server, smtp_username, smtp_password)
+    tfs_report.send_by_email(
+            smtp_from=smtp_from,
+            smtp_to=smtp_to,
+            project_name=project_name,
+            build_id=123,
+            branch_name='XXXYYYZZZ',
+            last_commit='XXXYYYZZZ',
+    )
 
 
 def __get_tfs_connection():
@@ -58,8 +88,15 @@ def __get_tfs_connection():
     return tfs
 
 
+def __get_config():
+    config = configparser.ConfigParser(interpolation=None)
+    config.read('./config.ini')
+
+    return config
+
+
 def main():
-    cli(obj={})
+    cli(obj={'config': __get_config()})
 
 if __name__ == '__main__':
     main()
