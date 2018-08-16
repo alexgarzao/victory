@@ -7,6 +7,7 @@ import os
 
 from element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement, ClassNameElement
 from actions import Actions
+from queries import Queries
 
 
 class WebApp:
@@ -17,6 +18,7 @@ class WebApp:
         self.screens = {}
         self.actions = Actions()
         self.current_screen = ''
+        self.queries = Queries()
 
     def open(self, headless):
         self.chrome_driver_options = webdriver.ChromeOptions()

@@ -60,6 +60,14 @@ def step_impl(context, name, expected_value):
     assert value == expected_value
 
 
+@step(u'preencho o {component_name} com a consulta {query_name}')
+@step(u'preencho a {component_name} com a consulta {query_name}')
+def step_impl(context, component_name, query_name):
+    value = context.config.driver.queries.run(query_name)
+    context.config.driver.find_element(component_name).clear()
+    context.config.driver.find_element(component_name).send_keys(value + Keys.TAB)
+
+
 @step(u'preencho o {name} com o valor {value}')
 @step(u'preencho a {name} com o valor {value}')
 def step_impl(context, name, value):
