@@ -1,0 +1,4 @@
+./setup/configuração.feature
+./setup/define_elementos.feature
+./setup/queries.feature
+./busca/busca_simples.feature
