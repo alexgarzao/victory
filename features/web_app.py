@@ -122,8 +122,8 @@ class WebApp:
         except Exception as e:
             pass
 
-    def screenshot(self):
-        path = os.getcwd()+'/print_erros/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+".png"
+    def screenshot(self, file_prefix):
+        path = os.getcwd()+'/screenshots/'+file_prefix+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+".png"
         self.driver.save_screenshot(path)
         return path
 
