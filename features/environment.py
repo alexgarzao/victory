@@ -51,6 +51,9 @@ def __get_screenshot(webdriver, scenario, state):
 
 
 def after_step(context, step):
+    if context.config_scenario:
+        return
+
     sleep_time = context.config.get_number('SLEEP_BETWEEN_STEPS')
     if sleep_time > 0:
         sleep(sleep_time/1000)
