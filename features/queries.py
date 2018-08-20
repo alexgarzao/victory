@@ -4,19 +4,37 @@ from sqlserver import SqlServer
 
 class Queries:
     def __init__(self):
-        self.dbms_list = {}
+        self.query_list = {}
 
     def add(self, db_type, name):
         if db_type == 'SQLITE':
-            dbms = Sqlite()
+            query = Sqlite()
         elif db_type == 'SQLSERVER':
-            dbms = SqlServer()
+            query = SqlServer()
         else:
-            assert False
+            raise InvalidDbTypeException("Invalid DB Type: {}".format(db_type))
 
-        self.dbms_list[name] = dbms
-        return dbms
+        if self.query_list.get(name) != None:
+            raise DuplicatedQueryException("Query {} already exist".format(name))
+
+        self.query_list[name] = query
+        return query
 
     def run(self, name):
-        dbms = self.dbms_list[name]
-        return dbms.query()
+        query = self.query_list.get(name)
+        if not query:
+            raise NotFoundQueryException("Query {} not found".format(name))
+
+        return query.query()
+
+
+class InvalidDbTypeException(Exception):
+    pass
+
+
+class DuplicatedQueryException(Exception):
+    pass
+
+
+class NotFoundQueryException(Exception):
+    pass

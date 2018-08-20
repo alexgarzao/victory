@@ -1,5 +1,3 @@
-import sqlite3
-
 from sqlite import Sqlite
 
 
