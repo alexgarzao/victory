@@ -65,8 +65,9 @@ def step_impl(context, name, expected_value):
 @step(u'preencho a {component_name} com a consulta {query_name}')
 def step_impl(context, component_name, query_name):
     value = context.config.driver.queries.run(query_name)
-    context.config.driver.find_element(component_name).clear()
-    context.config.driver.find_element(component_name).send_keys(value + Keys.TAB)
+    element = context.config.driver.find_element(component_name)
+    element.clear()
+    element.send_keys(value + Keys.TAB)
 
 
 @step(u'preencho o {name} com o valor {value}')
@@ -76,8 +77,9 @@ def step_impl(context, name, value):
         return
     if value == "<espaço>":
         value = ' '
-    context.config.driver.find_element(name).clear()
-    context.config.driver.find_element(name).send_keys(value + Keys.TAB)
+    element = context.config.driver.find_element(name)
+    element.clear()
+    element.send_keys(value + Keys.TAB)
 
 
 @step(u'seleciono o {name} e digito {value}')
@@ -112,9 +114,10 @@ def step_impl(context, name, value):
 def step_impl(context, name, value, expected_value):
     if value == "<ignora>":
         return
-    context.config.driver.find_element(name).clear()
-    context.config.driver.find_element(name).send_keys(value)
-    set_value = context.config.driver.find_element(name).get_attribute('value')
+    element = context.config.driver.find_element(name)
+    element.clear()
+    element.send_keys(value)
+    set_value = element.get_attribute('value')
     assert set_value == expected_value
 
 
@@ -123,9 +126,10 @@ def step_impl(context, name, value, mask):
     if value == "<ignora>":
         return
 
-    context.config.driver.find_element(name).clear()
-    context.config.driver.find_element(name).send_keys(value)
-    set_value = context.config.driver.find_element(name).get_attribute('value')
+    element = context.config.driver.find_element(name)
+    element.clear()
+    element.send_keys(value)
+    set_value = element.get_attribute('value')
     expected_value = value_with_mask(value, mask)
     assert set_value == expected_value
 
@@ -141,6 +145,8 @@ def step_impl(context, name):
 @when(u'flutuo no {name}')
 def step_impl(context, name):
     # TODO: remover logica do step :-)
+    # TODO: Mas, para remover a logica, talvez eu tenha que abstrair os elementos
+    # TODO: Hoje, find_element retorna o elemento do webdriver diretamente...
     element_to_hover_over = context.config.driver.find_element(name)
     hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over)
     hover.perform()
