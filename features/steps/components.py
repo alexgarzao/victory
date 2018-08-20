@@ -133,30 +133,17 @@ def step_impl(context, name, value, mask):
 @step(u'clico no {name}')
 @step(u'clico em {name}')
 def step_impl(context, name):
-    #TODO: Ver se o elemento pode estar visivel mas nao clicavel
-    #TODO: Precisa validar se esta habilitado?!
+    #TODO: Precisa validar se esta habilitado?! visivel? clicavel?
     # TODO: remover logica do step :-)
-    for i in range(0, 10):
-        try:
-            context.config.driver.find_element(name).click()
-            return
-        except:
-            time.sleep(1)
-    assert False, "Elemento %s nao encontrado ou nao pode receber o evento click" % name
+    context.config.driver.find_element(name).click()
 
 
 @when(u'flutuo no {name}')
 def step_impl(context, name):
     # TODO: remover logica do step :-)
-    for i in range(0, 10):
-        try:
-            element_to_hover_over = context.config.driver.find_element(name)
-            hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over)
-            hover.perform()
-            return
-        except:
-            time.sleep(1)
-    assert False, "Elemento %s nao encontrado ou nao pode receber o evento hover" % name
+    element_to_hover_over = context.config.driver.find_element(name)
+    hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over)
+    hover.perform()
 
 
 @step(u'aguardo {seconds:Number} segundo')
@@ -193,10 +180,4 @@ def step_impl(context):
 @then(u'fica visível a {element_name}')
 def step_impl(context, element_name):
     # TODO: remover logica do step :-)
-    for i in range(0, 10):
-        try:
-            assert context.config.driver.find_element(element_name).is_displayed() == True
-            return
-        except:
-            time.sleep(1)
-    assert False, 'Elemento %s nao esta visivel' % element_name
+    assert context.config.driver.find_element(element_name).is_displayed() == True
