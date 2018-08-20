@@ -31,3 +31,36 @@ def test_avoid_duplicated_screens():
     w = WebApp()
     w.new_screen('Screen A', 'URL A')
     w.new_screen('Screen A', 'URL X')
+
+
+@raises(DuplicatedScreenException)
+def test_avoid_duplicated_screens():
+    w = WebApp()
+    w.new_screen('Screen A', 'URL A')
+    w.new_screen('Screen A', 'URL X')
+
+
+@raises(ScreenNotFoundException)
+def test_avoid_undefined_screens_in_open():
+    w = WebApp()
+    w.new_screen('Screen A', 'URL A')
+    w.open_screen('Screen B')
+
+
+@raises(ScreenNotFoundException)
+def test_avoid_undefined_screens_in_assert_screen_equal():
+    w = WebApp()
+    w.new_screen('Screen A', 'URL A')
+    w.screen_assert_equal('Screen B')
+
+
+def test_message_in_screen_not_found_exception():
+    w = WebApp()
+    w.new_screen('Screen A', 'URL A')
+
+    with assert_raises(ScreenNotFoundException) as cm:
+        w.screen_assert_equal('Screen B')
+
+    the_exception = cm.exception
+    the_message = the_exception.args[0]
+    assert_equal(the_message, 'Screen Screen B not found. Possible values: Screen A')

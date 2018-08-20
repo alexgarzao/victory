@@ -79,22 +79,30 @@ class WebApp:
                 time.sleep(1)
         assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, start_url)
 
-    def screen_assert_equal(self, screen):
-        url = self.screens[screen]
+    def screen_assert_equal(self, screen_name):
+        url = self.__get_screen_url(screen_name)
         for i in range(0, self.retries):
             try:
                 current_url = self.driver.current_url[0:len(url)]
                 assert current_url == url
-                self.current_screen = screen
+                self.current_screen = screen_name
                 return
             except:
                 time.sleep(1)
-        assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada na tela {}: {}'.format(current_url, screen, url)
+        assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada na tela {}: {}'.format(current_url, screen_name, url)
 
-    def open_screen(self, screen):
-        url = self.screens[screen]
+    def open_screen(self, screen_name):
+        url = self.__get_screen_url(screen_name)
         self.driver.get(url)
-        self.current_screen = screen
+        self.current_screen = screen_name
+
+    def __get_screen_url(self, screen_name):
+        url = self.screens.get(screen_name)
+        if url is None:
+            possible = ','.join(list(self.screens))
+            raise ScreenNotFoundException("Screen {} not found. Possible values: {}".format(screen_name, possible))
+
+        return url
 
     # def fill_value_by_name(self, field, value):
     #     el = self.driver.find_element_by_name(field)
@@ -180,4 +188,8 @@ class DuplicatedElementException(Exception):
 
 
 class DuplicatedScreenException(Exception):
+    pass
+
+
+class ScreenNotFoundException(Exception):
     pass
