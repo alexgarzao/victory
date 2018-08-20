@@ -5,7 +5,7 @@ from prettytable import PrettyTable
 class ScenariosResult:
     def __init__(self):
         table = PrettyTable()
-        table.field_names = ["US", "Outcome", "ID", "Title"]
+        table.field_names = ["História", "Status", "TestCase ID", "Título"]
 
         test_result = self.__get_test_result()
 
