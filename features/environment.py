@@ -19,19 +19,32 @@ def before_all(context):
     __create_screenshots_dir('./screenshots/')
 
 
+def before_scenario(context, scenario):
+    context.config_scenario = False
+
+
 def after_scenario(context, scenario):
     if context.failed:
         log = 'LOG-EXECUCAO-{}.log'.format(strftime("%Y-%m-%d", gmtime()))
-        tags = ''
-        if scenario.tags:
-            tags = ' ' + ', '.join(scenario.tags) + ' -'
-        name_screen = context.config.driver.screenshot('FALHA -{} ARQUIVO: {}:{} - '.format(tags, os.path.basename(scenario.filename), scenario.line))
-        import pdb; pdb.set_trace()
-        message = "\nFeature:{}\n   Linha em que falhou:{}\n   Screenshot:{}\n\n".format(scenario.filename, scenario.line, name_screen)
+        screen_name = __get_screenshot(context.config.driver, scenario, "FALHA")
+        message = "\nFeature:{}\n   Linha em que falhou:{}\n   Screenshot:{}\n\n".format(scenario.filename, scenario.line, screen_name)
         print(message)
 
         with open(log, 'a') as arq:
             arq.write(message)
+    else:
+        if context.config_scenario:
+            return
+        screen_name = __get_screenshot(context.config.driver, scenario, "SUCESSO")
+
+
+def __get_screenshot(webdriver, scenario, state):
+    tags = ''
+    if scenario.tags:
+        tags = ' ' + ', '.join(scenario.tags) + ' -'
+    screen_name = webdriver.screenshot('{} -{} ARQUIVO: {}:{} - '.format(state, tags, os.path.basename(scenario.filename), scenario.line))
+
+    return screen_name
 
 
 def after_step(context, step):

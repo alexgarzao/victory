@@ -11,6 +11,7 @@ from common import value_with_mask
 @given(u'que quero definir os elementos da tela {screen_name}')
 def step_impl(context, screen_name):
     context.config.driver.current_screen = screen_name
+    context.config_scenario = True
 
 
 @then(u'os elementos são')
@@ -134,6 +135,7 @@ def step_impl(context, name, value, mask):
 def step_impl(context, name):
     #TODO: Ver se o elemento pode estar visivel mas nao clicavel
     #TODO: Precisa validar se esta habilitado?!
+    # TODO: remover logica do step :-)
     for i in range(0, 10):
         try:
             context.config.driver.find_element(name).click()
@@ -145,6 +147,7 @@ def step_impl(context, name):
 
 @when(u'flutuo no {name}')
 def step_impl(context, name):
+    # TODO: remover logica do step :-)
     for i in range(0, 10):
         try:
             element_to_hover_over = context.config.driver.find_element(name)
@@ -189,6 +192,7 @@ def step_impl(context):
 
 @then(u'fica visível a {element_name}')
 def step_impl(context, element_name):
+    # TODO: remover logica do step :-)
     for i in range(0, 10):
         try:
             assert context.config.driver.find_element(element_name).is_displayed() == True

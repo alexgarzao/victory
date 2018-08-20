@@ -15,6 +15,7 @@ def step_impl(context, config_name, config_value):
 def step_impl(context):
     for row in context.table:
         context.config.set(name=row['nome'], value=row['valor'])
+    context.config_scenario = True
 
 
 @given(u'que estou na tela {screen}')

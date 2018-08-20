@@ -19,6 +19,7 @@ class WebApp:
         self.actions = Actions()
         self.current_screen = ''
         self.queries = Queries()
+        self.retries = 5
 
     def open(self, headless):
         self.chrome_driver_options = webdriver.ChromeOptions()
@@ -59,7 +60,7 @@ class WebApp:
             self.driver.quit()
 
     def url_assert_equal(self, url):
-        for i in range(0, 20):
+        for i in range(0, self.retries):
             try:
                 current_url = self.driver.current_url[-len(url):]
                 assert current_url == url
@@ -69,7 +70,7 @@ class WebApp:
         assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, url)
 
     def url_assert_start_with(self, start_url):
-        for i in range(0, 20):
+        for i in range(0, self.retries):
             try:
                 current_url = self.driver.current_url[0:len(start_url)]
                 assert current_url == start_url
@@ -80,7 +81,7 @@ class WebApp:
 
     def screen_assert_equal(self, screen):
         url = self.screens[screen]
-        for i in range(0, 5):
+        for i in range(0, self.retries):
             try:
                 current_url = self.driver.current_url[0:len(url)]
                 assert current_url == url
@@ -115,7 +116,7 @@ class WebApp:
         return self.elements[self.__get_element_name(component_name)].find_element()
 
     def __wait_for_ajax(self):
-        wait = WebDriverWait(self.driver, 15)
+        wait = WebDriverWait(self.driver, 10)
         try:
             wait.until(lambda driver: self.driver.execute_script("return jQuery.active == 0"))
             wait.until(lambda driver: self.driver.execute_script('return document.readyState == "complete"'))
@@ -123,7 +124,7 @@ class WebApp:
             pass
 
     def screenshot(self, file_prefix):
-        path = os.getcwd()+'/screenshots/'+file_prefix+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+".png"
+        path = os.getcwd()+'/screenshots/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+" - "+file_prefix+".png"
         self.driver.save_screenshot(path)
         return path
 

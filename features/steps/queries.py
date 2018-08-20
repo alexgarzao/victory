@@ -1,6 +1,7 @@
 @given(u'que quero definir a query {query_name} para o {db_type}')
 def step_impl(context, query_name, db_type):
     context.new_query = context.config.driver.queries.add(db_type, query_name)
+    context.config_scenario = True
 
 
 @then(u'o arquivo de database é {database_filename}')
