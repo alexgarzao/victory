@@ -123,8 +123,14 @@ class WebApp:
         self.current_screen = screen_name
 
     def find_element(self, component_name):
+        element = self.elements.get(self.__get_element_name(component_name))
+        if element is None:
+            elements_without_prefix = [element.split('/')[1] for element in self.elements]
+            possible = ','.join(list(elements_without_prefix))
+            raise ElementNotFoundException("Element {} not found. Possible values: {}".format(component_name, possible))
+
         self.__wait_for_ajax()
-        return self.elements[self.__get_element_name(component_name)].find_element()
+        return element.find_element()
 
     def __wait_for_ajax(self):
         wait = WebDriverWait(self.driver, 10)
@@ -192,4 +198,8 @@ class DuplicatedScreenException(Exception):
 
 
 class ScreenNotFoundException(Exception):
+    pass
+
+
+class ElementNotFoundException(Exception):
     pass

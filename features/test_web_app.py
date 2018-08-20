@@ -64,3 +64,31 @@ def test_message_in_screen_not_found_exception():
     the_exception = cm.exception
     the_message = the_exception.args[0]
     assert_equal(the_message, 'Screen Screen B not found. Possible values: Screen A')
+
+
+# def test_find_element():
+#     w = WebApp()
+#     w.set_current_screen('Screen A')
+#     w.new_id_element('X', 'X1')
+#     w.find_element('X')
+
+
+@raises(ElementNotFoundException)
+def test_element_not_found():
+    w = WebApp()
+    w.set_current_screen('Screen A')
+    w.new_id_element('X', 'X1')
+    w.find_element('Y')
+
+
+def test_message_in_element_not_found_exception():
+    w = WebApp()
+    w.set_current_screen('Screen A')
+    w.new_id_element('X', 'X1')
+
+    with assert_raises(ElementNotFoundException) as cm:
+        w.find_element('Y')
+
+    the_exception = cm.exception
+    the_message = the_exception.args[0]
+    assert_equal(the_message, 'Element Y not found. Possible values: X')
