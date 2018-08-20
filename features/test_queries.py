@@ -27,3 +27,15 @@ def test_query_an_invalid_query():
     q = Queries()
     q.add('SQLITE', 'Q1')
     q.run('Q2')
+
+
+def test_query_an_invalid_query_and_show_possibilities():
+    q = Queries()
+    q.add('SQLITE', 'Q1')
+
+    with assert_raises(NotFoundQueryException) as cm:
+        q.run('Q2')
+
+    the_exception = cm.exception
+    the_message = the_exception.args[0]
+    assert_equal(the_message, 'Query Q2 not found. Possible values: Q1')

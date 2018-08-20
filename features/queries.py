@@ -12,7 +12,7 @@ class Queries:
         elif db_type == 'SQLSERVER':
             query = SqlServer()
         else:
-            raise InvalidDbTypeException("Invalid DB Type: {}".format(db_type))
+            raise InvalidDbTypeException("Invalid DB Type: {}. Possible values: SQLITE, SQLSERVER.".format(db_type))
 
         if self.query_list.get(name) != None:
             raise DuplicatedQueryException("Query {} already exist".format(name))
@@ -23,7 +23,8 @@ class Queries:
     def run(self, name):
         query = self.query_list.get(name)
         if not query:
-            raise NotFoundQueryException("Query {} not found".format(name))
+            possible = ','.join(list(self.query_list))
+            raise NotFoundQueryException("Query {} not found. Possible values: {}".format(name, possible))
 
         return query.query()
 
