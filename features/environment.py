@@ -40,9 +40,12 @@ def after_scenario(context, scenario):
 
 def __get_screenshot(webdriver, scenario, state):
     tags = ''
-    if scenario.tags:
-        tags = ' ' + ', '.join(scenario.tags) + ' -'
-    screen_name = webdriver.screenshot('{} -{} ARQUIVO: {}:{} - '.format(state, tags, os.path.basename(scenario.filename), scenario.line))
+    tag_list = scenario.feature.tags + scenario.tags
+
+    if tag_list:
+        tags += ','.join(tag_list) + '-'
+
+    screen_name = webdriver.screenshot('{}-{}CENARIO: {}-Linha:{}'.format(state, tags, os.path.basename(scenario.name), scenario.line))
 
     return screen_name
 

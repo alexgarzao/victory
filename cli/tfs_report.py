@@ -1,5 +1,6 @@
 from jinja2 import Template
 import datetime
+import glob
 
 from smtp_email import SmtpEmail
 from scenarios_result import ScenariosResult
@@ -59,5 +60,6 @@ class TfsReport:
         template = Template(BODY)
         body = template.render(context)
 
+        image_list = glob.glob("./screenshots/*.png")
         email = SmtpEmail(self.smtp_server, self.email_user, self.email_password)
-        return email.send(smtp_from, smtp_to, title, body)
+        return email.send(smtp_from, smtp_to, title, body, image_list)
