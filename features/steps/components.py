@@ -10,7 +10,7 @@ from common import value_with_mask
 
 @given(u'que quero definir os elementos da tela {screen_name}')
 def step_impl(context, screen_name):
-    context.config.driver.current_screen = screen_name
+    context.config.driver.set_current_screen(screen_name)
     context.config_scenario = True
 
 

@@ -111,6 +111,9 @@ class WebApp:
             value = elemento.text
         return value
 
+    def set_current_screen(self, screen_name):
+        self.current_screen = screen_name
+
     def find_element(self, component_name):
         self.__wait_for_ajax()
         return self.elements[self.__get_element_name(component_name)].find_element()
@@ -131,23 +134,30 @@ class WebApp:
     def clear_elements(self):
         self.elements.clear()
 
+    def __add_element(self, name, new_element):
+        internal_name = self.__get_element_name(name)
+        if self.elements.get(internal_name) != None:
+            raise DuplicatedElementException("Element {} already exist".format(name))
+
+        self.elements[internal_name] = new_element
+
     def new_id_element(self, name, internal_id):
-        self.elements[self.__get_element_name(name)] = IdElement(self.driver, name, internal_id)
+        self.__add_element(name, IdElement(self.driver, name, internal_id))
 
     def new_text_element(self, name, internal_id):
-        self.elements[self.__get_element_name(name)] = TextElement(self.driver, name, internal_id)
+        self.__add_element(name, TextElement(self.driver, name, internal_id))
 
     def new_name_element(self, name, internal_id):
-        self.elements[self.__get_element_name(name)] = NameElement(self.driver, name, internal_id)
+        self.__add_element(name, NameElement(self.driver, name, internal_id))
 
     def new_xpath_element(self, name, internal_id):
-        self.elements[self.__get_element_name(name)] = XpathElement(self.driver, name, internal_id)
+        self.__add_element(name, XpathElement(self.driver, name, internal_id))
 
     def new_automation_id_element(self, name, internal_id):
-        self.elements[self.__get_element_name(name)] = AutomationIdElement(self.driver, name, internal_id)
+        self.__add_element(name, AutomationIdElement(self.driver, name, internal_id))
 
     def new_class_name_element(self, name, class_name):
-        self.elements[self.__get_element_name(name)] = ClassNameElement(self.driver, name, class_name)
+        self.__add_element(name, ClassNameElement(self.driver, name, class_name))
 
     def new_screen(self, name, url):
         self.screens[name] = url
@@ -160,3 +170,7 @@ class WebApp:
 
     def __get_element_name(self, element_name):
         return self.current_screen + '/' + element_name
+
+
+class DuplicatedElementException(Exception):
+    pass
