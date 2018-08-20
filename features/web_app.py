@@ -160,6 +160,9 @@ class WebApp:
         self.__add_element(name, ClassNameElement(self.driver, name, class_name))
 
     def new_screen(self, name, url):
+        if self.screens.get(name) != None:
+            raise DuplicatedScreenException("Screen {} already exist".format(name))
+
         self.screens[name] = url
 
     def add_event_in_action(self, action_name, event):
@@ -173,4 +176,8 @@ class WebApp:
 
 
 class DuplicatedElementException(Exception):
+    pass
+
+
+class DuplicatedScreenException(Exception):
     pass

@@ -24,3 +24,10 @@ def test_same_elements_in_two_screens():
 
     w.set_current_screen('Screen B')
     w.new_id_element('X1', 'Y1')
+
+
+@raises(DuplicatedScreenException)
+def test_avoid_duplicated_screens():
+    w = WebApp()
+    w.new_screen('Screen A', 'URL A')
+    w.new_screen('Screen A', 'URL X')
