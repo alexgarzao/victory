@@ -13,8 +13,7 @@ def before_all(context):
 
     context.config = TestConfig()
     context.config.driver = WebApp()
-    os = platform.system().lower()
-    context.config.driver.chrome_driver_path = ("./chromedriver/%s/chromedriver" % os)
+    context.config.driver.chrome_driver_path = ("./chromedriver/chromedriver")
 
     __create_screenshots_dir('./screenshots/')
 
