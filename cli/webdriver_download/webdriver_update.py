@@ -5,11 +5,14 @@ import zipfile
 
 
 class WebDriverUpdate:
-    INSTALLED_RELEASE_FILE = "INSTALLED_RELEASE"
-    LATEST_RELEASE_FILE = "LATEST_RELEASE"
-    WEBDRIVER_URL = "https://chromedriver.storage.googleapis.com"
+    BASE_DIR = "./chromedriver"
+    INSTALLED_RELEASE_FILE = BASE_DIR + "/" + "INSTALLED_RELEASE"
+    LATEST_RELEASE_FILE = BASE_DIR + "/" + "LATEST_RELEASE"
+    WEBDRIVER_BASE_URL = "https://chromedriver.storage.googleapis.com"
+    WEBDRIVER_LATEST_RELEASE_FILE_URL = WEBDRIVER_BASE_URL + "/LATEST_RELEASE"
 
     def __init__(self):
+        self._create_webdriver_dir()
         self._create_installed_release_file()
         self._installed_release = self._get_installed_release()
         self._latest_release = self._get_latest_release()
@@ -25,10 +28,17 @@ class WebDriverUpdate:
 
     def update(self):
         filename = self._get_os_webdriver_filename()
-        source = "{}/{}/{}".format(WebDriverUpdate.WEBDRIVER_URL, self._latest_release, filename)
-        self._download_file(source)
-        self._unzip_and_remove(filename)
+        source = "{}/{}/{}".format(WebDriverUpdate.WEBDRIVER_BASE_URL, self._latest_release, filename)
+        dest = WebDriverUpdate.BASE_DIR + "/" + filename
+        self._download_file(source, dest)
+        self._unzip_and_remove(dest, WebDriverUpdate.BASE_DIR)
         self._update_installed_release_file(self._latest_release)
+
+    def _create_webdriver_dir(self):
+        try:
+            os.makedirs(WebDriverUpdate.BASE_DIR)
+        except:
+            pass
 
     def _get_os_webdriver_filename(self):
         os_mapped_filename = {
@@ -60,13 +70,12 @@ class WebDriverUpdate:
         return float(version)
 
     def _download_latest_release_file(self):
-        r = requests.get(WebDriverUpdate.WEBDRIVER_URL + "/" + WebDriverUpdate.LATEST_RELEASE_FILE)
+        r = requests.get(WebDriverUpdate.WEBDRIVER_LATEST_RELEASE_FILE_URL)
         with open(WebDriverUpdate.LATEST_RELEASE_FILE, "wb") as f:
             f.write(r.content)
         f.close()
 
-    def _download_file(self, url):
-        local_filename = url.split('/')[-1]
+    def _download_file(self, url, local_filename):
         r = requests.get(url)
         with open(local_filename, 'wb') as f:
             for chunk in r.iter_content(chunk_size=1024):
@@ -74,9 +83,9 @@ class WebDriverUpdate:
                     f.write(chunk)
         f.close()
 
-    def _unzip_and_remove(self, filename):
+    def _unzip_and_remove(self, filename, base_dir):
         with zipfile.ZipFile(filename, "r") as zip_ref:
-            zip_ref.extractall(".")
+            zip_ref.extractall(base_dir)
         os.remove(filename)
 
     def _update_installed_release_file(self, release):
