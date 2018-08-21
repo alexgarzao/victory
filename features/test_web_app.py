@@ -1,4 +1,5 @@
 from nose.tools import *
+from custom_asserts import *
 
 from web_app import *
 
@@ -57,13 +58,11 @@ def test_avoid_undefined_screens_in_assert_screen_equal():
 def test_message_in_screen_not_found_exception():
     w = WebApp()
     w.new_screen('Screen A', 'URL A')
-
-    with assert_raises(ScreenNotFoundException) as cm:
-        w.screen_assert_equal('Screen B')
-
-    the_exception = cm.exception
-    the_message = the_exception.args[0]
-    assert_equal(the_message, 'Screen Screen B not found. Possible values: Screen A')
+    assert_exception_and_message(
+            ScreenNotFoundException,
+            lambda: w.screen_assert_equal('Screen B'),
+            'Screen Screen B not found. Possible values: Screen A',
+    )
 
 
 # def test_find_element():
@@ -86,9 +85,8 @@ def test_message_in_element_not_found_exception():
     w.set_current_screen('Screen A')
     w.new_id_element('X', 'X1')
 
-    with assert_raises(ElementNotFoundException) as cm:
-        w.find_element('Y')
-
-    the_exception = cm.exception
-    the_message = the_exception.args[0]
-    assert_equal(the_message, 'Element Y not found. Possible values: X')
+    assert_exception_and_message(
+            ElementNotFoundException,
+            lambda: w.find_element('Y'),
+            'Element Y not found. Possible values: X',
+    )
