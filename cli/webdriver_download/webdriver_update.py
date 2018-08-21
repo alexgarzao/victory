@@ -86,6 +86,7 @@ class WebDriverUpdate:
     def _unzip_and_remove(self, filename, base_dir):
         with zipfile.ZipFile(filename, "r") as zip_ref:
             zip_ref.extractall(base_dir)
+        os.chmod(base_dir + "/chromedriver", 0o755)
         os.remove(filename)
 
     def _update_installed_release_file(self, release):
