@@ -5,16 +5,30 @@ class Actions:
     def __init__(self):
         self.actions = {}
 
-    def add(self, action_name, event):
-        if action_name not in self.actions:
-            self.actions[action_name] = []
+    def new_action(self, action_name):
+        if self.actions.get(action_name) != None:
+            raise DuplicatedActionException("Action {} already exists".format(action_name))
 
-        events = self.actions[action_name]
+        self.actions[action_name] = []
+
+    def add_event(self, action_name, event):
+        events = self.actions.get(action_name)
+        if events == None:
+            possible = ','.join(list(self.actions))
+            raise UndefinedActionException("Undefined action {}. Possible values: {}".format(action_name, possible))
+
         events.append(event)
 
-    def run(self, context, action_name):
+    def get_action(self, action_name):
+        return self.actions.get(action_name)
+
+    def run_action(self, context, action_name):
         # TODO: retornar steps aos inves de executar. Assim nao precisa conhecer context.
         events, parameters = self.__match_action(action_name)
+        if events == None:
+            possible = ','.join(list(self.actions))
+            raise UndefinedActionException("Undefined action {}. Possible values: {}".format(action_name, possible))
+
         assert events != None
         steps_to_run = ''
         for event in events:
@@ -29,7 +43,7 @@ class Actions:
             if r:
                 return self.actions[action_type], r.named
 
-        return None
+        return None, None
 
     def __replace_parameters(self, step, parameters):
         for parameter, value in parameters.items():
@@ -37,3 +51,11 @@ class Actions:
             step = step.replace(token_to_find, value)
 
         return step
+
+
+class DuplicatedActionException(Exception):
+    pass
+
+
+class UndefinedActionException(Exception):
+    pass

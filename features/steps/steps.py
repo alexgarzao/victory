@@ -62,6 +62,8 @@ def step_impl(context, screen):
 
 @step(u'a ação {action_name} é')
 def step_impl(context, action_name):
+    context.config.driver.new_action(action_name)
+
     for row in context.table:
         context.config.driver.add_event_in_action(action_name, event=row['evento'])
 

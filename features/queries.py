@@ -15,7 +15,7 @@ class Queries:
             raise InvalidDbTypeException("Invalid DB Type: {}. Possible values: SQLITE, SQLSERVER.".format(db_type))
 
         if self.query_list.get(name) != None:
-            raise DuplicatedQueryException("Query {} already exist".format(name))
+            raise DuplicatedQueryException("Query {} already exists".format(name))
 
         self.query_list[name] = query
         return query

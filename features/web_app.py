@@ -151,7 +151,7 @@ class WebApp:
     def __add_element(self, name, new_element):
         internal_name = self.__get_element_name(name)
         if self.elements.get(internal_name) != None:
-            raise DuplicatedElementException("Element {} already exist".format(name))
+            raise DuplicatedElementException("Element {} already exists".format(name))
 
         self.elements[internal_name] = new_element
 
@@ -175,15 +175,18 @@ class WebApp:
 
     def new_screen(self, name, url):
         if self.screens.get(name) != None:
-            raise DuplicatedScreenException("Screen {} already exist".format(name))
+            raise DuplicatedScreenException("Screen {} already exists".format(name))
 
         self.screens[name] = url
 
+    def new_action(self, action_name):
+        self.actions.new_action(self.__get_element_name(action_name))
+
     def add_event_in_action(self, action_name, event):
-        self.actions.add(self.__get_element_name(action_name), event)
+        self.actions.add_event(self.__get_element_name(action_name), event)
 
     def run_action(self, context, action_name):
-        self.actions.run(context, self.__get_element_name(action_name))
+        self.actions.run_action(context, self.__get_element_name(action_name))
 
     def __get_element_name(self, element_name):
         return self.current_screen + '/' + element_name
