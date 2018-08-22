@@ -2,7 +2,7 @@ Funcionalidade: Definir o mapeamento dos elementos da interface
 
   Cenário: Definir os elementos da tela de busca
     Dado que quero definir os elementos da tela de busca
-    Então a tela de busca é https://www.google.com/
+    Então a URL é https://www.google.com/
     E os elementos são
       | elemento                  | método | identificação                                |
       | barra de busca por xpath  | xpath  | //*[@id="lst-ib"]                            |

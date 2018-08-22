@@ -108,3 +108,4 @@ venv.bak/
 config.ini
 example.db
 screenshots/
+chromedriver/
