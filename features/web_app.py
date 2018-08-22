@@ -76,10 +76,23 @@ class WebApp:
                 time.sleep(1)
         assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, start_url)
 
+    def follow_new_window(self):
+        new_window_handle = self.driver.window_handles[-1]
+        self.driver.switch_to_window(new_window_handle)
+
+    def return_previous_window(self):
+        previous_window_handle = self.driver.window_handles[-1]
+        self.driver.switch_to_window(previous_window_handle)
+
     def screen_assert_equal(self, screen_name):
         screen = self.screens.get(screen_name)
         url = screen.get_url()
-        for i in range(0, self.retries):
+
+        self.__wait_for_ajax()
+
+        # TODO: ainda eh necessario o retry abaixo?
+        # for i in range(0, self.retries):
+        for i in range(0, 1):
             try:
                 current_url = self.driver.current_url[0:len(url)]
                 assert current_url == url
@@ -132,3 +145,12 @@ class WebApp:
 
     def run_action(self, context, action_name):
         self.current_screen.actions.run_action(context, action_name)
+
+    # TODO: Duplicated code :-/
+    def __wait_for_ajax(self):
+        wait = WebDriverWait(self.driver, 10)
+        try:
+            wait.until(lambda driver: self.driver.execute_script("return jQuery.active == 0"))
+            wait.until(lambda driver: self.driver.execute_script('return document.readyState == "complete"'))
+        except Exception as e:
+            pass

@@ -60,6 +60,18 @@ def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
 
 
+@then('sou direcionado para uma nova janela com a tela {screen}')
+def step_impl(context, screen):
+    context.config.driver.follow_new_window()
+    context.config.driver.screen_assert_equal(screen)
+
+
+@then('sou direcionado para a janela anterior com a tela {screen}')
+def step_impl(context, screen):
+    context.config.driver.return_previous_window()
+    context.config.driver.screen_assert_equal(screen)
+
+
 @step(u'a ação {action_name} é')
 def step_impl(context, action_name):
     context.config.driver.new_action(action_name)
