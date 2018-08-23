@@ -72,6 +72,16 @@ def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
 
 
+@then('sou direcionado para o frame anterior')
+def step_impl(context):
+    context.config.driver.switch_to_default()
+
+
+@then('sou direcionado para o {frame}')
+def step_impl(context, frame):
+    context.config.driver.switch_to_frame(frame)
+
+
 @step(u'a ação {action_name} é')
 def step_impl(context, action_name):
     context.config.driver.new_action(action_name)

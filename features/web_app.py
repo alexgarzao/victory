@@ -84,6 +84,14 @@ class WebApp:
         previous_window_handle = self.driver.window_handles[-1]
         self.driver.switch_to_window(previous_window_handle)
 
+    def switch_to_frame(self, frame_name):
+        # import pdb; pdb.set_trace()
+        frame = self.current_screen.find_element(frame_name)
+        self.driver.switch_to_frame(frame)
+
+    def switch_to_default(self):
+        self.driver.switch_to_default_content()
+
     def screen_assert_equal(self, screen_name):
         screen = self.screens.get(screen_name)
         url = screen.get_url()
