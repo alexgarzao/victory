@@ -12,23 +12,23 @@ class Screen:
         self.elements = {}
         self.actions = Actions()
 
-    def add_id_element(self, name, internal_id):
-        self.__add_element(name, IdElement(self.driver, name, internal_id))
+    def add_id_element(self, name, internal_id, ignore_displayed=False):
+        self.__add_element(name, IdElement(self.driver, name, internal_id, ignore_displayed))
 
-    def add_text_element(self, name, internal_id):
-        self.__add_element(name, TextElement(self.driver, name, internal_id))
+    def add_text_element(self, name, internal_id, ignore_displayed=False):
+        self.__add_element(name, TextElement(self.driver, name, internal_id, ignore_displayed))
 
-    def add_name_element(self, name, internal_id):
-        self.__add_element(name, NameElement(self.driver, name, internal_id))
+    def add_name_element(self, name, internal_id, ignore_displayed=False):
+        self.__add_element(name, NameElement(self.driver, name, internal_id, ignore_displayed))
 
-    def add_xpath_element(self, name, internal_id):
-        self.__add_element(name, XpathElement(self.driver, name, internal_id))
+    def add_xpath_element(self, name, internal_id, ignore_displayed=False):
+        self.__add_element(name, XpathElement(self.driver, name, internal_id, ignore_displayed))
 
-    def add_automation_id_element(self, name, internal_id):
-        self.__add_element(name, AutomationIdElement(self.driver, name, internal_id))
+    def add_automation_id_element(self, name, internal_id, ignore_displayed=False):
+        self.__add_element(name, AutomationIdElement(self.driver, name, internal_id, ignore_displayed))
 
-    def add_class_name_element(self, name, class_name):
-        self.__add_element(name, ClassNameElement(self.driver, name, class_name))
+    def add_class_name_element(self, name, class_name, ignore_displayed=False):
+        self.__add_element(name, ClassNameElement(self.driver, name, class_name, ignore_displayed))
 
     def find_element(self, name):
         element = self.elements.get(name)

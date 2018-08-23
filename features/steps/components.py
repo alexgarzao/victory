@@ -23,35 +23,66 @@ def step_impl(context):
         context.execute_steps(u'Então o elemento {} tem o {} {}'.format(element, method, id))
 
 
+@then(u'o elemento {name} tem o id {internal_id} ignorando is_displayed')
+def step_impl(context, name, internal_id):
+    context.config.driver.current_screen.add_id_element(name, internal_id, ignore_displayed=True)
+
+
 @then(u'o elemento {name} tem o id {internal_id}')
 def step_impl(context, name, internal_id):
-    context.config.driver.current_screen.add_id_element(name, internal_id)
+    context.config.driver.current_screen.add_id_element(name, internal_id, ignore_displayed=False)
+
+
+@then(u'o elemento {name} tem o nome {internal_name} ignorando is_displayed')
+def step_impl(context, name, internal_name):
+    context.config.driver.current_screen.add_name_element(name, internal_name, ignore_displayed=True)
 
 
 @then(u'o elemento {name} tem o nome {internal_name}')
 def step_impl(context, name, internal_name):
-    context.config.driver.current_screen.add_name_element(name, internal_name)
+    context.config.driver.current_screen.add_name_element(name, internal_name, ignore_displayed=False)
+
+
+@then(u'o elemento {name} tem o texto {internal_text} ignorando is_displayed')
+def step_impl(context, name, internal_text):
+    context.config.driver.current_screen.add_text_element(name, internal_text, ignore_displayed=True)
 
 
 @then(u'o elemento {name} tem o texto {internal_text}')
 def step_impl(context, name, internal_text):
-    context.config.driver.current_screen.add_text_element(name, internal_text)
+    context.config.driver.current_screen.add_text_element(name, internal_text, ignore_displayed=False)
+
+
+@then(u'o elemento {name} tem o xpath {internal_xpath} ignorando is_displayed')
+def step_impl(context, name, internal_xpath):
+    context.config.driver.current_screen.add_xpath_element(name, internal_xpath, ignore_displayed=True)
 
 
 @then(u'o elemento {name} tem o xpath {internal_xpath}')
 def step_impl(context, name, internal_xpath):
-    context.config.driver.current_screen.add_xpath_element(name, internal_xpath)
+    context.config.driver.current_screen.add_xpath_element(name, internal_xpath, ignore_displayed=False)
+
+
+@then(u'o elemento {name} tem o automation id {internal_automation_id} ignorando is_displayed')
+def step_impl(context, name, internal_automation_id):
+    context.config.driver.current_screen.add_automation_id_element(name, internal_automation_id, ignore_displayed=True)
 
 
 @then(u'o elemento {name} tem o automation id {internal_automation_id}')
 def step_impl(context, name, internal_automation_id):
-    context.config.driver.current_screen.add_automation_id_element(name, internal_automation_id)
+    context.config.driver.current_screen.add_automation_id_element(name, internal_automation_id, ignore_displayed=False)
+
+
+@then(u'o elemento {name} tem a classe {class_name} ignorando is_displayed')
+@then(u'o elemento {name} tem o classe {class_name} ignorando is_displayed')
+def step_impl(context, name, class_name):
+    context.config.driver.current_screen.add_class_name_element(name, class_name, ignore_displayed=True)
 
 
 @then(u'o elemento {name} tem a classe {class_name}')
 @then(u'o elemento {name} tem o classe {class_name}')
 def step_impl(context, name, class_name):
-    context.config.driver.current_screen.add_class_name_element(name, class_name)
+    context.config.driver.current_screen.add_class_name_element(name, class_name, ignore_displayed=False)
 
 
 @step(u'vejo o {name} com o valor {expected_value}')
@@ -80,6 +111,12 @@ def step_impl(context, name, value):
     element = context.config.driver.current_screen.find_element(name)
     element.clear()
     element.send_keys(value + Keys.TAB)
+
+
+@step(u'faço o upload do arquivo {filename} no {element_name}')
+def step_impl(context, filename, element_name):
+    element = context.config.driver.current_screen.find_element(element_name)
+    element.send_keys(filename)
 
 
 @step(u'seleciono o {name} e digito {value}')

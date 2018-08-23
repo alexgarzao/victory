@@ -1,10 +1,11 @@
 import time
 
 class BaseElement(object):
-    def __init__(self, driver, name, internal_id):
+    def __init__(self, driver, name, internal_id, ignore_displayed):
         self.driver = driver
         self.name = name
         self.internal_id = internal_id
+        self.ignore_displayed = ignore_displayed
 
     def find_element_by_xpath(self, xpath):
         return self.__try_to_get_element(self.driver.find_element_by_xpath, xpath)
@@ -24,55 +25,55 @@ class BaseElement(object):
     def __try_to_get_element(self, func, parameter):
         for retries in range(0, 5):
             el = func(parameter)
-            if el and el.is_displayed() and el.is_enabled():
+            if el and el.is_enabled() and (self.ignore_displayed == True or (self.ignore_displayed == False and el.is_displayed())):
                 return el
             time.sleep(1)
         return None
 
 
 class IdElement(BaseElement):
-    def __init__(self, driver, name, internal_id):
-        super().__init__(driver, name, internal_id)
+    def __init__(self, driver, name, internal_id, ignore_displayed):
+        super().__init__(driver, name, internal_id, ignore_displayed)
 
     def find_element(self):
         return self.find_element_by_id(self.internal_id)
 
 
 class TextElement(BaseElement):
-    def __init__(self, driver, name, internal_id):
-        super().__init__(driver, name, internal_id)
+    def __init__(self, driver, name, internal_id, ignore_displayed):
+        super().__init__(driver, name, internal_id, ignore_displayed)
 
     def find_element(self):
         return self.find_element_by_xpath('//*[text()='+ self.internal_id +']')
 
 
 class NameElement(BaseElement):
-    def __init__(self, driver, name, internal_id):
-        super().__init__(driver, name, internal_id)
+    def __init__(self, driver, name, internal_id, ignore_displayed):
+        super().__init__(driver, name, internal_id, ignore_displayed)
 
     def find_element(self):
         return self.find_element_by_name(self.internal_id)
 
 
 class XpathElement(BaseElement):
-    def __init__(self, driver, name, internal_id):
-        super().__init__(driver, name, internal_id)
+    def __init__(self, driver, name, internal_id, ignore_displayed):
+        super().__init__(driver, name, internal_id, ignore_displayed)
 
     def find_element(self):
         return self.find_element_by_xpath(self.internal_id)
 
 
 class AutomationIdElement(BaseElement):
-    def __init__(self, driver, name, internal_id):
-        super().__init__(driver, name, internal_id)
+    def __init__(self, driver, name, internal_id, ignore_displayed):
+        super().__init__(driver, name, internal_id, ignore_displayed)
 
     def find_element(self):
         return self.find_element_by_xpath('//*[@data-automation-id="' + self.internal_id + '"]')
 
 
 class ClassNameElement(BaseElement):
-    def __init__(self, driver, name, internal_id):
-        super().__init__(driver, name, internal_id)
+    def __init__(self, driver, name, internal_id, ignore_displayed):
+        super().__init__(driver, name, internal_id, ignore_displayed)
 
     def find_element(self):
         return self.find_element_by_class_name(self.internal_id)
