@@ -46,6 +46,12 @@ class WebApp:
         self.chrome_driver_options.add_argument("start-maximized")
         #############
 
+        download_dir = "./"
+        preferences = {"download.default_directory": download_dir ,
+                              "directory_upgrade": True,
+                              "safebrowsing.enabled": True }
+        self.chrome_driver_options.add_experimental_option("prefs", preferences)
+
         self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
         self.driver.implicitly_wait(30)
 
