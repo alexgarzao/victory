@@ -5,7 +5,7 @@ from prettytable import PrettyTable
 class ScenariosResult:
     def __init__(self):
         table = PrettyTable()
-        table.field_names = ["História", "Status", "TestCase ID", "Título"]
+        table.field_names = ["História", "Status", "TestCase ID", "Título", "Tempo de execução"]
 
         test_result = self.__get_test_result()
 
@@ -14,6 +14,7 @@ class ScenariosResult:
         self.failed_features = 0
         self.total_scenarios = 0
         self.failed_scenarios = 0
+        self.duration = 0.0
 
         for feature_result in test_result:
             last_us_id = feature_result['tags'][0].split('.')[1]
@@ -28,7 +29,9 @@ class ScenariosResult:
                 if scenario['status'] == 'failed':
                     self.failed_scenarios += 1
 
-                table.add_row([last_us_id, scenario['status'], last_testcase_id, scenario['name']])
+                scenario_duration = self.__get_scenario_duration(scenario)
+                self.duration += scenario_duration
+                table.add_row([last_us_id, scenario['status'], last_testcase_id, scenario['name'], "{0:.2f}s".format(scenario_duration)])
 
         self.html_table = table.get_html_string(attributes={"border":"1"})
 
@@ -39,3 +42,10 @@ class ScenariosResult:
         f.close()
 
         return test_result
+
+    def __get_scenario_duration(self, scenario):
+        duration = 0.0
+        for step in scenario['steps']:
+            duration += step['result']['duration']
+
+        return duration

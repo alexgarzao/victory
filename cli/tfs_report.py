@@ -21,6 +21,7 @@ Branch: {{branch_name}}<br>
 Total de funcionalidades: {{total_features}} ({{failed_features}} com falha)<br>
 Total de cenários: {{total_scenarios}} ({{failed_scenarios}} com falha)<br>
 Status: {{build_status}}<br>
+Tempo de execução: {{duration}}<br>
 <br>
 Cenários:<br>
 {{scenarios_result}}
@@ -51,6 +52,7 @@ class TfsReport:
             'failed_features': scenarios_result.failed_features,
             'total_scenarios': scenarios_result.total_scenarios,
             'failed_scenarios': scenarios_result.failed_scenarios,
+            'duration': "{0:.2f}s".format(scenarios_result.duration),
             'scenarios_result': scenarios_result.html_table,
         }
 
