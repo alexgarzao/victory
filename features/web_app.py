@@ -4,6 +4,7 @@ import os
 
 from queries import Queries
 from screens import *
+from files import *
 
 
 class WebApp:
@@ -13,9 +14,12 @@ class WebApp:
         self.screens = Screens(None)
         self.current_screen = None
         self.queries = Queries()
+        self.files = Files()
         self.retries = 10
 
-    def open(self, headless):
+    def open(self, headless, files_path):
+        self.files.path = files_path
+
         self.chrome_driver_options = webdriver.ChromeOptions()
         if headless:
             self.chrome_driver_options.add_argument('headless')
@@ -46,8 +50,7 @@ class WebApp:
         self.chrome_driver_options.add_argument("start-maximized")
         #############
 
-        download_dir = "./"
-        preferences = {"download.default_directory": download_dir ,
+        preferences = {"download.default_directory": files_path,
                               "directory_upgrade": True,
                               "safebrowsing.enabled": True }
         self.chrome_driver_options.add_experimental_option("prefs", preferences)
@@ -159,6 +162,12 @@ class WebApp:
 
     def run_action(self, context, action_name):
         self.current_screen.actions.run_action(context, action_name)
+
+    def add_file(self, id, filename):
+        self.files.add(id, filename)
+
+    def get_filename(self, id):
+        return self.files.get_filename(id)
 
     # TODO: Duplicated code :-/
     def __wait_for_ajax(self):

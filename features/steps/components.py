@@ -1,4 +1,5 @@
 import time
+import os
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
@@ -113,10 +114,12 @@ def step_impl(context, name, value):
     element.send_keys(value + Keys.TAB)
 
 
-@step(u'faço o upload do arquivo {filename} no {element_name}')
-def step_impl(context, filename, element_name):
+@step(u'faço o upload do arquivo {fileid} no {element_name}')
+def step_impl(context, fileid, element_name):
     element = context.config.driver.current_screen.find_element(element_name)
-    element.send_keys(filename)
+    filename = context.config.driver.get_filename(fileid)
+    full_path = os.path.abspath(filename)
+    element.send_keys(full_path)
 
 
 @step(u'seleciono o {name} e digito {value}')

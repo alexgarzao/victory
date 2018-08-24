@@ -4,7 +4,7 @@ class TestConfig(object):
         self.__set_defaults()
 
     def set(self, name, value):
-        assert name in ('HEADLESS', 'SLEEP_BETWEEN_STEPS')
+        assert name in ('HEADLESS', 'SLEEP_BETWEEN_STEPS', 'FILES_PATH')
         self.configs[name] = value
 
     def get_string(self, name, default = ""):

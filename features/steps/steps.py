@@ -52,7 +52,9 @@ def step_impl(context, url):
 
 @then(u'o teste é iniciado')
 def step_impl(context):
-    context.config.driver.open(context.config.get_bool('HEADLESS'))
+    features_path = context.features_path
+    path = features_path + "/" + context.config.get_string('FILES_PATH')
+    context.config.driver.open(context.config.get_bool('HEADLESS'), path)
 
 
 @then('sou direcionado para a tela {screen}')

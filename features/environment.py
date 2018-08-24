@@ -11,6 +11,11 @@ from web_app import WebApp
 def before_all(context):
     __load_custom_steps(context)
 
+    # Gambi :-)
+    # context.config esta sendo sobrescrito erroneamente. Refatorar!!!
+    userdata = context.config.userdata
+    context.features_path = userdata.get("features_path", ".")
+
     context.config = TestConfig()
     context.config.driver = WebApp()
     context.config.driver.chrome_driver_path = ("./chromedriver/chromedriver")
