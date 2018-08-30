@@ -14,6 +14,10 @@ Vagrant.configure(2) do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/xenial64"
 
+  config.vm.box_check_update = false
+
+  config.vm.host_name = 'xfce4.ubuntu64.vagrantup.com'
+
   # config.ssh.username = "vagrant"
   # config.ssh.password = "vagrant"
 
@@ -42,6 +46,7 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "../vagrant", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -51,8 +56,12 @@ Vagrant.configure(2) do |config|
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
 
+    vb.name = 'xfce4-ubuntu'
+
     # Customize the amount of memory on the VM:
     vb.memory = "2048"
+
+    vb.cpus = 1
   end
 
   # View the documentation for the provider you are using for more
@@ -68,127 +77,16 @@ Vagrant.configure(2) do |config|
   # config.vm.provision :shell, :privileged => false, :path => "bootstrap_ubuntu1204.sh"
 
 
+  config.vm.provision 'shell', privileged: false, path: 'provision/base.sh', name: 'base.sh'
+  config.vm.provision 'shell', privileged: false, path: 'provision/xfce4.sh', name: 'xfce4.sh'
+  config.vm.provision 'shell', privileged: false, path: 'provision/python36.sh', name: 'python36.sh'
+  config.vm.provision 'shell', privileged: false, path: 'provision/odbc.sh', name: 'odbc.sh'
+  config.vm.provision 'shell', privileged: false, path: 'provision/sqlserver_driver.sh', name: 'sqlserver_driver.sh'
+  config.vm.provision 'shell', privileged: false, path: 'provision/chrome.sh', name: 'chrome.sh'
+  config.vm.provision 'shell', privileged: false, path: 'provision/beeweb.sh', name: 'beeweb.sh'
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    echo I am provisioning...
-    whoami
-    echo I am provisioning...
-
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
-
-
-    # XFCE
-    sudo apt-get install -y xfce4
-    sudo apt-get install -y xfce4 virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
-    sudo apt install -y xserver-xorg-legacy
-    sudo VBoxClient --clipboard
-    sudo VBoxClient --draganddrop
-    sudo VBoxClient --display
-    sudo VBoxClient --checkhostversion
-    sudo VBoxClient --seamless
-    sudo chmod ug+s /usr/lib/xorg/Xorg
-    sudo echo "allowed_users=anybody" >> /etc/X11/Xwrapper.config
-
-    # echo "startxfce4 &" >> ~/.bashrc
-
-
-    # Python 3.6
-    sudo add-apt-repository -y ppa:jonathonf/python-3.6
-    sudo apt update -y
-    sudo apt install -y python3.6
-    sudo apt-get install -y python3.6-dev
-    sudo apt-get -y install python-pip
-    sudo pip install --upgrade pip
-
-    # sudo pip3 install -y virtualenv
-    sudo pip install virtualenv
-
-
-    # sudo apt-get -y install python3-pip
-    echo "export LC_ALL=en_US.UTF-8" >> ~/.bashrc
-    echo "export LC_CTYPE=en_US.UTF-8" >> ~/.bashrc
-    source ~/.bashrc
-
-    sudo su root -c 'echo "LANG=en_US.UTF-8" >> /etc/environment'
-    sudo su root -c 'echo "LANGUAGE=en_US.UTF-8" >> /etc/environment'
-    sudo su root -c 'echo "LC_ALL=en_US.UTF-8" >> /etc/environment'
-    sudo su root -c 'echo "LC_CTYPE=en_US.UTF-8" >> /etc/environment'
-
-    #ODBC
-    sudo apt-get install -y unixodbc-dev
-    sudo apt-get install -y unixodbc odbcinst1debian2 libodbc1
-    # sudo apt-get install -y unixodbc-dev-utf16
-    # sudo apt-get install -y unixodbc-utf16 odbcinst1debian2-utf16
-
-
-    # Driver 17 SQL Server
-    # https://docs.microsoft.com/pt-br/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017
-    sudo su root -c "curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -"
-
-    #Ubuntu 16.04
-    sudo su root -c "curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list"
-
-    sudo apt-get update -y
-    sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17
-    # optional: for bcp and sqlcmd
-    sudo ACCEPT_EULA=Y apt-get install -y mssql-tools
-    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
-    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
-    source ~/.bashrc
-    # optional: for unixODBC development headers
-    sudo apt-get install -y unixodbc-dev
-
-    sudo ACCEPT_EULA=Y apt-get install -y msodbcsql mssql-tools
-
-#
-#
-#
-#
-#
-#
-#
-#     # X
-# #     sudo VBoxClient-all
-#     sudo apt-get install -y xorg gnome-core gnome-system-tools gnome-app-install
-#     sudo apt-get install -y xserver-xorg-video-intel
-#     sudo apt-get install -y gnome-shell ubuntu-gnome-desktop
-#     sudo apt-get install -y xfce4 virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
-#
-#     sudo DEBIAN_FRONTEND=noninteractive apt-get -y install xubuntu-core
-#     sudo DEBIAN_FRONTEND=noninteractive apt-get -y install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
-#     sudo VBoxClient --checkhostversion
-#     sudo VBoxClient --clipboard
-#     sudo VBoxClient --display
-#     sudo VBoxClient --draganddrop
-#     sudo VBoxClient --seamless
-#
-#
-
-    # Chrome
-    sudo wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    sudo apt install -y ./google-chrome-stable_current_amd64.deb
-
-
-    # beeweb
-    sudo su vagrant
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
-    virtualenv -p python3.6 .env
-    source .env/bin/activate
-    pip install -r requirements.txt
-    pip install --editable cli/.
-
-    python cli/webdriver_download/webdriver.py update
-
     sudo reboot --no-wall
-
-
-
-    #ubuntu-gnome-desktop
-
-
-    # sudo apt-get upgrade -y
     # sudo apt-get autoremove -y
   SHELL
 end
