@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Installing XFCE"
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+sudo DEBIAN_FRONTEND=noninteractive apt-get -qq install -y\
     xfce4 \
     virtualbox-guest-dkms \
     virtualbox-guest-utils \

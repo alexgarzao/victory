@@ -2,8 +2,8 @@
 
 echo "Installing base"
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y update
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
+sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y update
+sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y upgrade
 
 echo "export LC_ALL=en_US.UTF-8" >> ~/.bashrc
 echo "export LC_CTYPE=en_US.UTF-8" >> ~/.bashrc
