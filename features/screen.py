@@ -31,6 +31,7 @@ class Screen:
         self.__add_element(name, ClassNameElement(self.driver, name, class_name, ignore_displayed))
 
     def find_element(self, name):
+        name = name.lower()
         element = self.elements.get(name)
         if element is None:
             possible = ','.join(list(self.elements))
@@ -39,6 +40,10 @@ class Screen:
         self.__wait_for_ajax()
         return element.find_element()
 
+    def get_element(self, name):
+        name = name.lower()
+        return self.elements.get(name)
+
     def set_url(self, url):
         self.url = url
 
@@ -46,6 +51,7 @@ class Screen:
         return self.url
 
     def __add_element(self, name, new_element):
+        name = name.lower()
         if self.elements.get(name) is not None:
             raise DuplicatedElementException("Element {} already exists".format(name))
 

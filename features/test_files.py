@@ -18,6 +18,14 @@ def test_getting_valid_id_files():
     assert f.get('id2') is not None
 
 
+def test_getting_valid_id_files_case_insensitive():
+    f = Files('file_path')
+    f.add('Id1', 'file1')
+    f.add('iD2', 'file2')
+    assert f.get('ID1') is not None
+    assert f.get('ID2') is not None
+
+
 def test_getting_filenames():
     f = Files('file_path')
     f.add('id1', 'file1')
@@ -34,11 +42,26 @@ def test_getting_full_filenames():
     assert f.get_filename('id2') == 'file_path/file2'
 
 
+def test_getting_full_filenames_case_insensitive():
+    f = Files('file_path')
+    f.add('iD1', 'File1')
+    f.add('ID2', 'filE2')
+    assert f.get_filename('ID1') == 'file_path/File1'
+    assert f.get_filename('id2') == 'file_path/filE2'
+
+
 @raises(DuplicatedFileException)
 def test_duplicating_files():
     f = Files('file_path')
     f.add('id1', 'file1')
     f.add('id1', 'file2')
+
+
+@raises(DuplicatedFileException)
+def test_duplicating_files_case_insensitive():
+    f = Files('file_path')
+    f.add('id1', 'file1')
+    f.add('ID1', 'file2')
 
 
 def test_invalid_file_id():

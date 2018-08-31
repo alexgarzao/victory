@@ -9,6 +9,12 @@ def test_accept_valid_db_types():
     q.add('SQLSERVER', 'Q2')
 
 
+def test_accept_valid_db_types_case_insensitive():
+    q = Queries()
+    q.add('SQLite', 'Q1')
+    q.add('SQLServer', 'Q2')
+
+
 @raises(InvalidDbTypeException)
 def test_dont_accept_invalid_db_types():
     q = Queries()
@@ -20,6 +26,13 @@ def test_dont_accept_duplicated_queries():
     q = Queries()
     q.add('SQLITE', 'Q1')
     q.add('SQLSERVER', 'Q1')
+
+
+@raises(DuplicatedQueryException)
+def test_dont_accept_duplicated_queries_case_insensitive():
+    q = Queries()
+    q.add('SQLITE', 'Q1')
+    q.add('SQLSERVER', 'q1')
 
 
 @raises(NotFoundQueryException)
@@ -38,4 +51,4 @@ def test_query_an_invalid_query_and_show_possibilities():
 
     the_exception = cm.exception
     the_message = the_exception.args[0]
-    assert_equal(the_message, 'Query Q2 not found. Possible values: Q1')
+    assert_equal(the_message, 'Query q2 not found. Possible values: q1')

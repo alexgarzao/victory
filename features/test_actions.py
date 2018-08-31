@@ -12,12 +12,28 @@ def test_action_with_one_event():
     assert a.get_action('A1') is not None
 
 
+def test_action_with_one_event_case_insensitive():
+    a = Actions()
+    assert a.get_action('A1') is None
+    a.new_action('A1')
+    a.add_event('A1', 'E1')
+    assert a.get_action('a1') is not None
+
+
 @raises(DuplicatedActionException)
 def test_dont_accept_duplicated_actions():
     a = Actions()
     a.new_action('A1')
     a.add_event('A1', 'E1')
     a.new_action('A1')
+
+
+@raises(DuplicatedActionException)
+def test_dont_accept_duplicated_actions_case_insensitive():
+    a = Actions()
+    a.new_action('A1')
+    a.add_event('A1', 'E1')
+    a.new_action('a1')
 
 
 def test_message_in_duplicated_action_exception():
@@ -28,7 +44,7 @@ def test_message_in_duplicated_action_exception():
     assert_exception_and_message(
             DuplicatedActionException,
             lambda: a.new_action('A1'),
-            'Action A1 already exists',
+            'Action a1 already exists',
     )
 
 
@@ -39,7 +55,7 @@ def test_add_event_in_undefined_action():
     assert_exception_and_message(
             UndefinedActionException,
             lambda: a.add_event('A2', 'E1'),
-            'Undefined action A2. Possible values: A1',
+            'Undefined action a2. Possible values: a1',
     )
 
 
@@ -52,5 +68,5 @@ def test_run_undefined_action():
     assert_exception_and_message(
             UndefinedActionException,
             lambda: a.run_action(None, 'A2'),
-            'Undefined action A2. Possible values: A1',
+            'Undefined action a2. Possible values: a1',
     )

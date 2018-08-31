@@ -4,6 +4,7 @@ class Files:
         self.files = {}
 
     def add(self, id, filename):
+        id = id.lower()
         if self.files.get(id) is not None:
             raise DuplicatedFileException("File id {} already exists".format(id))
 
@@ -13,6 +14,7 @@ class Files:
         return file
 
     def get(self, id):
+        id = id.lower()
         file = self.files.get(id)
         if not file:
             possible = ','.join(list(self.files))
@@ -21,6 +23,7 @@ class Files:
         return file
 
     def get_filename(self, id):
+        id = id.lower()
         file = self.get(id)
         return self.path + "/" + file.filename
 

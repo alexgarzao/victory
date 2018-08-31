@@ -56,7 +56,7 @@ def test_message_in_screen_not_found_exception():
     assert_exception_and_message(
             ScreenNotFoundException,
             lambda: w.screen_assert_equal('Screen B'),
-            'Screen Screen B not found. Possible values: Screen A',
+            'Screen screen b not found. Possible values: screen a',
     )
 
 
@@ -76,5 +76,5 @@ def test_message_in_element_not_found_exception():
     assert_exception_and_message(
             ElementNotFoundException,
             lambda: s.find_element('Y'),
-            'Element Y not found. Possible values: X',
+            'Element y not found. Possible values: x',
     )

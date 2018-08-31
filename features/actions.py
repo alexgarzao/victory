@@ -6,12 +6,14 @@ class Actions:
         self.actions = {}
 
     def new_action(self, action_name):
+        action_name = action_name.lower()
         if self.actions.get(action_name) is not None:
             raise DuplicatedActionException("Action {} already exists".format(action_name))
 
         self.actions[action_name] = []
 
     def add_event(self, action_name, event):
+        action_name = action_name.lower()
         events = self.actions.get(action_name)
         if events is None:
             possible = ','.join(list(self.actions))
@@ -20,9 +22,11 @@ class Actions:
         events.append(event)
 
     def get_action(self, action_name):
+        action_name = action_name.lower()
         return self.actions.get(action_name)
 
     def run_action(self, context, action_name):
+        action_name = action_name.lower()
         # TODO: retornar steps aos inves de executar. Assim nao precisa conhecer context.
         events, parameters = self.__match_action(action_name)
         if events is None:
@@ -37,9 +41,10 @@ class Actions:
 
         context.execute_steps(steps_to_run)
 
-    def __match_action(self, action):
+    def __match_action(self, action_name):
+        action_name = action_name.lower()
         for action_type in self.actions.keys():
-            r = parse(action_type, action)
+            r = parse(action_type, action_name)
             if r:
                 return self.actions[action_type], r.named
 

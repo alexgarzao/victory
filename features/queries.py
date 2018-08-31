@@ -7,6 +7,8 @@ class Queries:
         self.query_list = {}
 
     def add(self, db_type, name):
+        db_type = db_type.upper()
+        name = name.lower()
         if db_type == 'SQLITE':
             query = Sqlite()
         elif db_type == 'SQLSERVER':
@@ -21,6 +23,7 @@ class Queries:
         return query
 
     def run(self, name):
+        name = name.lower()
         query = self.query_list.get(name)
         if not query:
             possible = ','.join(list(self.query_list))
