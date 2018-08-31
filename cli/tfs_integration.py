@@ -1,5 +1,5 @@
 from tfs import TFSAPI
-from requests_ntlm import HttpNtlmAuth # Use NTLM authorization
+from requests_ntlm import HttpNtlmAuth  # Use NTLM authorization
 
 
 class TfsIntegration:
@@ -11,13 +11,13 @@ class TfsIntegration:
             user=user,
             password=password,
             auth_type=HttpNtlmAuth)
-             #, connect_timeout=10, read_timeout=30
+        # connect_timeout=10, read_timeout=30
 
     def get_workitem(self, workitem_id):
         return self.client.get_workitem(workitem_id)
 
     def get_workitems(self):
-        ## NOTE: Fields in SELECT really ignored, wiql return Work Items with all fields
+        # NOTE: Fields in SELECT really ignored, wiql return Work Items with all fields
         query = """SELECT
             [System.Id],
             [System.WorkItemType],
@@ -123,7 +123,6 @@ class TfsIntegration:
         workitems = wiql.workitems
 
         # Filter for relations.rel = Microsoft.VSTS.Common.TestedBy-Forward
-        # (Pdb) www = [workitem for workitem in workitems if {'rel':'Microsoft.VSTS.Common.TestedBy-Forward'} in workitem.data['relations']]
         filtered = set()
         for workitem in workitems:
             for relation in workitem.data['relations']:

@@ -14,8 +14,8 @@ def test_3():
 
 
 def test_4():
-    assert value_with_mask('111', '(XXXX)') == None
+    assert value_with_mask('111', '(XXXX)') is None
 
 
 def test_5():
-    assert value_with_mask('11111', '(XXX)') == None
+    assert value_with_mask('11111', '(XXX)') is None

@@ -1,10 +1,12 @@
-from selenium import webdriver
 import time
 import os
 
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+
 from queries import Queries
-from screens import *
-from files import *
+from screens import Screens
+from files import Files
 
 
 class WebApp:
@@ -27,10 +29,10 @@ class WebApp:
 
         # self.chrome_driver_options.add_argument('test-type')
         # self.chrome_driver_options.add_argument("disable-popup-blocking");
-        self.chrome_driver_options.add_argument("incognito");
-        self.chrome_driver_options.add_argument("disable-default-apps");
-        self.chrome_driver_options.add_argument("disable-infobars");
-        self.chrome_driver_options.add_argument("disable-extensions");
+        self.chrome_driver_options.add_argument("incognito")
+        self.chrome_driver_options.add_argument("disable-default-apps")
+        self.chrome_driver_options.add_argument("disable-infobars")
+        self.chrome_driver_options.add_argument("disable-extensions")
 
         ##############
         # self.chrome_driver_options.add_argument("no-sandbox")
@@ -50,16 +52,17 @@ class WebApp:
         self.chrome_driver_options.add_argument("start-maximized")
         #############
 
-        preferences = {"download.default_directory": files_path,
-                              "directory_upgrade": True,
-                              "safebrowsing.enabled": True }
+        preferences = {
+                "download.default_directory": files_path,
+                "directory_upgrade": True,
+                "safebrowsing.enabled": True
+        }
         self.chrome_driver_options.add_experimental_option("prefs", preferences)
 
         self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
         self.driver.implicitly_wait(30)
 
         self.screens = Screens(self.driver)
-
 
     def quit(self):
         if self.driver:
@@ -73,7 +76,7 @@ class WebApp:
                 return
             except:
                 time.sleep(1)
-        assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, url)
+        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, url)
 
     def url_assert_start_with(self, start_url):
         for i in range(0, self.retries):
@@ -83,7 +86,7 @@ class WebApp:
                 return
             except:
                 time.sleep(1)
-        assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, start_url)
+        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, start_url)
 
     def follow_new_window(self):
         new_window_handle = self.driver.window_handles[-1]
@@ -117,7 +120,7 @@ class WebApp:
                 return
             except:
                 time.sleep(1)
-        assert False , 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada na tela {}: {}'.format(current_url, screen_name, url)
+        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada na tela {}: {}'.format(current_url, screen_name, url)
 
     def open_screen(self, screen_name):
         screen = self.screens.get(screen_name)
@@ -136,7 +139,7 @@ class WebApp:
 
     def search_text(self, elemento):
         value = elemento.get_attribute('value')
-        if value == None:
+        if value is None:
             value = elemento.text
         return value
 

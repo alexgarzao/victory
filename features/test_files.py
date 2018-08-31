@@ -6,16 +6,16 @@ from files import *
 
 def test_adding_two_files():
     f = Files('file_path')
-    assert f.add('id1', 'file1') != None
-    assert f.add('id2', 'file2') != None
+    assert f.add('id1', 'file1') is not None
+    assert f.add('id2', 'file2') is not None
 
 
 def test_getting_valid_id_files():
     f = Files('file_path')
     f.add('id1', 'file1')
     f.add('id2', 'file2')
-    assert f.get('id1') != None
-    assert f.get('id2') != None
+    assert f.get('id1') is not None
+    assert f.get('id2') is not None
 
 
 def test_getting_filenames():

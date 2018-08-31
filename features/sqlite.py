@@ -34,7 +34,7 @@ class Sqlite:
     def __get_connection(self):
         conn_key = self.database_filename
         conn = Sqlite.connection_pool.get(conn_key, None)
-        if conn == None:
+        if conn is None:
             conn = sqlite3.connect(self.database_filename)
             conn.row_factory = sqlite3.Row
             Sqlite.connection_pool[conn_key] = conn

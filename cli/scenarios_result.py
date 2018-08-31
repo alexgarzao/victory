@@ -35,7 +35,13 @@ class ScenariosResult:
 
                 scenario_duration = self.__get_scenario_duration(scenario)
                 self.duration += scenario_duration
-                table.add_row([last_us_id, scenario['status'], last_testcase_id, scenario['name'], "{0:.2f}s".format(scenario_duration)])
+                table.add_row([
+                        last_us_id,
+                        scenario['status'],
+                        last_testcase_id,
+                        scenario['name'],
+                        "{0:.2f}s".format(scenario_duration)
+                ])
 
         self.html_table = table.get_html_string(attributes={"border": "1"})
 

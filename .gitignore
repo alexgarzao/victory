@@ -109,3 +109,4 @@ config.ini
 example.db
 screenshots/
 chromedriver/
+vagrant/.vagrant/

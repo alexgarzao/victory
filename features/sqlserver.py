@@ -36,11 +36,11 @@ class SqlServer:
     def __get_connection(self):
         conn_key = self.server_address + '|' + self.database_name + '|' + self.username + '|' + self.user_password
         conn = SqlServer.connection_pool.get(conn_key, None)
-        if conn == None:
+        if conn is None:
             conn = pyodbc.connect(
-                    driver = '{ODBC Driver 17 for SQL Server}',
-                    server = self.server_address,
-                    database = self.database_name,
+                    driver='{ODBC Driver 17 for SQL Server}',
+                    server=self.server_address,
+                    database=self.database_name,
                     uid=self.username,
                     pwd=self.user_password,
             )

@@ -46,7 +46,7 @@ class Screen:
         return self.url
 
     def __add_element(self, name, new_element):
-        if self.elements.get(name) != None:
+        if self.elements.get(name) is not None:
             raise DuplicatedElementException("Element {} already exists".format(name))
 
         self.elements[name] = new_element

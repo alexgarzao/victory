@@ -98,5 +98,6 @@ def __get_config():
 def main():
     cli(obj={'config': __get_config()})
 
+
 if __name__ == '__main__':
     main()

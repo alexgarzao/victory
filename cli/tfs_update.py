@@ -26,7 +26,6 @@ class TfsUpdate:
         print(table)
         result_work_item['description'] = table.get_html_string()
 
-
     # def __update_testcase_status(self, scenario_name, status):
     #     test_case_id = int(scenario_name.split(' ')[-1])
     #     test_case = self.tfs.get_workitem(test_case_id)
@@ -34,7 +33,8 @@ class TfsUpdate:
     #     test_case['state'] = 'Closed' # New, Active, CustomState, Resolved, Closed
 
     def __create_or_get_result_work_item(self):
-        work_item = self.tfs.get_work_item_by_title('Resultado do Test Suite 999') # TODO: Deveria ter o ID do test suite
+        # TODO: Deveria ter o ID do test suite
+        work_item = self.tfs.get_work_item_by_title('Resultado do Test Suite 999')
         if work_item is None:
             work_item = self.__create_result_work_item()
 

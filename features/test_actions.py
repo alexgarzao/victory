@@ -1,15 +1,15 @@
-from nose.tools import *
-from custom_asserts import *
+from nose.tools import raises
+from custom_asserts import assert_exception_and_message
 
-from actions import *
+from actions import Actions, DuplicatedActionException, UndefinedActionException
 
 
 def test_action_with_one_event():
     a = Actions()
-    assert a.get_action('A1') == None
+    assert a.get_action('A1') is None
     a.new_action('A1')
     a.add_event('A1', 'E1')
-    assert a.get_action('A1') != None
+    assert a.get_action('A1') is not None
 
 
 @raises(DuplicatedActionException)
@@ -45,7 +45,7 @@ def test_add_event_in_undefined_action():
 
 def test_run_undefined_action():
     a = Actions()
-    assert a.get_action('A1') == None
+    assert a.get_action('A1') is None
     a.new_action('A1')
     a.add_event('A1', 'E1')
 

@@ -1,4 +1,3 @@
-import platform
 import os
 import shutil
 
@@ -31,7 +30,11 @@ def after_scenario(context, scenario):
     if context.failed:
         log = 'LOG-EXECUCAO-{}.log'.format(strftime("%Y-%m-%d", gmtime()))
         screen_name = __get_screenshot(context.config.driver, scenario, "FALHA")
-        message = "\nFeature:{}\n   Linha em que falhou:{}\n   Screenshot:{}\n\n".format(scenario.filename, scenario.line, screen_name)
+        message = "\nFeature:{}\n   Linha em que falhou:{}\n   Screenshot:{}\n\n".format(
+                scenario.filename,
+                scenario.line,
+                screen_name
+        )
         print(message)
 
         with open(log, 'a') as arq:
@@ -49,7 +52,14 @@ def __get_screenshot(webdriver, scenario, state):
     if tag_list:
         tags += ','.join(tag_list) + '-'
 
-    screen_name = webdriver.screenshot('{}-{}CENARIO: {}-Linha:{}'.format(state, tags, os.path.basename(scenario.name), scenario.line))
+    screen_name = webdriver.screenshot(
+            '{}-{}CENARIO: {}-Linha:{}'.format(
+                    state,
+                    tags,
+                    os.path.basename(scenario.name),
+                    scenario.line
+            )
+    )
 
     return screen_name
 

@@ -1,5 +1,6 @@
 import time
 
+
 class BaseElement(object):
     def __init__(self, driver, name, internal_id, ignore_displayed):
         self.driver = driver
@@ -25,7 +26,7 @@ class BaseElement(object):
     def __try_to_get_element(self, func, parameter):
         for retries in range(0, 5):
             el = func(parameter)
-            if el and el.is_enabled() and (self.ignore_displayed == True or (self.ignore_displayed == False and el.is_displayed())):
+            if el and el.is_enabled() and (self.ignore_displayed is True or (self.ignore_displayed is False and el.is_displayed())):
                 return el
             time.sleep(1)
         return None
@@ -44,7 +45,7 @@ class TextElement(BaseElement):
         super().__init__(driver, name, internal_id, ignore_displayed)
 
     def find_element(self):
-        return self.find_element_by_xpath('//*[text()='+ self.internal_id +']')
+        return self.find_element_by_xpath('//*[text()=' + self.internal_id + ']')
 
 
 class NameElement(BaseElement):

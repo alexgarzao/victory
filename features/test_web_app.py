@@ -1,7 +1,9 @@
-from nose.tools import *
-from custom_asserts import *
+from nose.tools import raises
+from custom_asserts import assert_exception_and_message
 
-from web_app import *
+from web_app import WebApp
+from screens import DuplicatedScreenException, ScreenNotFoundException
+from screen import DuplicatedElementException, ElementNotFoundException
 
 
 def test_valid_elements_in_one_screen():
@@ -25,13 +27,6 @@ def test_same_elements_in_two_screens():
 
     s = w.new_screen('Screen B')
     s.add_id_element('X1', 'Y1')
-
-
-@raises(DuplicatedScreenException)
-def test_avoid_duplicated_screens():
-    w = WebApp()
-    w.new_screen('Screen A')
-    w.new_screen('Screen A')
 
 
 @raises(DuplicatedScreenException)

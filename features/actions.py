@@ -1,4 +1,4 @@
-from parse import *
+from parse import parse
 
 
 class Actions:
@@ -6,14 +6,14 @@ class Actions:
         self.actions = {}
 
     def new_action(self, action_name):
-        if self.actions.get(action_name) != None:
+        if self.actions.get(action_name) is not None:
             raise DuplicatedActionException("Action {} already exists".format(action_name))
 
         self.actions[action_name] = []
 
     def add_event(self, action_name, event):
         events = self.actions.get(action_name)
-        if events == None:
+        if events is None:
             possible = ','.join(list(self.actions))
             raise UndefinedActionException("Undefined action {}. Possible values: {}".format(action_name, possible))
 
@@ -25,11 +25,11 @@ class Actions:
     def run_action(self, context, action_name):
         # TODO: retornar steps aos inves de executar. Assim nao precisa conhecer context.
         events, parameters = self.__match_action(action_name)
-        if events == None:
+        if events is None:
             possible = ','.join(list(self.actions))
             raise UndefinedActionException("Undefined action {}. Possible values: {}".format(action_name, possible))
 
-        assert events != None
+        assert events is not None
         steps_to_run = ''
         for event in events:
             step_event = self.__replace_parameters(event, parameters)

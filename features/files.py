@@ -4,7 +4,7 @@ class Files:
         self.files = {}
 
     def add(self, id, filename):
-        if self.files.get(id) != None:
+        if self.files.get(id) is not None:
             raise DuplicatedFileException("File id {} already exists".format(id))
 
         file = File(id, filename)

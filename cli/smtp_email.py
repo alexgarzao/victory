@@ -49,7 +49,7 @@ class SmtpEmail:
         # mailserver.set_debuglevel(1)
         mailserver.ehlo()
 
-        assert self.user == None and self.password == None or self.user != None and self.password != None
+        assert self.user is None and self.password is None or self.user is not None and self.password is not None
         if self.user != '':
             mailserver.starttls()
             mailserver.login(self.user, self.password)

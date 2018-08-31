@@ -1,4 +1,4 @@
-from screen import *
+from screen import Screen
 
 
 class Screens:
@@ -8,7 +8,7 @@ class Screens:
         self.current_screen = None
 
     def add(self, screen_name):
-        if self.screens.get(screen_name) != None:
+        if self.screens.get(screen_name) is not None:
             raise DuplicatedScreenException("Screen {} already exists".format(screen_name))
 
         screen = Screen(self.driver)
