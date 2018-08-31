@@ -1,7 +1,7 @@
 import time
 import os
 
-from selenium import webdriver
+from behave import given, then, step, when
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -9,13 +9,13 @@ from selenium.webdriver.common.action_chains import ActionChains
 from common import value_with_mask
 
 
-@given(u'que quero definir os elementos da tela {screen_name}')
+@given(u'que quero definir os elementos da tela {screen_name}')  # noqa: F811
 def step_impl(context, screen_name):
     context.config.driver.new_screen(screen_name)
     context.config_scenario = True
 
 
-@then(u'os elementos são')
+@then(u'os elementos são')  # noqa: F811
 def step_impl(context):
     for row in context.table:
         element = row['elemento']
@@ -24,76 +24,76 @@ def step_impl(context):
         context.execute_steps(u'Então o elemento {} tem o {} {}'.format(element, method, id))
 
 
-@then(u'o elemento {name} tem o id {internal_id} ignorando is_displayed')
+@then(u'o elemento {name} tem o id {internal_id} ignorando is_displayed')  # noqa: F811
 def step_impl(context, name, internal_id):
     context.config.driver.current_screen.add_id_element(name, internal_id, ignore_displayed=True)
 
 
-@then(u'o elemento {name} tem o id {internal_id}')
+@then(u'o elemento {name} tem o id {internal_id}')  # noqa: F811
 def step_impl(context, name, internal_id):
     context.config.driver.current_screen.add_id_element(name, internal_id, ignore_displayed=False)
 
 
-@then(u'o elemento {name} tem o nome {internal_name} ignorando is_displayed')
+@then(u'o elemento {name} tem o nome {internal_name} ignorando is_displayed')  # noqa: F811
 def step_impl(context, name, internal_name):
     context.config.driver.current_screen.add_name_element(name, internal_name, ignore_displayed=True)
 
 
-@then(u'o elemento {name} tem o nome {internal_name}')
+@then(u'o elemento {name} tem o nome {internal_name}')  # noqa: F811
 def step_impl(context, name, internal_name):
     context.config.driver.current_screen.add_name_element(name, internal_name, ignore_displayed=False)
 
 
-@then(u'o elemento {name} tem o texto {internal_text} ignorando is_displayed')
+@then(u'o elemento {name} tem o texto {internal_text} ignorando is_displayed')  # noqa: F811
 def step_impl(context, name, internal_text):
     context.config.driver.current_screen.add_text_element(name, internal_text, ignore_displayed=True)
 
 
-@then(u'o elemento {name} tem o texto {internal_text}')
+@then(u'o elemento {name} tem o texto {internal_text}')  # noqa: F811
 def step_impl(context, name, internal_text):
     context.config.driver.current_screen.add_text_element(name, internal_text, ignore_displayed=False)
 
 
-@then(u'o elemento {name} tem o xpath {internal_xpath} ignorando is_displayed')
+@then(u'o elemento {name} tem o xpath {internal_xpath} ignorando is_displayed')  # noqa: F811
 def step_impl(context, name, internal_xpath):
     context.config.driver.current_screen.add_xpath_element(name, internal_xpath, ignore_displayed=True)
 
 
-@then(u'o elemento {name} tem o xpath {internal_xpath}')
+@then(u'o elemento {name} tem o xpath {internal_xpath}')  # noqa: F811
 def step_impl(context, name, internal_xpath):
     context.config.driver.current_screen.add_xpath_element(name, internal_xpath, ignore_displayed=False)
 
 
-@then(u'o elemento {name} tem o automation id {internal_automation_id} ignorando is_displayed')
+@then(u'o elemento {name} tem o automation id {internal_automation_id} ignorando is_displayed')  # noqa: F811
 def step_impl(context, name, internal_automation_id):
     context.config.driver.current_screen.add_automation_id_element(name, internal_automation_id, ignore_displayed=True)
 
 
-@then(u'o elemento {name} tem o automation id {internal_automation_id}')
+@then(u'o elemento {name} tem o automation id {internal_automation_id}')  # noqa: F811
 def step_impl(context, name, internal_automation_id):
     context.config.driver.current_screen.add_automation_id_element(name, internal_automation_id, ignore_displayed=False)
 
 
-@then(u'o elemento {name} tem a classe {class_name} ignorando is_displayed')
+@then(u'o elemento {name} tem a classe {class_name} ignorando is_displayed')  # noqa: F811
 @then(u'o elemento {name} tem o classe {class_name} ignorando is_displayed')
 def step_impl(context, name, class_name):
     context.config.driver.current_screen.add_class_name_element(name, class_name, ignore_displayed=True)
 
 
-@then(u'o elemento {name} tem a classe {class_name}')
+@then(u'o elemento {name} tem a classe {class_name}')  # noqa: F811
 @then(u'o elemento {name} tem o classe {class_name}')
 def step_impl(context, name, class_name):
     context.config.driver.current_screen.add_class_name_element(name, class_name, ignore_displayed=False)
 
 
-@step(u'vejo o {name} com o valor {expected_value}')
+@step(u'vejo o {name} com o valor {expected_value}')  # noqa: F811
 def step_impl(context, name, expected_value):
     element = context.config.driver.current_screen.find_element(name)
     value = context.config.driver.current_screen.search_text(element)
     assert value == expected_value
 
 
-@step(u'preencho o {component_name} com a consulta {query_name}')
+@step(u'preencho o {component_name} com a consulta {query_name}')  # noqa: F811
 @step(u'preencho a {component_name} com a consulta {query_name}')
 def step_impl(context, component_name, query_name):
     value = context.config.driver.queries.run(query_name)
@@ -102,7 +102,7 @@ def step_impl(context, component_name, query_name):
     element.send_keys(value + Keys.TAB)
 
 
-@step(u'preencho o {name} com o valor {value}')
+@step(u'preencho o {name} com o valor {value}')  # noqa: F811
 @step(u'preencho a {name} com o valor {value}')
 def step_impl(context, name, value):
     if value == "<ignora>":
@@ -114,7 +114,7 @@ def step_impl(context, name, value):
     element.send_keys(value + Keys.TAB)
 
 
-@step(u'faço o upload do arquivo {fileid} no {element_name}')
+@step(u'faço o upload do arquivo {fileid} no {element_name}')  # noqa: F811
 def step_impl(context, fileid, element_name):
     element = context.config.driver.current_screen.find_element(element_name)
     filename = context.config.driver.get_filename(fileid)
@@ -122,7 +122,7 @@ def step_impl(context, fileid, element_name):
     element.send_keys(full_path)
 
 
-@step(u'seleciono o {name} e digito {value}')
+@step(u'seleciono o {name} e digito {value}')  # noqa: F811
 @step(u'seleciono a {name} e digito {value}')
 def step_impl(context, name, value):
     if value == "<ignora>":
@@ -130,11 +130,14 @@ def step_impl(context, name, value):
     if value == "<espaço>":
         value = ' '
     element_to_hover_over = context.config.driver.current_screen.find_element(name)
-    hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over).click().send_keys(value + Keys.ENTER)
+    hover = ActionChains(context.config.driver.driver).\
+        move_to_element(element_to_hover_over).\
+        click().\
+        send_keys(value + Keys.ENTER)
     hover.perform()
 
 
-@step(u'seleciono o {name} e pressiono a seta para baixo {value:d} vezes')
+@step(u'seleciono o {name} e pressiono a seta para baixo {value:d} vezes')  # noqa: F811
 @step(u'seleciono a {name} e pressiono a seta para baixo {value:d} vezes')
 @step(u'seleciono o {name} e pressiono a seta para baixo {value:d} vez')
 @step(u'seleciono a {name} e pressiono a seta para baixo {value:d} vez')
@@ -147,10 +150,14 @@ def step_impl(context, name, value):
 
     keys += Keys.ENTER
 
-    hover = ActionChains(context.config.driver.driver).move_to_element(element_to_hover_over).click().send_keys(keys).perform()
+    hover = ActionChains(context.config.driver.driver).\
+        move_to_element(element_to_hover_over).\
+        click().\
+        send_keys(keys)
+    hover.perform()
 
 
-@given(u'preencho e valido o {name} com o valor {value} e valor esperado {expected_value}')
+@given(u'preencho e valido o {name} com o valor {value} e valor esperado {expected_value}')  # noqa: F811
 def step_impl(context, name, value, expected_value):
     if value == "<ignora>":
         return
@@ -161,7 +168,7 @@ def step_impl(context, name, value, expected_value):
     assert set_value == expected_value
 
 
-@given(u'preencho e valido o {name} com o valor {value} e máscara {mask}')
+@given(u'preencho e valido o {name} com o valor {value} e máscara {mask}')  # noqa: F811
 def step_impl(context, name, value, mask):
     if value == "<ignora>":
         return
@@ -174,15 +181,15 @@ def step_impl(context, name, value, mask):
     assert set_value == expected_value
 
 
-@step(u'clico no {name}')
+@step(u'clico no {name}')  # noqa: F811
 @step(u'clico em {name}')
 def step_impl(context, name):
-    #TODO: Precisa validar se esta habilitado?! visivel? clicavel?
+    # TODO: Precisa validar se esta habilitado?! visivel? clicavel?
     # TODO: remover logica do step :-)
     context.config.driver.current_screen.find_element(name).click()
 
 
-@when(u'flutuo no {name}')
+@when(u'flutuo no {name}')  # noqa: F811
 def step_impl(context, name):
     # TODO: remover logica do step :-)
     # TODO: Mas, para remover a logica, talvez eu tenha que abstrair os elementos
@@ -192,13 +199,13 @@ def step_impl(context, name):
     hover.perform()
 
 
-@step(u'aguardo {seconds:Number} segundo')
+@step(u'aguardo {seconds:Number} segundo')  # noqa: F811
 @step(u'aguardo {seconds:Number} segundos')
 def step_impl(context, seconds):
     time.sleep(seconds)
 
 
-@given(u'seleciono em {name} o valor {value}')
+@given(u'seleciono em {name} o valor {value}')  # noqa: F811
 def step_impl(context, name, value):
     if value == "<ignora>":
         return
@@ -209,12 +216,12 @@ def step_impl(context, name, value):
     assert set_value == value
 
 
-@step(u'a URL é {url}')
+@step(u'a URL é {url}')  # noqa: F811
 def step_impl(context, url):
     context.config.driver.current_screen.set_url(url)
 
 
-@then(u'eu aceito a popup')
+@then(u'eu aceito a popup')  # noqa: F811
 def step_impl(context):
     # Switch to alert.
     popup = context.config.driver.driver.switch_to.alert
@@ -223,7 +230,7 @@ def step_impl(context):
     popup.accept()
 
 
-@then(u'fica visível a {element_name}')
+@then(u'fica visível a {element_name}')  # noqa: F811
 def step_impl(context, element_name):
     # TODO: remover logica do step :-)
-    assert context.config.driver.current_screen.find_element(element_name).is_displayed() == True
+    assert context.config.driver.current_screen.find_element(element_name).is_displayed() is True

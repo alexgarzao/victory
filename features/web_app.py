@@ -74,9 +74,12 @@ class WebApp:
                 current_url = self.driver.current_url[-len(url):]
                 assert current_url == url
                 return
-            except:
+            except AssertionError:
                 time.sleep(1)
-        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, url)
+        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(
+                current_url,
+                url
+        )
 
     def url_assert_start_with(self, start_url):
         for i in range(0, self.retries):
@@ -84,9 +87,12 @@ class WebApp:
                 current_url = self.driver.current_url[0:len(start_url)]
                 assert current_url == start_url
                 return
-            except:
+            except AssertionError:
                 time.sleep(1)
-        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(current_url, start_url)
+        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada: {}'.format(
+                current_url,
+                start_url
+        )
 
     def follow_new_window(self):
         new_window_handle = self.driver.window_handles[-1]
@@ -118,9 +124,12 @@ class WebApp:
                 assert current_url == url
                 self.current_screen = screen
                 return
-            except:
+            except AssertionError:
                 time.sleep(1)
-        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada na tela {}: {}'.format(current_url, screen_name, url)
+        assert False, 'Erro ao comparar URL\'s. \n URL do Browser: {} difere da esperada na tela {}: {}'.format(
+                current_url,
+                screen_name, url
+        )
 
     def open_screen(self, screen_name):
         screen = self.screens.get(screen_name)

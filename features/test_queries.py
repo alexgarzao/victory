@@ -1,6 +1,6 @@
-from nose.tools import *
+from nose.tools import raises, assert_raises, assert_equal
 
-from queries import *
+from queries import Queries, InvalidDbTypeException, DuplicatedQueryException, NotFoundQueryException
 
 
 def test_accept_valid_db_types():

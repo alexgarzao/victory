@@ -1,29 +1,24 @@
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.keys import Keys
-import time
-
-from web_app import WebApp
+from behave import given, then, step
 
 
-@given(u'a configuração {config_name} é {config_value}')
+@given(u'a configuração {config_name} é {config_value}')  # noqa: F811
 def step_impl(context, config_name, config_value):
     context.config.set(config_name, config_value)
 
 
-@given(u'que a configuração está na tabela abaixo')
+@given(u'que a configuração está na tabela abaixo')  # noqa: F811
 def step_impl(context):
     for row in context.table:
         context.config.set(name=row['nome'], value=row['valor'])
     context.config_scenario = True
 
 
-@given(u'que estou na tela {screen}')
+@given(u'que estou na tela {screen}')  # noqa: F811
 def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
 
 
-@given(u'que vou para a tela {screen}')
+@given(u'que vou para a tela {screen}')  # noqa: F811
 @given(u'vou para a tela {screen}')
 def step_impl(context, screen):
     context.config.driver.open_screen(screen)
@@ -39,52 +34,52 @@ def step_impl(context, screen):
 #         pass
 
 
-@then('sou direcionado para a url que inicia em {url}')
+@then('sou direcionado para a url que inicia em {url}')  # noqa: F811
 def step_impl(context, url):
     context.config.driver.url_assert_start_with(url)
 
 
-@given('estou na url {url}')
+@given('estou na url {url}')  # noqa: F811
 @then('sou direcionado para a url {url}')
 def step_impl(context, url):
     context.config.driver.url_assert_equal(url)
 
 
-@then(u'o teste é iniciado')
+@then(u'o teste é iniciado')  # noqa: F811
 def step_impl(context):
     features_path = context.features_path
     path = features_path + "/" + context.config.get_string('FILES_PATH')
     context.config.driver.open(context.config.get_bool('HEADLESS'), path)
 
 
-@then('sou direcionado para a tela {screen}')
+@then('sou direcionado para a tela {screen}')  # noqa: F811
 def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
 
 
-@then('sou direcionado para uma nova janela com a tela {screen}')
+@then('sou direcionado para uma nova janela com a tela {screen}')  # noqa: F811
 def step_impl(context, screen):
     context.config.driver.follow_new_window()
     context.config.driver.screen_assert_equal(screen)
 
 
-@then('sou direcionado para a janela anterior com a tela {screen}')
+@then('sou direcionado para a janela anterior com a tela {screen}')  # noqa: F811
 def step_impl(context, screen):
     context.config.driver.return_previous_window()
     context.config.driver.screen_assert_equal(screen)
 
 
-@then('sou direcionado para o frame anterior')
+@then('sou direcionado para o frame anterior')  # noqa: F811
 def step_impl(context):
     context.config.driver.switch_to_default()
 
 
-@then('sou direcionado para o {frame}')
+@then('sou direcionado para o {frame}')  # noqa: F811
 def step_impl(context, frame):
     context.config.driver.switch_to_frame(frame)
 
 
-@step(u'a ação {action_name} é')
+@step(u'a ação {action_name} é')  # noqa: F811
 def step_impl(context, action_name):
     context.config.driver.new_action(action_name)
 
@@ -92,7 +87,7 @@ def step_impl(context, action_name):
         context.config.driver.add_event_in_action(action_name, event=row['evento'])
 
 
-@step(u'executo a {action_name}')
+@step(u'executo a {action_name}')  # noqa: F811
 @step(u'executo o {action_name}')
 def step_impl(context, action_name):
     context.config.driver.run_action(context, action_name)

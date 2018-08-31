@@ -37,7 +37,7 @@ class WebDriverUpdate:
     def _create_webdriver_dir(self):
         try:
             os.makedirs(WebDriverUpdate.BASE_DIR)
-        except:
+        except OSError:
             pass
 
     def _get_os_webdriver_filename(self):

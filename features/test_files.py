@@ -1,7 +1,7 @@
-from nose.tools import *
+from nose.tools import raises
 
-from custom_asserts import *
-from files import *
+from custom_asserts import assert_exception_and_message
+from files import Files, DuplicatedFileException, NotFoundFileException
 
 
 def test_adding_two_files():

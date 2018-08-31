@@ -26,7 +26,8 @@ class BaseElement(object):
     def __try_to_get_element(self, func, parameter):
         for retries in range(0, 5):
             el = func(parameter)
-            if el and el.is_enabled() and (self.ignore_displayed is True or (self.ignore_displayed is False and el.is_displayed())):
+            if el and el.is_enabled() and (
+                    self.ignore_displayed is True or (self.ignore_displayed is False and el.is_displayed())):
                 return el
             time.sleep(1)
         return None

@@ -1,4 +1,4 @@
-from nose.tools import *
+from nose.tools import assert_raises, assert_equal
 
 
 def assert_exception_and_message(exception_class, function, expected_message):

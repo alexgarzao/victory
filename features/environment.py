@@ -1,6 +1,8 @@
 import os
 import shutil
 
+from behave import register_type
+
 from test_config import TestConfig
 from time import gmtime, strftime, sleep
 
@@ -84,27 +86,20 @@ def __load_custom_steps(context):
     if features_path:
         import sys
         sys.path.insert(0, features_path)
-        import custom_steps
+        import custom_steps  # noqa: F401
 
 
 def __create_screenshots_dir(directory):
     try:
         shutil.rmtree(directory, ignore_errors=True)
         os.makedirs(directory)
-    except:
+    except OSError:
         assert False, "Failing when trying to create the {} directory...".format(directory)
 
 
 # ----------------------------------------------------------------------------
 # USER-DEFINED TYPES:
 # ----------------------------------------------------------------------------
-from behave import register_type
-
-import parse
-import parse_type
-
-
-# @parse.with_pattern(r"\d+")
 def parse_number(text):
     """
     Convert parsed text into a number.
@@ -112,4 +107,4 @@ def parse_number(text):
     :return: Number instance (integer), created from parsed text.
     """
     return int(text)
-register_type(Number=parse_number)
+register_type(Number=parse_number)  # noqa: E305
