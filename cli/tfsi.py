@@ -40,6 +40,8 @@ def run(ctx):
             "-D", "features_path={}/".format(tfs_features_path),
             "./features", "@{}/order.featureset".format(tfs_features_path),
             "--stop",
+            "--format", "pretty",
+            "--outfile", "/dev/stdout",
             "--format", "json.pretty",
             "--outfile", "{}/test_result.json".format(tfs_features_path),
             ]
