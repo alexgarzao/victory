@@ -14,7 +14,7 @@ class TfsPull:
 
         self.__create_tfs_features_path(self.features_path)
 
-        with open(self.features_path + '/order.featureset', 'w') as f:
+        with open(self.features_path + '/sequence.featureset', 'w') as f:
             for testsuite in testsuites:
                 ts = TestSuite(self.tfs, testsuite)
                 new_filename = ts.write_feature_file(self.features_path)

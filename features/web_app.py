@@ -157,7 +157,7 @@ class WebApp:
         return element.find_element()
 
     def screenshot(self, file_prefix):
-        path = os.getcwd()+'/screenshots/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+"-"+file_prefix+".png"
+        path = os.getcwd()+'/output/screenshots/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+"-"+file_prefix+".png"
         self.driver.save_screenshot(path)
         return path
 

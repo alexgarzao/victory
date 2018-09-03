@@ -61,6 +61,6 @@ class TfsReport:
         template = Template(BODY)
         body = template.render(context)
 
-        image_list = glob.glob("./screenshots/*.png")
+        image_list = glob.glob("./output/screenshots/*.png")
         email = SmtpEmail(self.smtp_server, self.email_user, self.email_password)
         return email.send(smtp_from, smtp_to, title, body, image_list)

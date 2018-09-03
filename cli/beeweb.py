@@ -96,11 +96,11 @@ def run(ctx, path):
 
 @cli.command()
 @click.pass_context
-def send_report(ctx):
+def sendreport(ctx):
     config = ReportConfig("./config.ini", "REPORT")
     config.read()
 
-    tfs_report = TfsReport(config.smtp_server(), config.smtp_username(), config.smtp_password())
+    tfs_report = TfsReport(config.smtp_server(), config.username(), config.password())
     tfs_report.send_by_email(
             smtp_from=config.smtp_from(),
             smtp_to=config.smtp_to(),

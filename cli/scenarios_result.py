@@ -46,7 +46,7 @@ class ScenariosResult:
         self.html_table = table.get_html_string(attributes={"border": "1"})
 
     def __get_test_result(self):
-        with open('./tfs_temp_features/test_result.json', 'r') as f:
+        with open('./output/test_result.json', 'r') as f:
             test_result = json.load(f)
 
         f.close()

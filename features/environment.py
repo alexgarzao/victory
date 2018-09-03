@@ -21,7 +21,8 @@ def before_all(context):
     context.config.driver = WebApp()
     context.config.driver.chrome_driver_path = ("./chromedriver/chromedriver")
 
-    __create_screenshots_dir('./screenshots/')
+    # __create_dir('./output/')
+    __create_dir('./output/screenshots/')
 
 
 def before_scenario(context, scenario):
@@ -89,7 +90,7 @@ def __load_custom_steps(context):
         import custom_steps  # noqa: F401
 
 
-def __create_screenshots_dir(directory):
+def __create_dir(directory):
     try:
         shutil.rmtree(directory, ignore_errors=True)
         os.makedirs(directory)

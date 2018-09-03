@@ -31,10 +31,10 @@ class ReportConfig():
         return self.config[self.section]['smtp_server']
 
     def smtp_from(self):
-        return self.config[self.section]['smtp_from']
+        return self.config[self.section]['from']
 
     def smtp_to(self):
-        return self.config[self.section]['smtp_to']
+        return self.config[self.section]['to']
 
     def username(self):
         return self.config[self.section]['username']
