@@ -32,8 +32,7 @@ Cenários:<br>
 
 
 class TfsReport:
-    def __init__(self, tfs, smtp_server, email_user, email_password):
-        self.tfs = tfs
+    def __init__(self, smtp_server, email_user, email_password):
         self.smtp_server = smtp_server
         self.email_user = email_user
         self.email_password = email_password
