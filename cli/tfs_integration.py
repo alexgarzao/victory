@@ -3,7 +3,7 @@ from requests_ntlm import HttpNtlmAuth  # Use NTLM authorization
 
 
 class TfsIntegration:
-    def __init__(self, tfs_url, user, password, project):
+    def __init__(self, tfs_url, project, user, password):
         self.project = project
         self.client = TFSAPI(
             tfs_url,
