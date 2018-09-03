@@ -1,6 +1,4 @@
-import configparser
 import click
-import subprocess
 
 from tfs_list import TfsList
 from tfs_pull import TfsPull
@@ -10,6 +8,7 @@ from tfs_integration import TfsIntegration
 from tfs_config import TfsConfig
 from report_config import ReportConfig
 from webdriver_update import WebDriverUpdate
+from behave_run import BehaveRun
 
 
 TFS_FEATURES_PATH = "./tfs/"
@@ -82,19 +81,10 @@ def tfspull(ctx):
 
 @cli.command()
 @click.pass_context
-def run(ctx):
-    tfs_features_path = "./tfs_temp_features/"
-    behave_args = [
-            "behave",
-            "-D", "features_path={}/".format(tfs_features_path),
-            "./features", "@{}/order.featureset".format(tfs_features_path),
-            "--stop",
-            "--format", "pretty",
-            "--outfile", "/dev/stdout",
-            "--format", "json.pretty",
-            "--outfile", "{}/test_result.json".format(tfs_features_path),
-            ]
-    subprocess.run(behave_args)
+@click.argument('path')
+def run(ctx, path):
+    behave_run = BehaveRun(path)
+    behave_run.run()
 
 
 # @cli.command()
