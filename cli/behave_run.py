@@ -10,6 +10,7 @@ class BehaveRun:
                 "behave",
                 "-D", "features_path={}/".format(self.features_path),
                 "./features", "@{}/sequence.featureset".format(self.features_path),
+                "--no-capture",
                 "--stop",
                 "--format", "pretty",
                 "--outfile", "/dev/stdout",
