@@ -12,6 +12,9 @@ from report_config import ReportConfig
 from webdriver_update import WebDriverUpdate
 
 
+TFS_FEATURES_PATH = "./tfs/"
+
+
 @click.group()
 @click.option('--debug/--no-debug', default=False)
 @click.pass_context
@@ -73,7 +76,7 @@ def tfslist(ctx):
 @cli.command()
 @click.pass_context
 def tfspull(ctx):
-    tfs_pull = TfsPull(__get_tfs_connection())
+    tfs_pull = TfsPull(__get_tfs_connection(), TFS_FEATURES_PATH)
     tfs_pull.run()
 
 
