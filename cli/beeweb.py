@@ -4,9 +4,10 @@ import subprocess
 
 from tfs_list import TfsList
 from tfs_pull import TfsPull
-from tfs_update import TfsUpdate
+# from tfs_update import TfsUpdate
 from tfs_report import TfsReport
 from tfs_integration import TfsIntegration
+from webdriver_update import WebDriverUpdate
 
 
 @click.group()
@@ -14,6 +15,37 @@ from tfs_integration import TfsIntegration
 @click.pass_context
 def cli(ctx, debug):
     ctx.obj['DEBUG'] = debug
+
+
+@cli.command()
+@click.pass_context
+def drivertest(ctx):
+    webdriver = WebDriverUpdate()
+
+    print("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
+
+    if not webdriver.has_update():
+        print("WebDriver already updated!")
+        return
+
+    print("WebDriver update available!")
+
+
+@cli.command()
+@click.pass_context
+def driverupdate(ctx):
+    webdriver = WebDriverUpdate()
+
+    print("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
+
+    if not webdriver.has_update():
+        print("WebDriver already updated!")
+        return
+
+    webdriver.update()
+
+    print("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
+    print("WebDriver downloaded!")
 
 
 @cli.command()
@@ -48,11 +80,11 @@ def run(ctx):
     subprocess.run(behave_args)
 
 
-@cli.command()
-@click.pass_context
-def update(ctx):
-    tfs_update = TfsUpdate(__get_tfs_connection())
-    tfs_update.run()
+# @cli.command()
+# @click.pass_context
+# def update(ctx):
+#     tfs_update = TfsUpdate(__get_tfs_connection())
+#     tfs_update.run()
 
 
 @cli.command()

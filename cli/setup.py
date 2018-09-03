@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(
-    name='tfsi',
+    name='beeweb',
     version='0.1',
-    py_modules=['tfsi', 'tfs_pull', 'tfs_list', 'tfs_integration', 'test_suite'],
+    py_modules=['beeweb', 'tfs_pull', 'tfs_list', 'tfs_integration', 'test_suite'],
     install_requires=[
         'click==6.7',
         'beautifulsoup4==4.6.1',
@@ -11,6 +11,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        tfsi=tfsi:main
+        beeweb=beeweb:main
     ''',
 )
