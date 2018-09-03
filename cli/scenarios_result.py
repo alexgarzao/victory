@@ -67,6 +67,7 @@ class ScenariosResult:
     def __get_scenario_duration(self, scenario):
         duration = 0.0
         for step in scenario['steps']:
-            duration += step['result']['duration']
+            if 'result' in step:
+                duration += step['result']['duration']
 
         return duration
