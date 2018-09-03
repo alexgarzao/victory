@@ -47,6 +47,7 @@ def step_impl(context, url):
 
 @then(u'o teste é iniciado')  # noqa: F811
 def step_impl(context):
+    # REFACTOR: STEPs nao deveriam ter logica
     features_path = context.features_path
     path = features_path + "/" + context.config.get_string('FILES_PATH')
     context.config.driver.open(context.config.get_bool('HEADLESS'), path)
@@ -59,12 +60,14 @@ def step_impl(context, screen):
 
 @then('sou direcionado para uma nova janela com a tela {screen}')  # noqa: F811
 def step_impl(context, screen):
+    # REFACTOR: STEPs nao deveriam ter logica
     context.config.driver.follow_new_window()
     context.config.driver.screen_assert_equal(screen)
 
 
 @then('sou direcionado para a janela anterior com a tela {screen}')  # noqa: F811
 def step_impl(context, screen):
+    # REFACTOR: STEPs nao deveriam ter logica
     context.config.driver.return_previous_window()
     context.config.driver.screen_assert_equal(screen)
 

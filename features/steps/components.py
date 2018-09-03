@@ -88,6 +88,7 @@ def step_impl(context, name, class_name):
 
 @step(u'vejo o {name} com o valor {expected_value}')  # noqa: F811
 def step_impl(context, name, expected_value):
+    # REFACTOR: STEPs nao deveriam ter logica
     element = context.config.driver.current_screen.find_element(name)
     value = context.config.driver.current_screen.search_text(element)
     assert value == expected_value
@@ -96,6 +97,7 @@ def step_impl(context, name, expected_value):
 @step(u'preencho o {component_name} com a consulta {query_name}')  # noqa: F811
 @step(u'preencho a {component_name} com a consulta {query_name}')
 def step_impl(context, component_name, query_name):
+    # REFACTOR: STEPs nao deveriam ter logica
     value = context.config.driver.queries.run(query_name)
     element = context.config.driver.current_screen.find_element(component_name)
     element.clear()
@@ -105,6 +107,7 @@ def step_impl(context, component_name, query_name):
 @step(u'preencho o {name} com o valor {value}')  # noqa: F811
 @step(u'preencho a {name} com o valor {value}')
 def step_impl(context, name, value):
+    # REFACTOR: STEPs nao deveriam ter logica
     if value == "<ignora>":
         return
     if value == "<espaço>":
@@ -116,6 +119,7 @@ def step_impl(context, name, value):
 
 @step(u'faço o upload do arquivo {fileid} no {element_name}')  # noqa: F811
 def step_impl(context, fileid, element_name):
+    # REFACTOR: STEPs nao deveriam ter logica
     element = context.config.driver.current_screen.find_element(element_name)
     filename = context.config.driver.get_filename(fileid)
     full_path = os.path.abspath(filename)
@@ -125,6 +129,7 @@ def step_impl(context, fileid, element_name):
 @step(u'seleciono o {name} e digito {value}')  # noqa: F811
 @step(u'seleciono a {name} e digito {value}')
 def step_impl(context, name, value):
+    # REFACTOR: STEPs nao deveriam ter logica
     if value == "<ignora>":
         return
     if value == "<espaço>":
@@ -142,6 +147,7 @@ def step_impl(context, name, value):
 @step(u'seleciono o {name} e pressiono a seta para baixo {value:d} vez')
 @step(u'seleciono a {name} e pressiono a seta para baixo {value:d} vez')
 def step_impl(context, name, value):
+    # REFACTOR: STEPs nao deveriam ter logica
     element_to_hover_over = context.config.driver.current_screen.find_element(name)
 
     keys = ''
@@ -159,6 +165,7 @@ def step_impl(context, name, value):
 
 @given(u'preencho e valido o {name} com o valor {value} e valor esperado {expected_value}')  # noqa: F811
 def step_impl(context, name, value, expected_value):
+    # REFACTOR: STEPs nao deveriam ter logica
     if value == "<ignora>":
         return
     element = context.config.driver.current_screen.find_element(name)
@@ -170,6 +177,7 @@ def step_impl(context, name, value, expected_value):
 
 @given(u'preencho e valido o {name} com o valor {value} e máscara {mask}')  # noqa: F811
 def step_impl(context, name, value, mask):
+    # REFACTOR: STEPs nao deveriam ter logica
     if value == "<ignora>":
         return
 
@@ -191,6 +199,7 @@ def step_impl(context, name):
 
 @when(u'flutuo no {name}')  # noqa: F811
 def step_impl(context, name):
+    # REFACTOR: STEPs nao deveriam ter logica
     # TODO: remover logica do step :-)
     # TODO: Mas, para remover a logica, talvez eu tenha que abstrair os elementos
     # TODO: Hoje, find_element retorna o elemento do webdriver diretamente...
@@ -207,6 +216,7 @@ def step_impl(context, seconds):
 
 @given(u'seleciono em {name} o valor {value}')  # noqa: F811
 def step_impl(context, name, value):
+    # REFACTOR: STEPs nao deveriam ter logica
     if value == "<ignora>":
         return
     select = Select(context.config.driver.current_screen.find_element(name))
@@ -223,6 +233,7 @@ def step_impl(context, url):
 
 @then(u'eu aceito a popup')  # noqa: F811
 def step_impl(context):
+    # REFACTOR: STEPs nao deveriam ter logica
     # Switch to alert.
     popup = context.config.driver.driver.switch_to.alert
 
