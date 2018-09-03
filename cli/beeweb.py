@@ -7,6 +7,7 @@ from tfs_pull import TfsPull
 # from tfs_update import TfsUpdate
 from tfs_report import TfsReport
 from tfs_integration import TfsIntegration
+from tfs_config import TfsConfig
 from webdriver_update import WebDriverUpdate
 
 
@@ -46,6 +47,18 @@ def driverupdate(ctx):
 
     print("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
     print("WebDriver downloaded!")
+
+
+@cli.command()
+@click.option('--url', prompt=True)
+@click.option('--area-path', prompt=True)
+@click.option('--user', prompt=True)
+@click.option('--password', prompt=True, hide_input=True,
+              confirmation_prompt=True)
+@click.pass_context
+def tfsconfig(ctx, url, area_path, user, password):
+    tfs_config = TfsConfig()
+    tfs_config.update(url, area_path, user, password)
 
 
 @cli.command()
