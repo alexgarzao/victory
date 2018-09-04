@@ -31,7 +31,7 @@ def before_scenario(context, scenario):
 
 def after_scenario(context, scenario):
     if context.failed:
-        log = 'LOG-EXECUCAO-{}.log'.format(strftime("%Y-%m-%d", gmtime()))
+        log = './output/LOG-EXECUCAO-{}.log'.format(strftime("%Y-%m-%d", gmtime()))
         screen_name = __get_screenshot(context.config.driver, scenario, "FALHA")
         message = "\nFeature:{}\n   Linha em que falhou:{}\n   Screenshot:{}\n\n".format(
                 scenario.filename,
