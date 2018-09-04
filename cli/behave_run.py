@@ -1,4 +1,6 @@
 import subprocess
+import os
+import sys
 
 
 class BehaveRun:
@@ -8,6 +10,9 @@ class BehaveRun:
         self.stop_on_error = stop_on_error
 
     def run(self):
+        if not os.path.isdir(self.features_path):
+            sys.exit("Features path '{}' not found!".format(self.features_path))
+
         behave_args = [
                 "behave",
                 "-D", "features_path={}/".format(self.features_path),
