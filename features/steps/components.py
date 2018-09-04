@@ -215,6 +215,7 @@ def step_impl(context, seconds):
 
 
 @given(u'seleciono em {name} o valor {value}')  # noqa: F811
+@step(u'seleciono na {name} a opção {value}')  # noqa: F811
 def step_impl(context, name, value):
     # REFACTOR: STEPs nao deveriam ter logica
     if value == "<ignora>":
