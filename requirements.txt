@@ -9,7 +9,6 @@ cryptography==2.3
 dohq-tfs==1.0.112
 future==0.16.0
 idna==2.7
-Jinja2==2.10
 MarkupSafe==1.0
 nose==1.3.7
 ntlm-auth==1.2.0

@@ -7,7 +7,7 @@ cd beeweb
 virtualenv -p python3.6 .env
 . .env/bin/activate
 pip -q install -r requirements.txt
-pip -q install --editable cli/.
+cd cli; python setup.py install; cd ..
 
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
