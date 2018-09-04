@@ -107,6 +107,6 @@ venv.bak/
 
 config.ini
 example.db
-screenshots/
+output/
 chromedriver/
 vagrant/.vagrant/

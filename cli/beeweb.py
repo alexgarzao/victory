@@ -16,9 +16,11 @@ TFS_FEATURES_PATH = "./tfs/"
 
 @click.group()
 @click.option('--debug/--no-debug', default=False)
+@click.option('--stop-on-error/--dont-stop-on-error', default=False)
 @click.pass_context
-def cli(ctx, debug):
+def cli(ctx, debug, stop_on_error):
     ctx.obj['DEBUG'] = debug
+    ctx.obj['STOP-ON-ERROR'] = stop_on_error
 
 
 @cli.command()
@@ -83,7 +85,7 @@ def tfspull(ctx):
 @click.pass_context
 @click.argument('path')
 def run(ctx, path):
-    behave_run = BehaveRun(path)
+    behave_run = BehaveRun(path, ctx.obj['DEBUG'], ctx.obj['STOP-ON-ERROR'])
     behave_run.run()
 
 
