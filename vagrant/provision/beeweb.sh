@@ -12,4 +12,4 @@ pip -q install --editable cli/.
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-python cli/webdriver_download/webdriver.py update
+beeweb driverupdate
