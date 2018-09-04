@@ -13,6 +13,7 @@ class TfsPull:
         testsuites = self.tfs.get_testsuites()
 
         self.__create_tfs_features_path(self.features_path)
+        self.__create_tfs_features_path(self.features_path + '/custom_steps')
 
         with open(self.features_path + '/sequence.featureset', 'w') as f:
             for testsuite in testsuites:
