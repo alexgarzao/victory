@@ -3,6 +3,7 @@ from prettytable import PrettyTable
 
 
 class ScenariosResult:
+    US_TAG_PREFIX = "US."
     TESTCASE_TAG_PREFIX = "TestCase."
 
     def __init__(self):
@@ -18,17 +19,19 @@ class ScenariosResult:
         self.failed_scenarios = 0
         self.duration = 0.0
 
+        last_us_id = 0
         last_testcase_id = 0
 
         for feature_result in test_result:
-            last_us_id = feature_result['tags'][0].split('.')[1]
+            last_us_id = self.__get_tag_id(feature_result['tags'], ScenariosResult.US_TAG_PREFIX, last_us_id)
             self.total_features += 1
             if feature_result['status'] == 'failed':
                 self.build_status = 'FALHA'
                 self.failed_features += 1
 
             for scenario in feature_result['elements']:
-                last_testcase_id = self.__get_testcase_id(scenario['tags'], last_testcase_id)
+                last_testcase_id = self.__get_tag_id(
+                        scenario['tags'], ScenariosResult.TESTCASE_TAG_PREFIX, last_testcase_id)
                 self.total_scenarios += 1
                 if scenario['status'] == 'failed':
                     self.failed_scenarios += 1
@@ -53,14 +56,14 @@ class ScenariosResult:
 
         return test_result
 
-    def __get_testcase_id(self, tags, default_id):
+    def __get_tag_id(self, tags, tag_prefix, default_id):
         if len(tags) == 0:
             return default_id
 
         for tag in tags:
-            if tag.startswith(ScenariosResult.TESTCASE_TAG_PREFIX):
-                testcase_id = tag[len(ScenariosResult.TESTCASE_TAG_PREFIX):]
-                return testcase_id
+            if tag.startswith(tag_prefix):
+                tag_id = tag[len(tag_prefix):]
+                return tag_id
 
         return default_id
 
