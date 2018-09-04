@@ -84,7 +84,7 @@ def after_all(context):
 def __load_custom_steps(context):
     userdata = context.config.userdata
     features_path = userdata.get("features_path", "")
-    if features_path:
+    if features_path and os.path.isdir(features_path + "/custom_steps"):
         import sys
         sys.path.insert(0, features_path)
         import custom_steps  # noqa: F401
