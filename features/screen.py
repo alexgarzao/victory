@@ -30,7 +30,7 @@ class Screen:
     def add_class_name_element(self, name, class_name, ignore_displayed=False):
         self.__add_element(name, ClassNameElement(self.driver, name, class_name, ignore_displayed))
 
-    def find_element(self, name):
+    def find_element(self, name, parameter=None):
         name = name.lower()
         element = self.elements.get(name)
         if element is None:
@@ -38,7 +38,7 @@ class Screen:
             raise ElementNotFoundException("Element {} not found. Possible values: {}".format(name, possible))
 
         self.__wait_for_ajax()
-        return element.find_element()
+        return element.find_element(parameter)
 
     def get_element(self, name):
         name = name.lower()
