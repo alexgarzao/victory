@@ -84,9 +84,10 @@ def tfspull(ctx):
 @cli.command()
 @click.pass_context
 @click.argument('path')
-def run(ctx, path):
-    behave_run = BehaveRun(path, ctx.obj['DEBUG'], ctx.obj['STOP-ON-ERROR'])
-    behave_run.run()
+@click.option('--tags', multiple=True)
+def run(ctx, path, tags):
+    behave_run = BehaveRun()
+    behave_run.run(path, ctx.obj['DEBUG'], ctx.obj['STOP-ON-ERROR'], tags)
 
 
 # @cli.command()
