@@ -190,6 +190,7 @@ def step_impl(context, name, value, mask):
 
 
 @step(u'clico no {name}')  # noqa: F811
+@step(u'clico na {name}')
 @step(u'clico em {name}')
 def step_impl(context, name):
     # TODO: Precisa validar se esta habilitado?! visivel? clicavel?
@@ -215,7 +216,6 @@ def step_impl(context, seconds):
 
 
 @given(u'seleciono em {name} o valor {value}')  # noqa: F811
-@step(u'seleciono na {name} a opção {value}')  # noqa: F811
 def step_impl(context, name, value):
     # REFACTOR: STEPs nao deveriam ter logica
     if value == "<ignora>":
@@ -225,6 +225,12 @@ def step_impl(context, name, value):
     selected_option = select.first_selected_option
     set_value = selected_option.text
     assert set_value == value
+
+
+@then(u'seleciono nas {name} a opção {option}')  # noqa: F811
+def step_impl(context, name, option):
+    element = context.config.driver.current_screen.find_element(name, option)
+    element.click()
 
 
 @step(u'a URL é {url}')  # noqa: F811
