@@ -1,3 +1,5 @@
+import click
+
 from work_item import WorkItem
 
 
@@ -24,18 +26,18 @@ class TfsList:
         #     print('\n')
         # print('Fim da listagem\n\n')
         #
-        print('Listagem de todos os testsuites do projeto (com seus testcases):')
+        click.echo('Listagem de todos os testsuites do projeto (com seus testcases):')
         testsuites = self.tfs.get_testsuites()
 
         for testsuite in testsuites:
-            print('\nTestSuite:', testsuite['id'], testsuite['title'])
+            click.echo('\nTestSuite:{} {}'.format(testsuite['id'], testsuite['title']))
 
             testcases = self.tfs.get_testcases_from_testsuite(testsuite['id'])
 
             for testcase in testcases:
                 wi = WorkItem(testcase)
-                print('\n')
-                print(wi.to_scenario())
-                print('\n')
+                click.echo('\n')
+                click.echo(wi.to_scenario())
+                click.echo('\n')
 
-        print('Fim da listagem')
+        click.echo('Fim da listagem')

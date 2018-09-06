@@ -28,13 +28,14 @@ def cli(ctx, debug, stop_on_error):
 def drivertest(ctx):
     webdriver = WebDriverUpdate()
 
-    print("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
+    click.echo(
+        "Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
 
     if not webdriver.has_update():
-        print("WebDriver already updated!")
+        click.echo("WebDriver already updated!")
         return
 
-    print("WebDriver update available!")
+    click.echo("WebDriver update available!")
 
 
 @cli.command()
@@ -42,16 +43,16 @@ def drivertest(ctx):
 def driverupdate(ctx):
     webdriver = WebDriverUpdate()
 
-    print("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
+    click.echo("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
 
     if not webdriver.has_update():
-        print("WebDriver already updated!")
+        click.echo("WebDriver already updated!")
         return
 
     webdriver.update()
 
-    print("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
-    print("WebDriver downloaded!")
+    click.echo("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
+    click.echo("WebDriver downloaded!")
 
 
 @cli.command()
