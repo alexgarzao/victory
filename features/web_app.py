@@ -59,7 +59,12 @@ class WebApp:
         }
         self.chrome_driver_options.add_experimental_option("prefs", preferences)
 
-        self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
+        # Try to find in "./chromedriver/" first.
+        if os.path.exists(self.chrome_driver_path):
+            self.driver = webdriver.Chrome(self.chrome_driver_path, chrome_options=self.chrome_driver_options)
+        else:
+            self.driver = webdriver.Chrome(chrome_options=self.chrome_driver_options)
+
         self.driver.implicitly_wait(30)
 
         self.screens = Screens(self.driver)

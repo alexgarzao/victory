@@ -1,0 +1,37 @@
+# PARA FAZER O BUILD: docker build --force-rm -t beeweb .
+# PARA RODAR: docker run -e "FEATURES_PATH=samples/google-search" beeweb
+
+#FROM python:3.6-alpine
+FROM joyzoursky/python-chromedriver:3.7-alpine3.8-selenium
+
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+
+#COPY . /app
+
+COPY behave.ini /app
+COPY requirements.txt /app
+COPY cli /app/cli
+COPY features /app/features
+COPY samples /app/samples
+
+RUN apk add --no-cache --virtual .pynacl_deps build-base python3-dev libffi-dev libressl-dev unixodbc unixodbc-dev
+
+# update apk repo
+#RUN echo "http://dl-4.alpinelinux.org/alpine/v3.7/main" >> /etc/apk/repositories && \
+#    echo "http://dl-4.alpinelinux.org/alpine/v3.7/community" >> /etc/apk/repositories
+
+# install chromedriver
+RUN apk update
+RUN apk add chromium chromium-chromedriver
+
+
+
+RUN pip install -r requirements.txt
+RUN cd cli && python setup.py install && cd ..
+#RUN beeweb driverupdate
+#RUN cp /app/chromedriver/chromedriver /usr/bin
+
+
+CMD beeweb run $FEATURES_PATH
