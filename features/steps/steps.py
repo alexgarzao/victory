@@ -50,7 +50,8 @@ def step_impl(context):
     # REFACTOR: STEPs nao deveriam ter logica
     features_path = context.features_path
     path = features_path + "/" + context.config.get_string('FILES_PATH')
-    context.config.driver.open(context.config.get_bool('HEADLESS'), path)
+    headless = context.userdata.getbool("headless", context.config.get_bool('HEADLESS'))
+    context.config.driver.open(headless, path)
 
 
 @then('sou direcionado para a tela {screen}')  # noqa: F811

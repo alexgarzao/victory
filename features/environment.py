@@ -14,8 +14,8 @@ def before_all(context):
 
     # Gambi :-)
     # context.config esta sendo sobrescrito erroneamente. Refatorar!!!
-    userdata = context.config.userdata
-    context.features_path = userdata.get("features_path", ".")
+    context.userdata = context.config.userdata
+    context.features_path = context.userdata.get("features_path", ".")
 
     context.config = TestConfig()
     context.config.driver = WebApp()

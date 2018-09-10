@@ -6,7 +6,7 @@ import click
 
 
 class BehaveRun:
-    def run(self, features_path, debug, stop_on_error, tags):
+    def run(self, features_path, debug, stop_on_error, tags, headless):
         if not os.path.isdir(features_path):
             click.secho("Features path '{}' not found!".format(features_path), fg='red')
             sys.exit()
@@ -29,5 +29,9 @@ class BehaveRun:
 
         for tag in tags:
             behave_args.append("--tags={}".format(tag))
+
+        if headless:
+            behave_args.append("-D")
+            behave_args.append("headless")
 
         subprocess.run(behave_args)
