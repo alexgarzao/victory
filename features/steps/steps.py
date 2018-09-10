@@ -52,6 +52,8 @@ def step_impl(context):
     path = features_path + "/" + context.config.get_string('FILES_PATH')
     headless = context.userdata.getbool("headless", context.config.get_bool('HEADLESS'))
     context.config.driver.open(headless, path)
+    if headless:
+        context.config.set('SLEEP_BETWEEN_STEPS', 0)
 
 
 @then('sou direcionado para a tela {screen}')  # noqa: F811
