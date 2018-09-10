@@ -26,7 +26,7 @@ class WebApp:
         if headless:
             self.chrome_driver_options.add_argument('headless')
             self.chrome_driver_options.add_argument('no-sandbox')
-            self.chrome_driver_options.add_argument('--disable-gpu')
+            self.chrome_driver_options.add_argument('disable-gpu')
 
         # self.chrome_driver_options.add_argument('test-type')
         # self.chrome_driver_options.add_argument("disable-popup-blocking");
@@ -55,7 +55,8 @@ class WebApp:
 
         preferences = {
                 "download.default_directory": files_path,
-                "directory_upgrade": True,
+                "download.prompt_for_download": False,
+                "download.directory_upgrade": True,
                 "safebrowsing.enabled": True
         }
         self.chrome_driver_options.add_experimental_option("prefs", preferences)
