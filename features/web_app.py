@@ -26,6 +26,7 @@ class WebApp:
         if headless:
             self.chrome_driver_options.add_argument('headless')
             self.chrome_driver_options.add_argument('no-sandbox')
+            self.chrome_driver_options.add_argument('--disable-gpu')
 
         # self.chrome_driver_options.add_argument('test-type')
         # self.chrome_driver_options.add_argument("disable-popup-blocking");
