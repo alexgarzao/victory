@@ -110,7 +110,6 @@ class WebApp:
         self.driver.switch_to_window(previous_window_handle)
 
     def switch_to_frame(self, frame_name):
-        # import pdb; pdb.set_trace()
         frame = self.current_screen.find_element(frame_name)
         self.driver.switch_to_frame(frame)
 
