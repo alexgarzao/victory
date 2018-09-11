@@ -80,6 +80,13 @@ def step_impl(context):
     context.config.driver.switch_to_default()
 
 
+@then('volto para a janela anterior com a tela {screen}')  # noqa: F811
+def step_impl(context, screen):
+    # REFACTOR: STEPs nao deveriam ter logica
+    context.config.driver.return_previous_window()
+    context.config.driver.screen_assert_equal(screen)
+
+
 @then('sou direcionado para o {frame}')  # noqa: F811
 def step_impl(context, frame):
     context.config.driver.switch_to_frame(frame)

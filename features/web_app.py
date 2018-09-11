@@ -106,7 +106,7 @@ class WebApp:
         self.driver.switch_to_window(new_window_handle)
 
     def return_previous_window(self):
-        previous_window_handle = self.driver.window_handles[-1]
+        previous_window_handle = self.driver.window_handles[-2]
         self.driver.switch_to_window(previous_window_handle)
 
     def switch_to_frame(self, frame_name):
