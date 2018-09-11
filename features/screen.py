@@ -1,7 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-from element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement, ClassNameElement
+from element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement, ClassNameElement, CssSelectorElement
 from actions import Actions
 
 
@@ -29,6 +29,9 @@ class Screen:
 
     def add_class_name_element(self, name, class_name, ignore_displayed=False):
         self.__add_element(name, ClassNameElement(self.driver, name, class_name, ignore_displayed))
+
+    def add_css_selector_element(self, name, css, ignore_displayed=False):
+        self.__add_element(name, CssSelectorElement(self.driver, name, css, ignore_displayed))
 
     def find_element(self, name, parameter=None):
         name = name.lower()

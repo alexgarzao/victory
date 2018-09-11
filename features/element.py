@@ -23,6 +23,9 @@ class BaseElement(object):
     def find_element_by_class_name(self, name):
         return self.__try_to_get_element(self.driver.find_element_by_class_name, name)
 
+    def find_element_by_css_selector(self, name):
+        return self.__try_to_get_element(self.driver.find_element_by_css_selector, name)
+
     def __try_to_get_element(self, func, parameter):
         for retries in range(0, 5):
             el = func(parameter)
@@ -81,3 +84,11 @@ class ClassNameElement(BaseElement):
 
     def find_element(self, parameter):
         return self.find_element_by_class_name(self.internal_id.format(parameter))
+
+
+class CssSelectorElement(BaseElement):
+    def __init__(self, driver, name, internal_id, ignore_displayed):
+        super().__init__(driver, name, internal_id, ignore_displayed)
+
+    def find_element(self, parameter):
+        return self.find_element_by_css_selector(self.internal_id.format(parameter))

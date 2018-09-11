@@ -86,6 +86,16 @@ def step_impl(context, name, class_name):
     context.config.driver.current_screen.add_class_name_element(name, class_name, ignore_displayed=False)
 
 
+@then(u'o elemento {name} tem o css {css} ignorando is_displayed')  # noqa: F811
+def step_impl(context, name, css):
+    context.config.driver.current_screen.add_css_element(name, css, ignore_displayed=True)
+
+
+@then(u'o elemento {name} tem o css {css}')  # noqa: F811
+def step_impl(context, name, css):
+    context.config.driver.current_screen.add_css_selector_element(name, css, ignore_displayed=False)
+
+
 @step(u'vejo o {name} com o valor {expected_value}')  # noqa: F811
 def step_impl(context, name, expected_value):
     # REFACTOR: STEPs nao deveriam ter logica
@@ -261,6 +271,7 @@ def step_impl(context, element_name, expected_value):
     assert value == expected_value
 
 
+@given(u'verifico que a página tem o conteúdo {expected_value}')  # noqa: F811
 @then(u'verifico que a página tem o conteúdo {expected_value}')  # noqa: F811
 def step_impl(context, expected_value):
     assert context.config.driver.driver.page_source.find(expected_value) > 0, \
