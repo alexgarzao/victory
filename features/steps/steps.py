@@ -87,7 +87,7 @@ def step_impl(context, screen):
     context.config.driver.screen_assert_equal(screen)
 
 
-@then('sou direcionado para o {frame}')  # noqa: F811
+@then('sou direcionado para o frame {frame}')  # noqa: F811
 def step_impl(context, frame):
     context.config.driver.switch_to_frame(frame)
 
