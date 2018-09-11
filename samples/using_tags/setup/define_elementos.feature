@@ -10,5 +10,4 @@ Funcionalidade: Definir o mapeamento dos elementos da interface
       | barra de busca por nome   | nome   | q                                            |
       | barra de busca por id     | id     | lsb-ib                                       |
       | barra de busca por classe | classe | gsfi                                         |
-      # E o elemento barra de busca por texto tem o texto lsb-ib
       | botão de pesquisa         | xpath  | //*[@id="tsf"]/div[2]/div[3]/center/input[1] |

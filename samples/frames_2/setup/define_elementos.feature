@@ -10,4 +10,3 @@ Funcionalidade: Definir o mapeamento dos elementos da interface
       | frame esquerdo   | nome   | frame-left    |
       | frame do meio    | nome   | frame-middle  |
       | frame da direita | nome   | frame-right   |
-      # | conteúdo       | id     | content       |
