@@ -252,3 +252,16 @@ def step_impl(context):
 def step_impl(context, element_name):
     # TODO: remover logica do step :-)
     assert context.config.driver.current_screen.find_element(element_name).is_displayed() is True
+
+
+@then(u'verifico que o {element_name} tem o valor {expected_value}')  # noqa: F811
+def step_impl(context, element_name, expected_value):
+    element = context.config.driver.current_screen.find_element(element_name)
+    value = element.get_attribute('value')
+    assert value == expected_value
+
+
+@then(u'verifico que a página tem o conteúdo {expected_value}')  # noqa: F811
+def step_impl(context, expected_value):
+    assert context.config.driver.driver.page_source.find(expected_value) > 0, \
+        "{} not found in page".format(expected_value)
