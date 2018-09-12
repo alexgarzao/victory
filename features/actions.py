@@ -26,7 +26,6 @@ class Actions:
         return self.actions.get(action_name)
 
     def run_action(self, context, action_name):
-        action_name = action_name.lower()
         # TODO: retornar steps aos inves de executar. Assim nao precisa conhecer context.
         events, parameters = self.__match_action(action_name)
         if events is None:
@@ -42,7 +41,6 @@ class Actions:
         context.execute_steps(steps_to_run)
 
     def __match_action(self, action_name):
-        action_name = action_name.lower()
         for action_type in self.actions.keys():
             r = parse(action_type, action_name)
             if r:

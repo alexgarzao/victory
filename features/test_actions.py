@@ -68,5 +68,5 @@ def test_run_undefined_action():
     assert_exception_and_message(
             UndefinedActionException,
             lambda: a.run_action(None, 'A2'),
-            'Undefined action a2. Possible values: a1',
+            'Undefined action A2. Possible values: a1',
     )
