@@ -5,7 +5,7 @@ class Actions:
     def __init__(self):
         self.actions = {}
 
-    def new_action(self, action_name):
+    def add_action(self, action_name):
         action_name = action_name.lower()
         if self.actions.get(action_name) is not None:
             raise DuplicatedActionException("Action {} already exists".format(action_name))
