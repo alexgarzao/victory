@@ -13,16 +13,10 @@ def before_all(context):
     __load_web_steps(context)
     __load_custom_steps(context)
 
-    # Gambi :-)
-    # context.config esta sendo sobrescrito erroneamente. Refatorar!!!
-    context.userdata = context.config.userdata
-    context.features_path = context.userdata.get("features_path", ".")
+    context.test_config = Config()
+    context.driver = WebDriver()
+    context.driver.chrome_driver_path = ("./chromedriver/chromedriver")
 
-    context.config = Config()
-    context.config.driver = WebDriver()
-    context.config.driver.chrome_driver_path = ("./chromedriver/chromedriver")
-
-    # __create_dir('./output/')
     __create_dir('./output/screenshots/')
 
 
@@ -33,7 +27,7 @@ def before_scenario(context, scenario):
 def after_scenario(context, scenario):
     if context.failed:
         log = './output/LOG-EXECUCAO-{}.log'.format(strftime("%Y-%m-%d", gmtime()))
-        screen_name = __get_screenshot(context.config.driver, scenario, "FALHA")
+        screen_name = __get_screenshot(context.driver, scenario, "FALHA")
         message = "\nFeature:{}\n   Linha em que falhou:{}\n   Screenshot:{}\n\n".format(
                 scenario.filename,
                 scenario.line,
@@ -46,7 +40,7 @@ def after_scenario(context, scenario):
     else:
         if context.config_scenario:
             return
-        screen_name = __get_screenshot(context.config.driver, scenario, "SUCESSO")
+        screen_name = __get_screenshot(context.driver, scenario, "SUCESSO")
 
 
 def __get_screenshot(webdriver, scenario, state):
@@ -72,14 +66,14 @@ def after_step(context, step):
     if context.config_scenario:
         return
 
-    sleep_time = context.config.get_number('SLEEP_BETWEEN_STEPS')
+    sleep_time = context.test_config.get_number('SLEEP_BETWEEN_STEPS')
     if sleep_time > 0:
         sleep(sleep_time/1000)
 
 
 def after_all(context):
-    if context.config.driver:
-        context.config.driver.quit()
+    if context.driver:
+        context.driver.quit()
 
 
 def __load_web_steps(context):
