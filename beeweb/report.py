@@ -31,7 +31,7 @@ Cenários:<br>
 """
 
 
-class TfsReport:
+class Report:
     def __init__(self, smtp_server, email_user, email_password):
         self.smtp_server = smtp_server
         self.email_user = email_user

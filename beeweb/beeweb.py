@@ -3,7 +3,7 @@ import click
 from tfs_list import TfsList
 from tfs_pull import TfsPull
 # from tfs_update import TfsUpdate
-from tfs_report import TfsReport
+from report import Report
 from tfs_integration import TfsIntegration
 from tfs_config import TfsConfig
 from report_config import ReportConfig
@@ -43,7 +43,8 @@ def drivertest(ctx):
 def driverupdate(ctx):
     webdriver = WebDriverUpdate()
 
-    click.echo("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
+    click.echo("Installed release: {} Latest release: {}".format(
+        webdriver.installed_release(), webdriver.latest_release()))
 
     if not webdriver.has_update():
         click.echo("WebDriver already updated!")
@@ -51,7 +52,8 @@ def driverupdate(ctx):
 
     webdriver.update()
 
-    click.echo("Installed release: {} Latest release: {}".format(webdriver.installed_release(), webdriver.latest_release()))
+    click.echo("Installed release: {} Latest release: {}".format(
+        webdriver.installed_release(), webdriver.latest_release()))
     click.echo("WebDriver downloaded!")
 
 
@@ -105,8 +107,8 @@ def sendreport(ctx):
     config = ReportConfig("./config.ini", "REPORT")
     config.read()
 
-    tfs_report = TfsReport(config.smtp_server(), config.username(), config.password())
-    tfs_report.send_by_email(
+    report = Report(config.smtp_server(), config.username(), config.password())
+    report.send_by_email(
             smtp_from=config.smtp_from(),
             smtp_to=config.smtp_to(),
             project_name=config.project_name(),

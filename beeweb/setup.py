@@ -5,7 +5,7 @@ setup(
     version='0.1',
     py_modules=[
         'beeweb', 'tfs_config', 'tfs_pull', 'tfs_list', 'tfs_integration', 'test_suite',
-        'report_config', 'work_item', 'scenarios_result', 'smtp_email', 'tfs_report', 'webdriver_update',
+        'report_config', 'work_item', 'scenarios_result', 'smtp_email', 'report', 'webdriver_update',
         'behave_run'
     ],
     install_requires=[
