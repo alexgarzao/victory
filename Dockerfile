@@ -16,10 +16,10 @@ RUN apk add chromium chromium-chromedriver
 WORKDIR /app
 COPY behave.ini /app
 COPY requirements.txt /app
-COPY cli /app/cli
+COPY beeweb /app/beeweb
 COPY features /app/features
 COPY samples /app/samples
 RUN pip install -r requirements.txt
-RUN cd cli && python setup.py install && cd ..
+RUN cd beeweb && python setup.py install && cd ..
 
 CMD beeweb run $FEATURES_PATH
