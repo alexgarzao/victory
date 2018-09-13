@@ -68,6 +68,6 @@ def test_run_undefined_action():
 
     assert_exception_and_message(
             UndefinedActionException,
-            lambda: a.run_action(None, 'A2'),
+            lambda: a.get_steps_to_execute('A2'),
             'Undefined action A2. Possible values: a1',
     )

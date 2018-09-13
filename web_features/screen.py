@@ -40,8 +40,8 @@ class Screen:
     def add_event_in_action(self, action_name, event):
         self.actions.add_event(action_name, event)
 
-    def run_action(self, context, action_name):
-        self.actions.run_action(context, action_name)
+    def get_steps_to_execute(self, action_name):
+        return self.actions.get_steps_to_execute(action_name)
 
     def find_element(self, name, parameter=None):
         name = name.lower()

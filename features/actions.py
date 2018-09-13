@@ -25,20 +25,19 @@ class Actions:
         action_name = action_name.lower()
         return self.actions.get(action_name)
 
-    def run_action(self, context, action_name):
-        # TODO: retornar steps aos inves de executar. Assim nao precisa conhecer context.
+    def get_steps_to_execute(self, action_name):
         events, parameters = self.__match_action(action_name)
         if events is None:
             possible = ','.join(list(self.actions))
             raise UndefinedActionException("Undefined action {}. Possible values: {}".format(action_name, possible))
 
         assert events is not None
-        steps_to_run = ''
+        steps_to_execute = ''
         for event in events:
             step_event = self.__replace_parameters(event, parameters)
-            steps_to_run += step_event + '\n'
+            steps_to_execute += step_event + '\n'
 
-        context.execute_steps(steps_to_run)
+        return steps_to_execute
 
     def __match_action(self, action_name):
         for action_type in self.actions.keys():
