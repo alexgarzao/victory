@@ -14,7 +14,7 @@ class WebDriver:
         self.driver = None
         self.chrome_driver_path = None
         self.screens = Screens(None)
-        self.current_screen = None
+        self.__current_screen = None
         self.queries = Queries()
         self.files = Files()
         self.retries = 10
@@ -110,7 +110,7 @@ class WebDriver:
         self.driver.switch_to_window(previous_window_handle)
 
     def switch_to_frame(self, frame_name):
-        frame = self.current_screen.find_element(frame_name)
+        frame = self.__current_screen.find_element(frame_name)
         self.driver.switch_to_frame(frame)
 
     def switch_to_default(self):
@@ -128,7 +128,7 @@ class WebDriver:
             try:
                 current_url = self.driver.current_url[0:len(url)]
                 assert current_url == url
-                self.current_screen = screen
+                self.__current_screen = screen
                 return
             except AssertionError:
                 time.sleep(1)
@@ -141,7 +141,7 @@ class WebDriver:
         screen = self.screens.get(screen_name)
         url = screen.get_url()
         self.driver.get(url)
-        self.current_screen = screen
+        self.__current_screen = screen
 
     # def fill_value_by_name(self, field, value):
     #     el = self.driver.find_element_by_name(field)
@@ -159,13 +159,15 @@ class WebDriver:
         return value
 
     def screenshot(self, file_prefix):
-        path = os.getcwd()+'/output/screenshots/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+"-"+file_prefix+".png"
+        path = os.getcwd() + '/output/screenshots/' + \
+            time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()) +\
+            "-" + file_prefix + ".png"
         self.driver.save_screenshot(path)
         return path
 
     def new_screen(self, name):
         screen = self.screens.add(name)
-        self.current_screen = screen
+        self.__current_screen = screen
         return screen
 
     def add_file(self, id, filename):
@@ -173,6 +175,9 @@ class WebDriver:
 
     def get_filename(self, id):
         return self.files.get_filename(id)
+
+    def get_current_screen(self):
+        return self.__current_screen
 
     # TODO: Duplicated code :-/
     def __wait_for_ajax(self):
