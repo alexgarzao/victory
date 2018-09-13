@@ -1,4 +1,4 @@
-class TestConfig(object):
+class Config(object):
     def __init__(self):
         self.configs = {}
         self.__set_defaults()
