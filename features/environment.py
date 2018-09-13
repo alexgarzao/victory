@@ -6,7 +6,7 @@ from behave import register_type
 from config import Config
 from time import gmtime, strftime, sleep
 
-from web_features.web_app import WebApp
+from web_features.web_driver import WebDriver
 
 
 def before_all(context):
@@ -19,7 +19,7 @@ def before_all(context):
     context.features_path = context.userdata.get("features_path", ".")
 
     context.config = Config()
-    context.config.driver = WebApp()
+    context.config.driver = WebDriver()
     context.config.driver.chrome_driver_path = ("./chromedriver/chromedriver")
 
     # __create_dir('./output/')

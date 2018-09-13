@@ -9,7 +9,7 @@ from web_features.screens import Screens
 from features.files import Files
 
 
-class WebApp:
+class WebDriver:
     def __init__(self):
         self.driver = None
         self.chrome_driver_path = None
