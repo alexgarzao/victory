@@ -34,6 +34,15 @@ class Screen:
     def add_css_selector_element(self, name, css, ignore_displayed=False):
         self.__add_element(name, CssSelectorElement(self.driver, name, css, ignore_displayed))
 
+    def new_action(self, name):
+        self.actions.new_action(name)
+
+    def add_event_in_action(self, action_name, event):
+        self.actions.add_event(action_name, event)
+
+    def run_action(self, context, action_name):
+        self.actions.run_action(context, action_name)
+
     def find_element(self, name, parameter=None):
         name = name.lower()
         element = self.elements.get(name)

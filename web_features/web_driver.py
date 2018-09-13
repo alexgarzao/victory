@@ -158,10 +158,6 @@ class WebDriver:
             value = elemento.text
         return value
 
-    def find_element(self, component_name):
-        element = self.current_screen.find_element(component_name)
-        return element.find_element()
-
     def screenshot(self, file_prefix):
         path = os.getcwd()+'/output/screenshots/'+time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())+"-"+file_prefix+".png"
         self.driver.save_screenshot(path)
@@ -171,15 +167,6 @@ class WebDriver:
         screen = self.screens.add(name)
         self.current_screen = screen
         return screen
-
-    def new_action(self, action_name):
-        self.current_screen.actions.new_action(action_name)
-
-    def add_event_in_action(self, action_name, event):
-        self.current_screen.actions.add_event(action_name, event)
-
-    def run_action(self, context, action_name):
-        self.current_screen.actions.run_action(context, action_name)
 
     def add_file(self, id, filename):
         self.files.add(id, filename)
