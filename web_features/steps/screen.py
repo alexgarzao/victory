@@ -1,16 +1,4 @@
-from behave import given, then, step
-
-
-@given(u'a configuração {config_name} é {config_value}')  # noqa: F811
-def step_impl(context, config_name, config_value):
-    context.config.set(config_name, config_value)
-
-
-@given(u'que a configuração está na tabela abaixo')  # noqa: F811
-def step_impl(context):
-    for row in context.table:
-        context.config.set(name=row['nome'], value=row['valor'])
-    context.config_scenario = True
+from behave import given, then
 
 
 @given(u'que estou na tela {screen}')  # noqa: F811
@@ -43,17 +31,6 @@ def step_impl(context, url):
 @then('sou direcionado para a url {url}')
 def step_impl(context, url):
     context.config.driver.url_assert_equal(url)
-
-
-@then(u'o teste é iniciado')  # noqa: F811
-def step_impl(context):
-    # REFACTOR: STEPs nao deveriam ter logica
-    features_path = context.features_path
-    path = features_path + "/" + context.config.get_string('FILES_PATH')
-    headless = context.userdata.getbool("headless", context.config.get_bool('HEADLESS'))
-    context.config.driver.open(headless, path)
-    if headless:
-        context.config.set('SLEEP_BETWEEN_STEPS', 0)
 
 
 @then('sou direcionado para a tela {screen}')  # noqa: F811
@@ -90,17 +67,3 @@ def step_impl(context, screen):
 @then('sou direcionado para o frame {frame}')  # noqa: F811
 def step_impl(context, frame):
     context.config.driver.switch_to_frame(frame)
-
-
-@step(u'a ação {action_name} é')  # noqa: F811
-def step_impl(context, action_name):
-    context.config.driver.new_action(action_name)
-
-    for row in context.table:
-        context.config.driver.add_event_in_action(action_name, event=row['evento'])
-
-
-@step(u'executo a {action_name}')  # noqa: F811
-@step(u'executo o {action_name}')
-def step_impl(context, action_name):
-    context.config.driver.run_action(context, action_name)

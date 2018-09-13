@@ -1,7 +1,8 @@
 from nose.tools import raises
-from custom_asserts import assert_exception_and_message
 
-from actions import Actions, DuplicatedActionException, UndefinedActionException
+from .context import assert_exception_and_message
+
+from .context import Actions, DuplicatedActionException, UndefinedActionException
 
 
 def test_action_with_one_event():

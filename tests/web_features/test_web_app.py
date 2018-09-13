@@ -1,9 +1,9 @@
 from nose.tools import raises
-from custom_asserts import assert_exception_and_message
 
-from web_app import WebApp
-from screens import DuplicatedScreenException, ScreenNotFoundException
-from screen import DuplicatedElementException, ElementNotFoundException
+from .context import assert_exception_and_message
+from .context import WebApp
+from .context import DuplicatedScreenException, ScreenNotFoundException
+from .context import DuplicatedElementException, ElementNotFoundException
 
 
 def test_valid_elements_in_one_screen():

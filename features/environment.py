@@ -6,10 +6,11 @@ from behave import register_type
 from test_config import TestConfig
 from time import gmtime, strftime, sleep
 
-from web_app import WebApp
+from web_features.web_app import WebApp
 
 
 def before_all(context):
+    __load_web_steps(context)
     __load_custom_steps(context)
 
     # Gambi :-)
@@ -79,6 +80,12 @@ def after_step(context, step):
 def after_all(context):
     if context.config.driver:
         context.config.driver.quit()
+
+
+def __load_web_steps(context):
+    import sys
+    sys.path.insert(0, "web_features")
+    import steps  # noqa: F401
 
 
 def __load_custom_steps(context):

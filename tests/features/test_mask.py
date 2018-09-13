@@ -1,4 +1,4 @@
-from common import value_with_mask
+from .context import value_with_mask
 
 
 def test_1():

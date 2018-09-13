@@ -1,5 +1,5 @@
-from sqlite import Sqlite
-from sqlserver import SqlServer
+from features.sqlite import Sqlite
+from features.sqlserver import SqlServer
 
 
 class Queries:

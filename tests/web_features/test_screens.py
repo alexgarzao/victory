@@ -1,6 +1,6 @@
-from custom_asserts import assert_exception_and_message
-from screen import ElementNotFoundException, DuplicatedElementException
-from screens import Screens, ScreenNotFoundException, DuplicatedScreenException
+from .context import assert_exception_and_message
+from .context import ElementNotFoundException, DuplicatedElementException
+from .context import Screens, ScreenNotFoundException, DuplicatedScreenException
 
 
 def test_adding_one_screen_with_one_element():

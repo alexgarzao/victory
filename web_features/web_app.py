@@ -4,9 +4,9 @@ import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
-from queries import Queries
-from screens import Screens
-from files import Files
+from features.queries import Queries
+from web_features.screens import Screens
+from features.files import Files
 
 
 class WebApp:

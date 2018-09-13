@@ -1,4 +1,4 @@
-from sqlite import Sqlite
+from .context import Sqlite
 
 
 def test_create_example_database():

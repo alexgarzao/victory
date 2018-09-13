@@ -1,9 +1,9 @@
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-from element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement, ClassNameElement, \
+from .element import IdElement, TextElement, NameElement, XpathElement, AutomationIdElement, ClassNameElement, \
     CssSelectorElement
-from actions import Actions
+from features.actions import Actions
 
 
 class Screen:
