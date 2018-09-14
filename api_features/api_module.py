@@ -6,7 +6,6 @@ from api_features.variables import Variables
 
 
 class ApiModule(Module):
-    # TODO: Nao seria melhor receber context no init?
     def __init__(self, context):
         super().__init__('api', context)
         self.driver = ApiDriver()

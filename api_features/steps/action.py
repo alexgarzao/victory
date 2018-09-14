@@ -3,18 +3,17 @@ from behave import given, then, when
 
 @given(u'que quero definir o {action_name}')  # noqa: F811
 def step_impl(context, action_name):
-    context.module.driver.add_action(action_name)
+    context.action = context.module.driver.add_action(action_name)
 
 
 @given(u'o path é {path}')  # noqa: F811
 def step_impl(context, path):
-    # TODO: daria para guardar o current endpoint em context... seria uma bao estrategia?
-    context.module.driver.get_current_action().set_path(path)
+    context.action.set_path(path)
 
 
 @given(u'o método é {method}')  # noqa: F811
 def step_impl(context, method):
-    context.module.driver.get_current_action().set_method(method)
+    context.action.set_method(method)
 
 
 @then(u'os campos são')  # noqa: F811
@@ -23,7 +22,7 @@ def step_impl(context):
         name = row['nome']
         type = row['tipo']
         field = row['campo no json']
-        context.module.driver.get_current_action().add_field(name, type, field)
+        context.action.add_field(name, type, field)
 
 
 @then(u'os códigos de retorno são')  # noqa: F811
@@ -31,7 +30,7 @@ def step_impl(context):
     for row in context.table:
         http_status_code = row['código']
         alias = row['status']
-        context.module.driver.get_current_action().add_status_code_alias(int(http_status_code), alias)
+        context.action.add_status_code_alias(int(http_status_code), alias)
 
 
 @given(u'que quero {action}')  # noqa: F811
