@@ -1,7 +1,7 @@
-Funcionalidade: Definir os endpoints
+Funcionalidade: Definir as ações
 
-  Cenário: Definindo o endpoint de login
-    Dado que quero definir o endpoint de login
+  Cenário: Definindo logar
+    Dado que quero definir o logar
     E o path é /login
     E o método é POST
 
@@ -17,9 +17,8 @@ Funcionalidade: Definir os endpoints
       | 204    | login válido   |
       | 404    | login inválido |
 
-  Cenário: Definindo o endpoint de imóveis
-    # TODO: Isso seria definir um endpoint ou uma especie de acao????
-    Dado que quero definir o endpoint de cadastro de imóvel
+  Cenário: Definindo cadastrar um imóvel
+    Dado que quero definir o cadastrar um imóvel
     E o path é /imoveis
     E o método é POST
 
@@ -45,8 +44,8 @@ Funcionalidade: Definir os endpoints
       # | 400    | requisição inválida       | #TODO: onde ficam os status code genéricos?
       # | 200    | requisição ok             |
 
-  Cenário: Definindo a listagem de imóveis
-    Dado que quero definir o endpoint de listagem de imóveis
+  Cenário: Definindo listar imóveis
+    Dado que quero definir o listar imóveis
     E o path é /imoveis
     E o método é GET
 

@@ -3,7 +3,7 @@ Funcionalidade: Login
 # TODO: Setup do teste sempre que troca de feature.
 
   Cenário: Como usuário tento me logar com uma senha inválida
-    Dado que quero executar o login
+    Dado que quero logar
     E o campo usuário é usuario@usuario.com
     E o campo senha é 'senha invalida'
     Quando tento executar

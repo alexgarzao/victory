@@ -3,13 +3,13 @@ Funcionalidade: Cadastro de imóveis
 # TODO: Setup do teste sempre que troca de feature.
 
   Cenário: Como usuário quero listar meus imóveis cadastrados
-    Dado que quero executar a listagem de imóveis
+    Dado que quero listar imóveis
     Quando tento executar
     Então recebo o status OK
     E obtenho uma lista vazia
 
   Esquema do Cenário: Como usuário quero cadastrar imóveis com dados válidos
-    Dado que quero executar o cadastro de imóvel
+    Dado que quero cadastrar um imóvel
     E o campo nome do proprietário é <nome do proprietário>
     E o campo características do imóvel é <características>
     E o campo endereço do imóvel é <endereço>
@@ -24,7 +24,7 @@ Funcionalidade: Cadastro de imóveis
       | Proprietário 02      | nao          | <nulo>          | Rua B Porto Alegre Rio Grande do Sul | 2000.0 |
 
   Cenário: Como usuário quero listar meus imóveis cadastrados
-    Dado que quero executar a listagem de imóveis
+    Dado que quero listar imóveis
     Quando tento executar
     Então recebo o status OK
     E obtenho a lista de dados abaixo

@@ -4,7 +4,7 @@ from api_features.utils import define_value, assert_equal, parse_value
 
 @then(u'obtenho a lista de dados abaixo')  # noqa: F811
 def step_impl(context):
-    api_result = context.endpoint.api.retorno.json()
+    api_result = context.action.api.retorno.json()
     valida_lista_dados(context, api_result)
 
 
@@ -33,7 +33,7 @@ def valida_lista_dados(context, api_result):
                 continue
 
             # TODO: acho que o alias poderia indicar o objeto tambem.
-            field = context.endpoint.get_field(alias)
+            field = context.action.get_field(alias)
             assert field is not None, 'Alias %s nao encontrado' % alias
             field_name = field.json_name
 
@@ -72,5 +72,5 @@ def __split_name(name):
 
 @then(u'obtenho uma lista vazia')  # noqa: F811
 def step_impl(context):
-    api_result = context.endpoint.api.retorno.json()
+    api_result = context.action.api.retorno.json()
     assert_equal(context, len(api_result), 0, 'Zero registros')

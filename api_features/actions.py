@@ -3,7 +3,7 @@ from api_features.http_status_codes import HttpStatusCodeAliasList
 from api_features.api import Api
 
 
-class Endpoint(object):
+class Action(object):
     def __init__(self, base_url, alias):
         self.base_url = base_url
         self.alias = alias
@@ -48,14 +48,14 @@ class Endpoint(object):
         return self.base_url + '/' + self.path
 
 
-class EndpointList(object):
+class ActionList(object):
     def __init__(self):
-        self.__endpoint_list = {}
+        self.__action_list = {}
 
     def add(self, base_url, alias):
-        endpoint = Endpoint(base_url, alias)
-        self.__endpoint_list[alias] = endpoint
-        return endpoint
+        action = Action(base_url, alias)
+        self.__action_list[alias] = action
+        return action
 
     def get(self, alias):
-        return self.__endpoint_list[alias]
+        return self.__action_list[alias]
