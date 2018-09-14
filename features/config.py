@@ -8,7 +8,7 @@ class Config(object):
         self.set('HEADLESS', parameters.get("headless", self.get_string('HEADLESS')))
 
     def set(self, name, value):
-        assert name in ('HEADLESS', 'SLEEP_BETWEEN_STEPS', 'FILES_PATH', 'FEATURES_PATH')
+        assert name in ('HEADLESS', 'SLEEP_BETWEEN_STEPS', 'FILES_PATH', 'FEATURES_PATH', 'BASE_URL')
         self.configs[name] = value
 
     def get_string(self, name, default=""):
@@ -24,3 +24,4 @@ class Config(object):
         self.set('HEADLESS', 'False')
         self.set('SLEEP_BETWEEN_STEPS', '0')
         self.set('FILES_PATH', '.')
+        self.set('BASE_URL', '/')
