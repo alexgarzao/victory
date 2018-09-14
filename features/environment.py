@@ -4,20 +4,29 @@ import shutil
 from behave import register_type
 
 from config import Config
-from time import gmtime, strftime, sleep
-
-from web_features.web_driver import WebDriver
 
 
 def before_all(context):
-    __load_web_steps(context)
+    context.module = __choose_module_class(context, context.config.userdata['module'])
+    context.module.before_all()
+
     __load_custom_steps(context)
 
     context.test_config = Config()
-    context.driver = WebDriver()
-    context.driver.chrome_driver_path = ("./chromedriver/chromedriver")
 
+    # TODO: mover para o modulo
     __create_dir('./output/screenshots/')
+
+
+def __choose_module_class(context, module):
+    if module == 'web':
+        from web_features.web_module import WebModule
+        return WebModule(context)
+    elif module == 'api':
+        from api_features.api_module import ApiModule
+        return ApiModule(context)
+    else:
+        assert False, "Undefined module {}".format(module)
 
 
 def before_scenario(context, scenario):
@@ -25,61 +34,15 @@ def before_scenario(context, scenario):
 
 
 def after_scenario(context, scenario):
-    if context.failed:
-        log = './output/LOG-EXECUCAO-{}.log'.format(strftime("%Y-%m-%d", gmtime()))
-        screen_name = __get_screenshot(context.driver, scenario, "FALHA")
-        message = "\nFeature:{}\n   Linha em que falhou:{}\n   Screenshot:{}\n\n".format(
-                scenario.filename,
-                scenario.line,
-                screen_name
-        )
-        print(message)
-
-        with open(log, 'a') as arq:
-            arq.write(message)
-    else:
-        if context.config_scenario:
-            return
-        screen_name = __get_screenshot(context.driver, scenario, "SUCESSO")
-
-
-def __get_screenshot(webdriver, scenario, state):
-    tags = ''
-    tag_list = scenario.feature.tags + scenario.tags
-
-    if tag_list:
-        tags += ','.join(tag_list) + '-'
-
-    screen_name = webdriver.screenshot(
-            '{}-{}CENARIO: {}-Linha:{}'.format(
-                    state,
-                    tags,
-                    os.path.basename(scenario.name),
-                    scenario.line
-            )
-    )
-
-    return screen_name
+    context.module.after_scenario(scenario)
 
 
 def after_step(context, step):
-    if context.config_scenario:
-        return
-
-    sleep_time = context.test_config.get_number('SLEEP_BETWEEN_STEPS')
-    if sleep_time > 0:
-        sleep(sleep_time/1000)
+    context.module.after_step(step)
 
 
 def after_all(context):
-    if context.driver:
-        context.driver.quit()
-
-
-def __load_web_steps(context):
-    import sys
-    sys.path.insert(0, "web_features")
-    import steps  # noqa: F401
+    context.module.after_all()
 
 
 def __load_custom_steps(context):

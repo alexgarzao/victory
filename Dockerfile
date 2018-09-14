@@ -1,5 +1,5 @@
 # PARA FAZER O BUILD: docker build --force-rm -t beeweb .
-# PARA RODAR: docker run -e "FEATURES_PATH=samples/google-search" beeweb
+# PARA RODAR: docker run -e "MODULE=web FEATURES_PATH=samples/google-search" beeweb
 
 FROM python:3.6-alpine
 
@@ -22,4 +22,4 @@ COPY samples /app/samples
 RUN pip install -r requirements.txt
 RUN cd beeweb && python setup.py install && cd ..
 
-CMD beeweb run $FEATURES_PATH
+CMD beeweb run $MODULE $FEATURES_PATH

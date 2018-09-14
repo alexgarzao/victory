@@ -6,7 +6,7 @@ import click
 
 
 class BehaveRun:
-    def run(self, features_path, debug, stop_on_error, tags, headless):
+    def run(self, module, features_path, debug, stop_on_error, tags, headless):
         if not os.path.isdir(features_path):
             click.secho("Features path '{}' not found!".format(features_path), fg='red')
             sys.exit()
@@ -14,6 +14,7 @@ class BehaveRun:
         behave_args = [
                 "behave",
                 "-D", "features_path={}/".format(features_path),
+                "-D", "module={}".format(module),
                 "./features", "@{}/sequence.featureset".format(features_path),
                 "--format", "pretty",
                 "--outfile", "/dev/stdout",

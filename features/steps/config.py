@@ -17,11 +17,4 @@ def step_impl(context):
 def step_impl(context):
     # REFACTOR: STEPs nao deveriam ter logica
     context.test_config.load_from_command_line(context.config.userdata)
-    features_path = context.test_config.get_string("FEATURES_PATH")
-    path = features_path + "/" + context.test_config.get_string('FILES_PATH')
-    headless = context.test_config.get_bool('HEADLESS')
-
-    if headless:
-        context.test_config.set('SLEEP_BETWEEN_STEPS', 0)
-
-    context.driver.open(headless, path)
+    context.module.start()
