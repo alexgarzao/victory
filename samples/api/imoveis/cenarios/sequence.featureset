@@ -1,0 +1,5 @@
+./configuracao/configuracao.feature
+./configuracao/define_elementos.feature
+./login/login_invalido.feature
+./login/login_valido.feature
+./imovel/imovel.feature
