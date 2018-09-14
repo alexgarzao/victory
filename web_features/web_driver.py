@@ -165,7 +165,7 @@ class WebDriver:
         self.driver.save_screenshot(path)
         return path
 
-    def new_screen(self, name):
+    def add_screen(self, name):
         screen = self.screens.add(name)
         self.__current_screen = screen
         return screen
