@@ -1,10 +1,12 @@
 import json
+from datetime import date
 
 
 def assert_equal(context, result, expected_result, custom_message):
 
     expected_result = context.module.variables.get_content(expected_result)
 
+    #TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
     if expected_result == 'sim':
         expected_result = True
         message = custom_message + ' recebido "%s" difere do esperado "%s"'
@@ -29,12 +31,63 @@ def assert_equal(context, result, expected_result, custom_message):
         expected_result = u''
         message = custom_message + ' recebido "%s" difere do esperado not "%s"'
         assert result != expected_result, message % (result, expected_result)
+    elif expected_result == '<hoje>':
+        expected_result = str(date.today())
+        if result:
+            result = result.split('T')[0]
+        message = custom_message + 'data recebida "%s" difere do dia atual "%s" '
+        assert result == expected_result, message % (result, expected_result)
     else:
         message = custom_message + ' recebido "%s" difere do esperado "%s"'
         assert result == expected_result or str(result) == expected_result, message % (result, expected_result)
 
+def assert_not_equal(context, result, expected_result, custom_message):
+
+    expected_result = context.global_data.get_content(expected_result)
+    #TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
+    if expected_result == 'sim':
+        expected_result = True
+        message = custom_message + ' recebido "%s" não difere do esperado "%s"'
+        assert result != expected_result, message % (result, expected_result)
+    elif expected_result == u'não':
+        expected_result = False
+        message = custom_message + ' recebido "%s" não difere do esperado "%s"'
+        assert result != expected_result, message % (result, expected_result)
+    elif expected_result == '<nulo>':
+        expected_result = None
+        message = custom_message + ' recebido "%s" não difere do esperado "%s"'
+        assert result != expected_result, message % (result, expected_result)
+    elif expected_result == '<nao nulo>':
+        expected_result = None
+        message = custom_message + ' recebido "%s" não difere do esperado not "%s"'
+        assert result != expected_result, message % (result, expected_result)
+    elif expected_result == '<vazio>':
+        expected_result = u''
+        message = custom_message + ' recebido "%s" não difere do esperado "%s"'
+        assert result != expected_result, message % (result, expected_result)
+    elif expected_result == '<nao vazio>':
+        expected_result = u''
+        message = custom_message + ' recebido "%s" não difere do esperado not "%s"'
+        assert result != expected_result, message % (result, expected_result)
+    elif expected_result == '<hoje>':
+        expected_result = str(date.today())
+        if result:
+            result = result.split('T')[0]
+        message = custom_message + 'data recebida "%s" não difere do dia atual "%s" '
+        assert result != expected_result, message % (result, expected_result)
+    else:
+        message = custom_message + ' recebido "%s" não difere do esperado "%s"'
+        assert result != expected_result or str(result) != expected_result, message % (result, expected_result)
+
+
+def bigger_then(context, less_value, bigger_value):
+    less_value = int(less_value)
+    bigger_value = int(bigger_value)
+
+    assert isinstance(less_value, int) and isinstance(bigger_value, int) and bigger_value > less_value, 'O valor informado "%s" é menor que o esperado %s' % (bigger_value, less_value)
 
 def define_value(context, value):
+    #TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
     defined_value = context.module.variables.get_content(value)
     return parse_value(defined_value)
 
@@ -43,6 +96,7 @@ def define_list_value(context, value):
     value = parse_value(value)
     if not value:
         return []
+        #return None
 
     return [int(x) if __is_valid(x) else define_value(context, x.strip()) for x in value]
 
@@ -146,3 +200,17 @@ def check_list_table_result(context, api_result, field_list):
 
 def pretty_json(json_values):
     return json.dumps(json_values, indent=4, sort_keys=True, separators=(',', ': '))
+
+
+def split_object_name(name):
+    dot_position = name.find('.')
+    if dot_position == -1:
+        return None, name
+
+    object_name = name[:dot_position]
+    field_name = name[dot_position+1:]
+    return object_name, field_name
+
+
+def split_nested_object(object_name):
+    return object_name.split('.')
