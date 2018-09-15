@@ -1,6 +1,6 @@
 from behave import *
 
-from features.sqlite import Sqlite
+from features.support.sqlite import Sqlite
 
 
 @given(u'que crio um banco para testar a execução de queries')

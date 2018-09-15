@@ -1,7 +1,7 @@
 import os
 from time import gmtime, sleep, strftime
 
-from features.module import Module
+from features.support.module import Module
 from .support.web_driver import WebDriver
 
 

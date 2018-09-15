@@ -3,7 +3,7 @@ import shutil
 
 from behave import register_type
 
-from config import Config
+from support.config import Config
 
 
 def before_all(context):

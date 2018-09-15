@@ -1,6 +1,6 @@
 from time import gmtime, strftime
 
-from features.module import Module
+from features.support.module import Module
 from .support.api_driver import ApiDriver
 from .support.variables import Variables
 

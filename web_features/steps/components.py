@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-from features.mask import value_with_mask
+from features.support.mask import value_with_mask
 
 
 @given(u'que quero definir os elementos da tela {screen_name}')  # noqa: F811
