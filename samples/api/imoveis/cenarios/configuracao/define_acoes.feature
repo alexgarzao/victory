@@ -85,3 +85,43 @@ Funcionalidade: Definir as ações
     E os códigos de retorno são
       | código | status |
       | 200    | OK     |
+
+  Cenário: Definindo consultar um imóvel
+    Dado que quero definir o consultar um imóvel
+    E o path é /imoveis/{id do imóvel}
+    E o método é GET
+
+    Então os campos são
+      | nome                      | tipo        | campo no json   |
+      | id do imóvel              | integer     | id_imovel       |
+      | id do usuário             | integer     | id_usuario      |
+      | endereço do imóvel        | string      | endereco        |
+      | características do imóvel | string_list | caracteristicas |
+      | nome do proprietário      | string      | proprietario    |
+      | valor do imóvel           | number      | valor           |
+      | está ocupado              | bool        | esta_ocupado    |
+      | data de cadastro          | date        | data_cadastro   |
+
+    E os códigos de retorno são
+      | código | status                    |
+      | 200    | imóvel obtido com sucesso |
+
+  Cenário: Definindo removerr um imóvel
+    Dado que quero definir o remover um imóvel
+    E o path é /imoveis/{id do imóvel}
+    E o método é DELETE
+
+    Então os campos são
+      | nome                      | tipo        | campo no json   |
+      | id do imóvel              | integer     | id_imovel       |
+      | id do usuário             | integer     | id_usuario      |
+      | endereço do imóvel        | string      | endereco        |
+      | características do imóvel | string_list | caracteristicas |
+      | nome do proprietário      | string      | proprietario    |
+      | valor do imóvel           | number      | valor           |
+      | está ocupado              | bool        | esta_ocupado    |
+      | data de cadastro          | date        | data_cadastro   |
+
+    E os códigos de retorno são
+      | código | status                      |
+      | 204    | imóvel removido com sucesso |

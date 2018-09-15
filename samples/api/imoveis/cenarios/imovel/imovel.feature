@@ -52,6 +52,33 @@ Funcionalidade: Cadastro de imóveis
     | Novo Proprietário    | não          | <nulo>                    | Rua B Porto Alegre Rio Grande do Sul | 2000.0          |
     | Proprietário 03      | não          | <nulo>                    | Rua C Porto Alegre Rio Grande do Sul | 3000.0          |
 
+  Cenário: Como usuário quero consultar os dados do terceiro imóvel
+    Dado que quero consultar um imóvel
+    E o campo id do imóvel é $imóvel3.id_imovel
+    Quando tento executar
+    Então recebo o status imóvel obtido com sucesso
+    E o campo nome do proprietário tem o valor Proprietário 03
+    E o campo características do imóvel tem o valor <nulo>
+    E o campo endereço do imóvel tem o valor Rua C Porto Alegre Rio Grande do Sul
+    E o campo valor do imóvel tem o valor 3000.0
+    E o campo está ocupado tem o valor não
+
+  Cenário: Como usuário quero remover o segundo imóvel
+    Dado que quero remover um imóvel
+    E o campo id do imóvel é $imóvel2.id_imovel
+    Quando tento executar
+    Então recebo o status imóvel removido com sucesso
+
+  Cenário: Como usuário quero confirmar que tenho somente dois imóveis agora
+    Dado que quero listar imóveis
+    Quando tento executar
+    Então recebo o status OK
+    E obtenho a lista de dados abaixo
+    | nome do proprietário | está ocupado | características do imóvel | endereço do imóvel                   | valor do imóvel |
+    | Proprietário 01      | sim          | A,B,C,D                   | Rua A Porto Alegre Rio Grande do Sul | 1000.0          |
+    | Proprietário 03      | não          | <nulo>                    | Rua C Porto Alegre Rio Grande do Sul | 3000.0          |
+
+
 
 
 

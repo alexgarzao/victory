@@ -36,6 +36,15 @@ class Api(object):
         except Exception as e:
             raise e
 
+    def delete(self, url, parameters):
+        try:
+            self.url = url
+            self.parameters = parameters
+            self.retorno = requests.delete(url, json=parameters)
+            return self.retorno
+        except Exception as e:
+            raise e
+
     # def post_image(self, caminho_imagem):
     #     try:
     #         url = self.url

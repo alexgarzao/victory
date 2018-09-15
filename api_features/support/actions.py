@@ -12,6 +12,7 @@ class Action(object):
         self.path = None
         self.method = None
         self.parameters = {}
+        self.result = {}
         self.api = Api()
 
     def set_path(self, value):
@@ -43,8 +44,15 @@ class Action(object):
             self.api.get(self.__get_url())
         elif self.method == 'PUT':
             self.api.put(self.__get_url(), self.parameters)
+        elif self.method == 'DELETE':
+            self.api.delete(self.__get_url(), self.parameters)
         else:
             assert False
+
+        if self.api.retorno.status_code >= 200 and self.api.retorno.status_code <= 201 and self.api.retorno.text:
+            self.result = self.api.retorno.json()
+        else:
+            self.result = {}
 
     def check_result(self, status_code):
         self.api.validar_retorno(status_code)

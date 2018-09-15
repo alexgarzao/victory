@@ -1,5 +1,7 @@
 from behave import given, then, when
 
+from api_features.support.utils import assert_equal
+
 
 @given(u'que quero definir o {action_name}')  # noqa: F811
 def step_impl(context, action_name):
@@ -57,3 +59,11 @@ def step_impl(context):
 def step_impl(context, alias):
     status = context.action.get_status_code(alias)
     context.action.check_result(status.status_code)
+
+
+@then(u'o campo {alias} tem o valor {field_value}')  # noqa: F811
+def step_impl(context, alias, field_value):
+    field = context.action.get_field(alias)
+    assert field is not None, 'Alias %s nao encontrado' % alias
+    field_value = context.module.variables.get_content(field_value)
+    assert_equal(context, context.action.result[field.json_name], field_value, "Valor do campo difere do esperado")
