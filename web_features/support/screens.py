@@ -1,4 +1,4 @@
-from web_features.screen import Screen
+from .screen import Screen
 
 
 class Screens:

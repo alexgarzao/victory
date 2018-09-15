@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
 from features.queries import Queries
-from web_features.screens import Screens
+from .screens import Screens
 from features.files import Files
 
 
