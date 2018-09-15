@@ -26,6 +26,9 @@ class Action(object):
     def get_field(self, name):
         return self.field_list.get(name)
 
+    def get_field_by_name(self, name):
+        return self.field_list.get_by_name(name)
+
     def add_status_code_alias(self, http_status_code, alias):
         self.http_status_code_alias_list.add(http_status_code, alias)
 
@@ -38,6 +41,8 @@ class Action(object):
             self.api.post(self.__get_url(), self.parameters)
         elif self.method == 'GET':
             self.api.get(self.__get_url())
+        elif self.method == 'PUT':
+            self.api.put(self.__get_url(), self.parameters)
         else:
             assert False
 
@@ -45,7 +50,18 @@ class Action(object):
         self.api.validar_retorno(status_code)
 
     def __get_url(self):
-        return self.base_url + '/' + self.path
+        path = self.__replace_parameters(self.path, self.parameters)
+        return self.base_url + '/' + path
+
+    def __replace_parameters(self, text, parameters):
+        for parameter, value in parameters.items():
+            if type(value) is not str and type(value) is not int:
+                continue
+            field = self.get_field_by_name(parameter)
+            token_to_find = "{" + field.alias + "}"
+            text = text.replace(token_to_find, str(value))
+
+        return text
 
 
 class ActionList(object):

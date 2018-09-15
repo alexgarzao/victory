@@ -27,6 +27,15 @@ class Api(object):
         except Exception as e:
             raise e
 
+    def put(self, url, parameters):
+        try:
+            self.url = url
+            self.parameters = parameters
+            self.retorno = requests.put(url, json=parameters)
+            return self.retorno
+        except Exception as e:
+            raise e
+
     # def post_image(self, caminho_imagem):
     #     try:
     #         url = self.url

@@ -43,6 +43,7 @@ def step_impl(context, action):
 def step_impl(context, alias, field_value):
     field = context.action.get_field(alias)
     assert field is not None, 'Alias %s nao encontrado' % alias
+    field_value = context.module.variables.get_content(field_value)
     field.set_value(field_value)
     context.action.parameters[field.json_name] = field.get_value()
 

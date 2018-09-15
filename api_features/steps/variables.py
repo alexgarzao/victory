@@ -17,14 +17,14 @@ def step_impl(context, variable, value):
     context.module.variables.set_variable_result(variable, value)
 
 
-@then(u'obtenho {valor_esperado_variavel}')  # noqa: F811
-def step_impl(context, valor_esperado_variavel):
+@then(u'obtenho {expected_value}')  # noqa: F811
+def step_impl(context, expected_value):
     valor_variavel = context.variable_result
-    assert valor_variavel == valor_esperado_variavel, \
-        "O resultado esperado [%s] e diferente do retorno [%s]." % (valor_esperado_variavel, valor_variavel)
+    assert valor_variavel == expected_value, \
+        "O resultado esperado [%s] e diferente do retorno [%s]." % (expected_value, valor_variavel)
 
 
-# @then(u'eu salvo o resultado em {variavel}')  # noqa: F811
-# def step_impl(context, variavel):
-#     assert context.module.api.success()
-#     context.module.variables.set_variable_result(variavel, context.module.api.retorno.json())
+@then(u'salvo o resultado em {variable}')  # noqa: F811
+def step_impl(context, variable):
+    assert context.action.api.success()
+    context.module.variables.set_variable_result(variable, context.action.api.retorno.json())

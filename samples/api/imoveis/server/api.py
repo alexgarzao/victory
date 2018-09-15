@@ -37,11 +37,12 @@ def abort_if_imovel_doesnt_exist(imovel_id):
 
 
 imovel_parser = reqparse.RequestParser()
+# imovel_parser.add_argument('id', required=False, type=int)
 imovel_parser.add_argument('proprietario', required=True, type=str)
-imovel_parser.add_argument('caracteristicas', required=True, type=str, action='append')
-imovel_parser.add_argument('endereco', required=True)
-imovel_parser.add_argument('valor', required=True)
-imovel_parser.add_argument('esta_ocupado', required=True, type=bool)
+imovel_parser.add_argument('caracteristicas', required=False, type=str, action='append')
+imovel_parser.add_argument('endereco', required=False)
+imovel_parser.add_argument('valor', required=False)
+imovel_parser.add_argument('esta_ocupado', required=False, type=bool)
 
 login_parser = reqparse.RequestParser()
 login_parser.add_argument('usuario', required=True, type=str)
@@ -80,13 +81,17 @@ class Imovel(Resource):
 
     def put(self, imovel_id):
         args = imovel_parser.parse_args()
-        imovel = {'imovel': args['imovel']}
+        imovel = IMOVEIS[imovel_id]
+        for key, value in args.items():
+            if value:
+                imovel[key] = value
+
         IMOVEIS[imovel_id] = imovel
-        return imovel, 201
+        return imovel, 200
 
 
-# ImovelList
-class ImovelList(Resource):
+# Imoveis
+class Imoveis(Resource):
     def get(self):
         imoveis = [IMOVEIS[k] for k in IMOVEIS]
         return imoveis
@@ -98,6 +103,7 @@ class ImovelList(Resource):
         imovel_id = len(IMOVEIS) + 1
         imovel_id = str(imovel_id)
         IMOVEIS[imovel_id] = {
+            'id_imovel': imovel_id,
             'proprietario': args['proprietario'],
             'caracteristicas': args['caracteristicas'],
             'endereco': args['endereco'],
@@ -113,7 +119,7 @@ class ImovelList(Resource):
 #
 api.add_resource(Bdd, '/bdd-init')
 api.add_resource(Login, '/login')
-api.add_resource(ImovelList, '/imoveis')
+api.add_resource(Imoveis, '/imoveis')
 api.add_resource(Imovel, '/imoveis/<imovel_id>')
 
 

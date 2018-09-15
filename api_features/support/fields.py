@@ -85,10 +85,16 @@ class Field(object):
 
 class Fields(object):
     def __init__(self):
-        self.__field_list = {}
+        self.__field_list_by_alias = {}
+        self.__field_list_by_name = {}
 
     def add(self, name, type, json_name):
-        self.__field_list[name] = Field(name, type, json_name)
+        field = Field(name, type, json_name)
+        self.__field_list_by_alias[name] = field
+        self.__field_list_by_name[json_name] = field
 
     def get(self, alias):
-        return self.__field_list.get(alias)
+        return self.__field_list_by_alias.get(alias)
+
+    def get_by_name(self, name):
+        return self.__field_list_by_name.get(name)
