@@ -3,7 +3,7 @@ from .http_status_codes import HttpStatusCodeAliasList
 from .api import Api
 
 
-class Action(object):
+class Event(object):
     def __init__(self, base_url, alias):
         self.base_url = base_url
         self.alias = alias
@@ -72,14 +72,14 @@ class Action(object):
         return text
 
 
-class ActionList(object):
+class EventList(object):
     def __init__(self):
-        self.__action_list = {}
+        self.__event_list = {}
 
     def add(self, base_url, alias):
-        action = Action(base_url, alias)
-        self.__action_list[alias] = action
-        return action
+        event = Event(base_url, alias)
+        self.__event_list[alias] = event
+        return event
 
     def get(self, alias):
-        return self.__action_list[alias]
+        return self.__event_list[alias]
