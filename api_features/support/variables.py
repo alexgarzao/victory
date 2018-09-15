@@ -1,6 +1,7 @@
 class Variables (object):
-    def __init__(self):
+    def __init__(self, context):
         self.variables = {}
+        self.context = context
 
     def set_variable_result(self, variable, value):
         # Se necessario remove o $ no inicio do nome da variavel.
@@ -17,13 +18,14 @@ class Variables (object):
                 return self.variables[field]
 
             struct = variable[:dot_position]
-            field = variable[dot_position + 1:]
+            alias = variable[dot_position + 1:]
+            field = self.context.action.get_field(alias).json_name
             return self.variables[struct][field]
         except:
             message = "Variables: Erro ao tentar obter o conteudo da variavel.\n"
             message += "Variables: Variaveis definidas: %s\n" % self.variables.keys()
             message += "Variables: Tentando obter a variavel '%s': struct='%s' field='%s'.\n" % \
-                (variable, struct, field)
+                (variable, struct, alias)
             assert False, message
 
     def get_content(self, content):

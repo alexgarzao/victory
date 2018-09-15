@@ -9,7 +9,7 @@ class ApiModule(Module):
     def __init__(self, context):
         super().__init__('api', context)
         self.driver = ApiDriver()
-        self.variables = Variables()
+        self.variables = Variables(context)
 
     def before_all(self):
         self.__load_steps()
