@@ -1,5 +1,5 @@
 from behave import then
-from api_features.utils import define_value, assert_equal, parse_value
+from api_features.support.utils import define_value, assert_equal, parse_value
 
 
 @then(u'obtenho a lista de dados abaixo')  # noqa: F811

@@ -1,6 +1,6 @@
-from api_features.fields import Fields
-from api_features.http_status_codes import HttpStatusCodeAliasList
-from api_features.api import Api
+from .fields import Fields
+from .http_status_codes import HttpStatusCodeAliasList
+from .api import Api
 
 
 class Action(object):

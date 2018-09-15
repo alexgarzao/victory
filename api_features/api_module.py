@@ -1,8 +1,8 @@
 from time import gmtime, strftime
 
 from features.module import Module
-from api_features.api_driver import ApiDriver
-from api_features.variables import Variables
+from .support.api_driver import ApiDriver
+from .support.variables import Variables
 
 
 class ApiModule(Module):
