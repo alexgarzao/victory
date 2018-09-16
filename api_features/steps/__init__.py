@@ -1,1 +1,1 @@
-from . import common, variables, action
+from . import common, variables, resource

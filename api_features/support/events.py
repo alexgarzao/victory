@@ -1,14 +1,9 @@
-from .fields import Fields
-from .http_status_codes import HttpStatusCodeAliasList
 from .api import Api
 
 
 class Event(object):
-    def __init__(self, base_url, alias):
-        self.base_url = base_url
-        self.alias = alias
-        self.field_list = Fields()
-        self.http_status_code_alias_list = HttpStatusCodeAliasList()
+    def __init__(self, resource):
+        self.resource = resource
         self.path = None
         self.method = None
         self.parameters = {}
@@ -20,21 +15,6 @@ class Event(object):
 
     def set_method(self, value):
         self.method = value
-
-    def add_field(self, name, type, field):
-        self.field_list.add(name, type, field)
-
-    def get_field(self, name):
-        return self.field_list.get(name)
-
-    def get_field_by_name(self, name):
-        return self.field_list.get_by_name(name)
-
-    def add_status_code_alias(self, http_status_code, alias):
-        self.http_status_code_alias_list.add(http_status_code, alias)
-
-    def get_status_code(self, alias):
-        return self.http_status_code_alias_list.get(alias)
 
     def send(self):
         # print("Method: {}\nURL: {}\nParameters: {}\n".format(self.method, self.__get_url(), self.parameters))
@@ -59,13 +39,13 @@ class Event(object):
 
     def __get_url(self):
         path = self.__replace_parameters(self.path, self.parameters)
-        return self.base_url + '/' + path
+        return self.resource.base_url + '/' + path
 
     def __replace_parameters(self, text, parameters):
         for parameter, value in parameters.items():
             if type(value) is not str and type(value) is not int:
                 continue
-            field = self.get_field_by_name(parameter)
+            field = self.resource.get_field_by_name(parameter)
             token_to_find = "{" + field.alias + "}"
             text = text.replace(token_to_find, str(value))
 
@@ -76,10 +56,13 @@ class EventList(object):
     def __init__(self):
         self.__event_list = {}
 
-    def add(self, base_url, alias):
-        event = Event(base_url, alias)
+    def add(self, alias, resource):
+        event = Event(resource)
         self.__event_list[alias] = event
         return event
 
     def get(self, alias):
         return self.__event_list[alias]
+
+    def find(self, alias):
+        return self.__event_list.get(alias, None)

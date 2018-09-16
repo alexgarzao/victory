@@ -33,7 +33,7 @@ def valida_lista_dados(context, api_result):
                 continue
 
             # TODO: acho que o alias poderia indicar o objeto tambem.
-            field = context.event.get_field(alias)
+            field = context.resource.get_field(alias)
             assert field is not None, 'Alias %s nao encontrado' % alias
             field_name = field.json_name
 

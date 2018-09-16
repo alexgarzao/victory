@@ -19,7 +19,7 @@ class Variables (object):
 
             struct = variable[:dot_position]
             alias = variable[dot_position + 1:]
-            field = self.context.event.get_field(alias).json_name
+            field = self.context.resource.get_field(alias).json_name
             return self.variables[struct][field]
         except:
             message = "Variables: Erro ao tentar obter o conteudo da variavel.\n"
