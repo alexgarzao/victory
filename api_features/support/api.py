@@ -9,16 +9,17 @@ class Api(object):
         self.parameters = {}
         self.url = ''
 
-    def get(self, url):
+    def get(self, headers, url):
         try:
             self.url = url
             self.parameters = {}
-            self.retorno = requests.get(url)
+            self.__headers = headers
+            self.retorno = requests.get(url, headers=self.__headers)
             return self.retorno
         except Exception as e:
             raise e
 
-    def post(self, url, parameters):
+    def post(self, headers, url, parameters):
         try:
             self.url = url
             self.parameters = parameters
@@ -27,7 +28,7 @@ class Api(object):
         except Exception as e:
             raise e
 
-    def put(self, url, parameters):
+    def put(self, headers, url, parameters):
         try:
             self.url = url
             self.parameters = parameters
@@ -36,7 +37,7 @@ class Api(object):
         except Exception as e:
             raise e
 
-    def delete(self, url, parameters):
+    def delete(self, headers, url, parameters):
         try:
             self.url = url
             self.parameters = parameters
@@ -54,23 +55,6 @@ class Api(object):
     #     except Exception as e:
     #         raise e
     #
-    # def put(self):
-    #     try:
-    #         url = self.url
-    #         self.last_parameters = self.parameters
-    #         self.retorno = requests.put(url, json=self.parameters)
-    #         return self.retorno
-    #     except Exception as e:
-    #         raise e
-    #
-    # def delete(self):
-    #     try:
-    #         url = self.url
-    #         self.last_parameters = {}
-    #         self.retorno = requests.delete(url)
-    #         return self.retorno
-    #     except Exception as e:
-    #         raise e
 
     def validar_retorno(self, retorno_esperado):
         json_enviado = json.dumps(self.parameters, indent=4, sort_keys=True, separators=(',', ': '))

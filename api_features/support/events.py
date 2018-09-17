@@ -6,7 +6,7 @@ class Event(object):
         self.resource = resource
         self.path = None
         self.method = None
-        self.parameters = {}
+        self.parameters = {}  # TODO: usar algo como os headers (montar na hora de enviar)
         self.result = {}
         self.api = Api()
 
@@ -19,13 +19,13 @@ class Event(object):
     def send(self):
         # print("Method: {}\nURL: {}\nParameters: {}\n".format(self.method, self.__get_url(), self.parameters))
         if self.method == 'POST':
-            self.api.post(self.__get_url(), self.parameters)
+            self.api.post(self.__get_headers(), self.__get_url(), self.parameters)
         elif self.method == 'GET':
-            self.api.get(self.__get_url())
+            self.api.get(self.__get_headers(), self.__get_url())
         elif self.method == 'PUT':
-            self.api.put(self.__get_url(), self.parameters)
+            self.api.put(self.__get_headers(), self.__get_url(), self.parameters)
         elif self.method == 'DELETE':
-            self.api.delete(self.__get_url(), self.parameters)
+            self.api.delete(self.__get_headers(), self.__get_url(), self.parameters)
         else:
             assert False
 
@@ -50,6 +50,11 @@ class Event(object):
             text = text.replace(token_to_find, str(value))
 
         return text
+
+    def __get_headers(self):
+        fields_in_header = self.resource.field_list.get_fields_in("header")
+        header = {fields_in_header[alias].json_name: fields_in_header[alias].get_value() for alias in fields_in_header}
+        return header
 
 
 class EventList(object):

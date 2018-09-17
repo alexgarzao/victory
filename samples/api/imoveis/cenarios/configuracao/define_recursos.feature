@@ -9,11 +9,11 @@ Funcionalidade: Definir os recursos da API
     Dado que quero definir o recurso login
     # TODO: se necessario separar em campos da requisicao e reposta
     E os campos são
-      | nome          | tipo    | campo no json |
-      | id do usuário | integer | id_usuario    |
-      | usuário       | string  | usuario       |
-      | email         | string  | email         |
-      | senha         | string  | senha         |
+      | apelido       | tipo    | campo         | localização | valor |
+      | id do usuário | integer | id_usuario    | body        |       |
+      | usuário       | string  | usuario       | body        |       |
+      | email         | string  | email         | body        |       |
+      | senha         | string  | senha         | body        |       |
     E os códigos de retorno são
       | código | status         |
       | 204    | login válido   |
@@ -25,15 +25,15 @@ Funcionalidade: Definir os recursos da API
   Cenário: Definindo o recurso imóvel
     Dado que quero definir o recurso imóvel
     E os campos são
-      | nome                      | tipo        | campo no json   |
-      | id do imóvel              | integer     | id_imovel       |
-      | id do usuário             | integer     | id_usuario      |
-      | endereço do imóvel        | string      | endereco        |
-      | características do imóvel | string_list | caracteristicas |
-      | nome do proprietário      | string      | proprietario    |
-      | valor do imóvel           | number      | valor           |
-      | está ocupado              | bool        | esta_ocupado    |
-      | data de cadastro          | date        | data_cadastro   |
+      | apelido                   | tipo        | campo           | localização | valor |
+      | id do imóvel              | integer     | id_imovel       | body        |       |
+      | id do usuário             | integer     | id_usuario      | body        |       |
+      | endereço do imóvel        | string      | endereco        | body        |       |
+      | características do imóvel | string_list | caracteristicas | body        |       |
+      | nome do proprietário      | string      | proprietario    | body        |       |
+      | valor do imóvel           | number      | valor           | body        |       |
+      | está ocupado              | bool        | esta_ocupado    | body        |       |
+      | data de cadastro          | date        | data_cadastro   | body        |       |
     E os códigos de retorno são
       | código | status                      |
       | 200    | imóvel alterado com sucesso |

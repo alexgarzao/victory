@@ -18,11 +18,12 @@ class FieldType(IntEnum):
 # REFACTOR: Esta classe poderia se especializada conforme o tipo.
 # Assim poderiamos remover os if's abaixo.
 class Field(object):
-    def __init__(self, alias, type, json_name):
+    def __init__(self, alias, type, json_name, location, initial_value):
         self.alias = alias
         self.type = FieldType[type.upper()]
         self.json_name = json_name
-        self.value = None
+        self.location = location
+        self.set_value(initial_value)
 
     def set_value(self, value):
         if self.type == FieldType.STRING:
@@ -35,8 +36,10 @@ class Field(object):
             self.value = self.__get_bool_value(value)
         elif self.type == FieldType.STRING_LIST:
             self.value = self.__get_string_list_value(value)
+        elif self.type == FieldType.DATE:
+            self.value = self.__get_date_value(value)
         else:
-            assert False, 'FieldType indefinido!'
+            assert False, 'FieldType {} indefinido!'.format(self.type)
 
     def __get_string_value(self, value):
         # Verifica se tem " ou ' para serem retirados
@@ -79,6 +82,9 @@ class Field(object):
 
         return value.split(',')
 
+    def __get_date_value(self, value):
+        return value  # TODO: correto???
+
     def get_value(self):
         return self.value
 
@@ -88,8 +94,8 @@ class Fields(object):
         self.__field_list_by_alias = {}
         self.__field_list_by_name = {}
 
-    def add(self, name, type, json_name):
-        field = Field(name, type, json_name)
+    def add(self, name, type, json_name, location, initial_value):
+        field = Field(name, type, json_name, location, initial_value)
         self.__field_list_by_alias[name] = field
         self.__field_list_by_name[json_name] = field
 
@@ -98,3 +104,6 @@ class Fields(object):
 
     def get_by_name(self, name):
         return self.__field_list_by_name.get(name)
+
+    def get_fields_in(self, location):
+        return {alias: self.__field_list_by_alias[alias] for alias in self.__field_list_by_alias if self.__field_list_by_alias[alias].location == location}

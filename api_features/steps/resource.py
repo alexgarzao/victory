@@ -11,10 +11,12 @@ def step_impl(context, resource_name):
 @given(u'os campos são')  # noqa: F811
 def step_impl(context):
     for row in context.table:
-        name = row['nome']
+        alias = row['apelido']
         type = row['tipo']
-        field = row['campo no json']
-        context.resource.add_field(name, type, field)
+        field = row['campo']
+        location = row['localização']
+        initial_value = row['valor']
+        context.resource.add_field(alias, type, field, location, initial_value)
 
 
 @given(u'os códigos de retorno são')  # noqa: F811
@@ -52,7 +54,9 @@ def step_impl(context, alias, field_value):
     assert field is not None, 'Alias %s nao encontrado' % alias
     field_value = context.module.variables.get_content(field_value)
     field.set_value(field_value)
-    context.event.parameters[field.json_name] = field.get_value()
+    # TODO: acho que os parameters (body) deveria ser montado na hora de enviar, como o header
+    if field.location == 'body':
+        context.event.parameters[field.json_name] = field.get_value()
 
 
 @when(u'tento executar')  # noqa: F811

@@ -11,8 +11,8 @@ class Resource(object):
         self.http_status_code_alias_list = HttpStatusCodeAliasList()
         self.event_list = EventList()
 
-    def add_field(self, name, type, field):
-        self.field_list.add(name, type, field)
+    def add_field(self, name, type, field, location, initial_value):
+        self.field_list.add(name, type, field, location, initial_value)
 
     def get_field(self, name):
         return self.field_list.get(name)
