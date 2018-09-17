@@ -1,7 +1,7 @@
 # PARA FAZER O BUILD: docker build --force-rm -t beeweb .
 # PARA RODAR: docker run -e "MODULE=web" -e "FEATURES_PATH=samples/google-search" beeweb
 
-# PARA publicar no docker hub: docker login; docker tag <image> alexgarzao/beeweb; docker push alexgarzao/beeweb
+# PARA publicar no docker hub: docker login; docker tag beeweb alexgarzao/beeweb; docker push alexgarzao/beeweb
 # PARA RODAR: docker run -e "MODULE=web" -e "FEATURES_PATH=samples/google-search" alexgarzao/beeweb
 
 FROM python:3.6-alpine
