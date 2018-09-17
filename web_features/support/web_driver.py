@@ -179,6 +179,12 @@ class WebDriver:
     def get_current_screen(self):
         return self.__current_screen
 
+    def get_unused_screens(self):
+        return self.screens.get_unused_screens()
+
+    def get_unused_elements(self):
+        return self.screens.get_unused_elements()
+
     # TODO: Duplicated code :-/
     def __wait_for_ajax(self):
         wait = WebDriverWait(self.driver, 10)

@@ -14,3 +14,6 @@ class Module:
 
     def after_all(self):
         pass
+
+    def get_unused_definitions(self):
+        return None

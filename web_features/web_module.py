@@ -49,6 +49,19 @@ class WebModule(Module):
         if self.context.module.driver:
             self.context.module.driver.quit()
 
+    def get_unused_definitions(self):
+        result = []
+
+        unused_screens = self.driver.get_unused_screens()
+        if unused_screens:
+            result.append(("Screens", [screen.name for screen in unused_screens]))
+
+        unused_elements = self.driver.get_unused_elements()
+        if unused_elements:
+            result.append(("Elements", [element.get_complete_name() for element in unused_elements]))
+
+        return result
+
     def __get_screenshot(self, scenario, state):
         tags = ''
         tag_list = scenario.feature.tags + scenario.tags

@@ -46,6 +46,7 @@ def after_step(context, step):
 
 def after_all(context):
     context.module.after_all()
+    __print_unused_definitions(context.module.get_unused_definitions())
 
 
 def __load_custom_steps(context):
@@ -63,6 +64,14 @@ def __create_dir(directory):
         os.makedirs(directory)
     except OSError:
         assert False, "Failing when trying to create the {} directory...".format(directory)
+
+
+def __print_unused_definitions(unused_definitions):
+    if unused_definitions:
+        print("Unused definitons:")
+        for definition_name, unused in unused_definitions:
+            print("\t{}: {} - {}".format(definition_name, len(unused), unused))
+        print("\n")
 
 
 # ----------------------------------------------------------------------------
