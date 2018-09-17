@@ -1,6 +1,5 @@
 import subprocess
 import os
-import sys
 
 import click
 
@@ -9,7 +8,7 @@ class BehaveRun:
     def run(self, module, features_path, debug, stop_on_error, tags, headless):
         if not os.path.isdir(features_path):
             click.secho("Features path '{}' not found!".format(features_path), fg='red')
-            sys.exit()
+            exit(1)
 
         behave_args = [
                 "behave",
