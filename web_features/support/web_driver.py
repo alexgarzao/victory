@@ -185,6 +185,9 @@ class WebDriver:
     def get_unused_elements(self):
         return self.screens.get_unused_elements()
 
+    def get_unused_actions(self):
+        return self.screens.get_unused_actions()
+
     # TODO: Duplicated code :-/
     def __wait_for_ajax(self):
         wait = WebDriverWait(self.driver, 10)

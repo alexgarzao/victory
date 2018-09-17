@@ -74,6 +74,9 @@ class Screen(Definition):
         unused_elements = [element for key, element in self.elements.items() if element.get_uses_number() == 0]
         return unused_elements
 
+    def get_unused_actions(self):
+        return self.actions.get_unused_actions()
+
     def __add_element(self, name, new_element):
         name = name.lower()
         if self.elements.get(name) is not None:

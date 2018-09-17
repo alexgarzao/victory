@@ -4,6 +4,7 @@ from parse import parse
 class Actions:
     def __init__(self):
         self.actions = {}
+        self.unused = set()
 
     def add_action(self, action_name):
         action_name = action_name.lower()
@@ -11,6 +12,7 @@ class Actions:
             raise DuplicatedActionException("Action {} already exists".format(action_name))
 
         self.actions[action_name] = []
+        self.unused.add(action_name)
 
     def add_event(self, action_name, event):
         action_name = action_name.lower()
@@ -39,10 +41,15 @@ class Actions:
 
         return steps_to_execute
 
+    def get_unused_actions(self):
+        unused_actions = list(self.unused)
+        return unused_actions
+
     def __match_action(self, action_name):
         for action_type in self.actions.keys():
             r = parse(action_type, action_name)
             if r:
+                self.unused.discard(action_type)
                 return self.actions[action_type], r.named
 
         return None, None

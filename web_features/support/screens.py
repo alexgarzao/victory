@@ -38,6 +38,13 @@ class Screens:
 
         return unused_elements
 
+    def get_unused_actions(self):
+        unused_actions = []
+        for key, screen in self.screens.items():
+            unused_actions += screen.get_unused_actions()
+
+        return unused_actions
+
 
 class DuplicatedScreenException(Exception):
     pass

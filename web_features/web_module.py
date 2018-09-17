@@ -60,6 +60,10 @@ class WebModule(Module):
         if unused_elements:
             result.append(("Elements", [element.get_complete_name() for element in unused_elements]))
 
+        unused_actions = self.driver.get_unused_actions()
+        if unused_actions:
+            result.append(("Actions", unused_actions))
+
         return result
 
     def __get_screenshot(self, scenario, state):
