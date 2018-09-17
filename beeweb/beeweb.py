@@ -92,7 +92,9 @@ def tfspull(ctx):
 @click.option('--headless/--no-headless', default=False)
 def run(ctx, module, path, tags, headless):
     behave_run = BehaveRun()
-    behave_run.run(module, path, ctx.obj['DEBUG'], ctx.obj['STOP-ON-ERROR'], tags, headless)
+    status_code = behave_run.run(module, path, ctx.obj['DEBUG'], ctx.obj['STOP-ON-ERROR'], tags, headless)
+    if status_code:
+        exit(status_code)
 
 
 # @cli.command()

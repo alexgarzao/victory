@@ -35,4 +35,5 @@ class BehaveRun:
             behave_args.append("-D")
             behave_args.append("headless")
 
-        subprocess.run(behave_args)
+        result = subprocess.run(behave_args)
+        return result.returncode
