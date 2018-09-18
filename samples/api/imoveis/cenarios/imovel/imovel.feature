@@ -2,6 +2,11 @@ Funcionalidade: Cadastro de imóveis
 
 # TODO: Setup do teste sempre que troca de feature.
 
+  Cenário: Como usuário quero inicializar os dados do banco
+    Dado que quero inicializar o banco
+    Quando tento executar
+    Então recebo o status banco inicializado
+
   Cenário: Como usuário quero confirmar que não tenho imóveis no momento
     Dado que quero listar imóveis
     Quando tento executar

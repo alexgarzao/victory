@@ -5,6 +5,15 @@
 
 Funcionalidade: Definir os recursos da API
 
+  Cenário: Definindo o recurso inicializar banco
+    Dado que quero definir o recurso inicializar o banco
+    E os códigos de retorno são
+      | código | status             |
+      | 204    | banco inicializado |
+    Quando o evento é inicializar o banco
+    Então o método é POST
+    E o path é /bdd-init
+
   Cenário: Definindo o recurso login
     Dado que quero definir o recurso login
     # TODO: se necessario separar em campos da requisicao e reposta
