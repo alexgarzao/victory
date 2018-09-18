@@ -26,5 +26,5 @@ def step_impl(context, expected_value):
 
 @then(u'salvo o resultado em {variable}')  # noqa: F811
 def step_impl(context, variable):
-    assert context.event.api.success()
-    context.module.variables.set_variable_result(variable, context.event.api.retorno.json())
+    assert context.request.success()
+    context.module.variables.set_variable_result(variable, context.request.retorno.json())

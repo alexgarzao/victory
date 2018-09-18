@@ -4,7 +4,7 @@ from api_features.support.utils import define_value, assert_equal, parse_value
 
 @then(u'obtenho a lista de dados abaixo')  # noqa: F811
 def step_impl(context):
-    api_result = context.event.api.retorno.json()
+    api_result = context.request.retorno.json()
     valida_lista_dados(context, api_result)
 
 
@@ -72,5 +72,5 @@ def __split_name(name):
 
 @then(u'obtenho uma lista vazia')  # noqa: F811
 def step_impl(context):
-    api_result = context.event.api.retorno.json()
+    api_result = context.request.retorno.json()
     assert_equal(context, len(api_result), 0, 'Zero registros')

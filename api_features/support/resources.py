@@ -40,7 +40,7 @@ class Resource(object):
         fields = self.field_list.get_fields_in("body")
         return {fields[alias].json_name: fields[alias].initial_value for alias in fields if fields[alias].has_initial_value}
 
-    def get_parameters(self):
+    def get_initial_parameters(self):
         fields = self.field_list.get_fields_in("path")
         return {fields[alias].json_name: fields[alias].initial_value for alias in fields if fields[alias].has_initial_value}
 

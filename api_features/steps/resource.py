@@ -45,25 +45,25 @@ def step_impl(context, path):
 @given(u'que quero {event}')  # noqa: F811
 def step_impl(context, event):
     context.event = context.module.driver.find_event(event)
-    context.event.init()
+    context.request = context.event.get_new_request()
     context.resource = context.event.resource
 
 
 @given(u'o campo {alias} é {field_value}')  # noqa: F811
 def step_impl(context, alias, field_value):
     field_value = context.module.variables.get_content(field_value)
-    context.event.set_field_value(alias, field_value)
+    context.request.set_field_value(alias, field_value)
 
 
 @when(u'tento executar')  # noqa: F811
 def step_impl(context):
-    context.event.send()
+    context.request.send()
 
 
 @then(u'recebo o status {alias}')  # noqa: F811
 def step_impl(context, alias):
     status = context.resource.get_status_code(alias)
-    context.event.check_result(status.status_code)
+    context.request.check_result(status.status_code)
 
 
 @then(u'o campo {alias} tem o valor {field_value}')  # noqa: F811
@@ -71,4 +71,4 @@ def step_impl(context, alias, field_value):
     field = context.resource.get_field(alias)
     assert field is not None, 'Alias %s nao encontrado' % alias
     field_value = context.module.variables.get_content(field_value)
-    assert_equal(context, context.event.result[field.json_name], field_value, "Valor do campo difere do esperado")
+    assert_equal(context, context.request.result[field.json_name], field_value, "Valor do campo difere do esperado")

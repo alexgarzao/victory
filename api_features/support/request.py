@@ -3,14 +3,23 @@ import requests
 from .utils import pretty_json
 
 
-# TODO: Ou Request?
-class Api(object):
-    def __init__(self, headers, parameters, body):
-        self.__headers = headers
-        self.__parameters = parameters
-        self.__body = body
+# TODO: Talvez teriamos GetRequest, PostRequest, DeleteRequest, ...
+class Request:
+    def __init__(self, event):
+        self.__event = event
+        self.__resource = event.resource
+        self.__headers = self.__resource.get_initial_headers()
+        self.__parameters = self.__resource.get_initial_parameters()
+        self.__body = self.__resource.get_initial_body()
 
-    def set_field_value(self, name, location, value):
+    def set_field_value(self, alias, value):
+        field = self.__resource.get_field(alias)
+        assert field is not None, 'Alias %s nao encontrado' % alias
+
+        name = field.json_name
+        value = field.transform_value(value)
+        location = field.location
+
         if location == 'header':
             self.__headers[name] = value
         elif location == 'path':
@@ -20,10 +29,7 @@ class Api(object):
         else:
             assert False, "Undefined location {}!".format(location)
 
-    def get_parameters(self):
-        return self.__parameters
-
-    def get(self, url):
+    def __get(self, url):
         try:
             self.url = url
             self.retorno = requests.get(self.url, headers=self.__headers)
@@ -31,7 +37,7 @@ class Api(object):
         except Exception as e:
             raise e
 
-    def post(self, url):
+    def __post(self, url):
         try:
             self.url = url
             self.retorno = requests.post(self.url, headers=self.__headers, json=self.__body)
@@ -39,7 +45,7 @@ class Api(object):
         except Exception as e:
             raise e
 
-    def put(self, url):
+    def __put(self, url):
         try:
             self.url = url
             self.retorno = requests.put(self.url, headers=self.__headers, json=self.__body)
@@ -47,13 +53,48 @@ class Api(object):
         except Exception as e:
             raise e
 
-    def delete(self, url):
+    def __delete(self, url):
         try:
             self.url = url
             self.retorno = requests.delete(self.url, headers=self.__headers, json=self.__body)
             return self.retorno
         except Exception as e:
             raise e
+
+    def send(self):
+        # print("Method: {}\nURL: {}\nParameters: {}\n".format(self.method, self.__get_url(), self.parameters))
+        if self.__event.method == 'POST':
+            self.__post(self.__get_url())
+        elif self.__event.method == 'GET':
+            self.__get(self.__get_url())
+        elif self.__event.method == 'PUT':
+            self.__put(self.__get_url())
+        elif self.__event.method == 'DELETE':
+            self.__delete(self.__get_url())
+        else:
+            assert False
+
+        if self.retorno.status_code >= 200 and self.retorno.status_code <= 201 and self.retorno.text:
+            self.result = self.retorno.json()
+        else:
+            self.result = {}
+
+    def check_result(self, status_code):
+        self.validar_retorno(status_code)
+
+    def __get_url(self):
+        path = self.__replace_parameters(self.__event.path, self.__parameters)
+        return self.__resource.base_url + '/' + path
+
+    def __replace_parameters(self, text, parameters):
+        for parameter, value in parameters.items():
+            if type(value) is not str and type(value) is not int:
+                continue
+            field = self.__resource.get_field_by_name(parameter)
+            token_to_find = "{" + field.alias + "}"
+            text = text.replace(token_to_find, str(value))
+
+        return text
 
     # def post_image(self, caminho_imagem):
     #     try:
