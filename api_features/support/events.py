@@ -1,4 +1,4 @@
-from .request import Request
+from .request import GetRequest, PutRequest, PostRequest, DeleteRequest
 
 
 class Event(object):
@@ -14,7 +14,16 @@ class Event(object):
         self.method = value
 
     def get_new_request(self):
-        return Request(self)
+        if self.method == 'POST':
+            return PostRequest(self)
+        elif self.method == 'GET':
+            return GetRequest(self)
+        elif self.method == 'PUT':
+            return PutRequest(self)
+        elif self.method == 'DELETE':
+            return DeleteRequest(self)
+        else:
+            assert False
 
 
 class EventList(object):

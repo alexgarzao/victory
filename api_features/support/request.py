@@ -3,14 +3,13 @@ import requests
 from .utils import pretty_json
 
 
-# TODO: Talvez teriamos GetRequest, PostRequest, DeleteRequest, ...
 class Request:
     def __init__(self, event):
         self.__event = event
         self.__resource = event.resource
-        self.__headers = self.__resource.get_initial_headers()
-        self.__parameters = self.__resource.get_initial_parameters()
-        self.__body = self.__resource.get_initial_body()
+        self._headers = self.__resource.get_initial_headers()
+        self._parameters = self.__resource.get_initial_parameters()
+        self._body = self.__resource.get_initial_body()
 
     def set_field_value(self, alias, value):
         field = self.__resource.get_field(alias)
@@ -21,59 +20,15 @@ class Request:
         location = field.location
 
         if location == 'header':
-            self.__headers[name] = value
+            self._headers[name] = value
         elif location == 'path':
-            self.__parameters[name] = value
+            self._parameters[name] = value
         elif location == 'body':
-            self.__body[name] = value
+            self._body[name] = value
         else:
             assert False, "Undefined location {}!".format(location)
 
-    def __get(self, url):
-        try:
-            self.url = url
-            self.retorno = requests.get(self.url, headers=self.__headers)
-            return self.retorno
-        except Exception as e:
-            raise e
-
-    def __post(self, url):
-        try:
-            self.url = url
-            self.retorno = requests.post(self.url, headers=self.__headers, json=self.__body)
-            return self.retorno
-        except Exception as e:
-            raise e
-
-    def __put(self, url):
-        try:
-            self.url = url
-            self.retorno = requests.put(self.url, headers=self.__headers, json=self.__body)
-            return self.retorno
-        except Exception as e:
-            raise e
-
-    def __delete(self, url):
-        try:
-            self.url = url
-            self.retorno = requests.delete(self.url, headers=self.__headers, json=self.__body)
-            return self.retorno
-        except Exception as e:
-            raise e
-
-    def send(self):
-        # print("Method: {}\nURL: {}\nParameters: {}\n".format(self.method, self.__get_url(), self.parameters))
-        if self.__event.method == 'POST':
-            self.__post(self.__get_url())
-        elif self.__event.method == 'GET':
-            self.__get(self.__get_url())
-        elif self.__event.method == 'PUT':
-            self.__put(self.__get_url())
-        elif self.__event.method == 'DELETE':
-            self.__delete(self.__get_url())
-        else:
-            assert False
-
+    def _define_result(self):
         if self.retorno.status_code >= 200 and self.retorno.status_code <= 201 and self.retorno.text:
             self.result = self.retorno.json()
         else:
@@ -82,8 +37,8 @@ class Request:
     def check_result(self, status_code):
         self.validar_retorno(status_code)
 
-    def __get_url(self):
-        path = self.__replace_parameters(self.__event.path, self.__parameters)
+    def get_url(self):
+        path = self.__replace_parameters(self.__event.path, self._parameters)
         return self.__resource.base_url + '/' + path
 
     def __replace_parameters(self, text, parameters):
@@ -107,7 +62,7 @@ class Request:
     #
 
     def validar_retorno(self, retorno_esperado):
-        json_enviado = json.dumps(self.__parameters, indent=4, sort_keys=True, separators=(',', ': '))
+        json_enviado = json.dumps(self._parameters, indent=4, sort_keys=True, separators=(',', ': '))
         if self.retorno.status_code >= 200 and self.retorno.status_code <= 201 and self.retorno.text:
             json_recebido = json.dumps(self.retorno.json(), indent=4, sort_keys=True, separators=(',', ': '))
         else:
@@ -122,7 +77,7 @@ class Request:
         return self.retorno.status_code >= 200 and self.retorno.status_code <= 204
 
     def assert_result(self, field_name, expected_result):
-        json_enviado = json.dumps(self.__parameters, indent=4, sort_keys=True, separators=(',', ': '))
+        json_enviado = json.dumps(self._parameters, indent=4, sort_keys=True, separators=(',', ': '))
         if self.retorno.status_code >= 200 and self.retorno.status_code <= 201:
             json_recebido = json.dumps(self.retorno.json(), indent=4, sort_keys=True, separators=(',', ': '))
         else:
@@ -146,3 +101,59 @@ class Request:
         except Exception as e:
             if api_response.status_code == 404:
                 return
+
+
+class GetRequest(Request):
+    def __init__(self, event):
+        super().__init__(event)
+
+    def send(self):
+        try:
+            self.url = self.get_url()
+            self.retorno = requests.get(self.url, headers=self._headers)
+            self._define_result()
+            return self.retorno
+        except Exception as e:
+            raise e
+
+
+class PostRequest(Request):
+    def __init__(self, event):
+        super().__init__(event)
+
+    def send(self):
+        try:
+            self.url = self.get_url()
+            self.retorno = requests.post(self.url, headers=self._headers, json=self._body)
+            self._define_result()
+            return self.retorno
+        except Exception as e:
+            raise e
+
+
+class PutRequest(Request):
+    def __init__(self, event):
+        super().__init__(event)
+
+    def send(self):
+        try:
+            self.url = self.get_url()
+            self.retorno = requests.put(self.url, headers=self._headers, json=self._body)
+            self._define_result()
+            return self.retorno
+        except Exception as e:
+            raise e
+
+
+class DeleteRequest(Request):
+    def __init__(self, event):
+        super().__init__(event)
+
+    def send(self):
+        try:
+            self.url = self.get_url()
+            self.retorno = requests.delete(self.url, headers=self._headers, json=self._body)
+            self._define_result()
+            return self.retorno
+        except Exception as e:
+            raise e
