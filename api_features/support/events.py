@@ -6,9 +6,6 @@ class Event(object):
         self.resource = resource
         self.path = None
         self.method = None
-        self.parameters = {}  # TODO: usar algo como os headers (montar na hora de enviar)
-        self.result = {}
-        self.api = Api()
 
     def set_path(self, value):
         self.path = value
@@ -16,16 +13,28 @@ class Event(object):
     def set_method(self, value):
         self.method = value
 
+    def init(self):
+        # TODO: acho que esse "init" seria uma nova classe (Request?) ou a API (talvez)
+        # TODO: Talvez seria um metodo que retorna uma instancia de API/Request, e o send abaixo ficaria encapsulado nesta instancia
+        # TODO: Talvez teriamos GetRequest, PostRequest, DeleteRequest, ...
+        self.api = Api(self.__get_initial_headers(), self.__get_initial_parameters(), self.__get_initial_body())
+        self.result = {}
+
+    def set_field_value(self, alias, value):
+        field = self.resource.get_field(alias)
+        assert field is not None, 'Alias %s nao encontrado' % alias
+        self.api.set_field_value(field.json_name, field.location, field.transform_value(value))
+
     def send(self):
         # print("Method: {}\nURL: {}\nParameters: {}\n".format(self.method, self.__get_url(), self.parameters))
         if self.method == 'POST':
-            self.api.post(self.__get_headers(), self.__get_url(), self.parameters)
+            self.api.post(self.__get_url())
         elif self.method == 'GET':
-            self.api.get(self.__get_headers(), self.__get_url())
+            self.api.get(self.__get_url())
         elif self.method == 'PUT':
-            self.api.put(self.__get_headers(), self.__get_url(), self.parameters)
+            self.api.put(self.__get_url())
         elif self.method == 'DELETE':
-            self.api.delete(self.__get_headers(), self.__get_url(), self.parameters)
+            self.api.delete(self.__get_url())
         else:
             assert False
 
@@ -38,7 +47,7 @@ class Event(object):
         self.api.validar_retorno(status_code)
 
     def __get_url(self):
-        path = self.__replace_parameters(self.path, self.parameters)
+        path = self.__replace_parameters(self.path, self.api.get_parameters())
         return self.resource.base_url + '/' + path
 
     def __replace_parameters(self, text, parameters):
@@ -51,10 +60,14 @@ class Event(object):
 
         return text
 
-    def __get_headers(self):
-        fields_in_header = self.resource.field_list.get_fields_in("header")
-        header = {fields_in_header[alias].json_name: fields_in_header[alias].get_value() for alias in fields_in_header}
-        return header
+    def __get_initial_headers(self):
+        return self.resource.get_initial_headers()
+
+    def __get_initial_body(self):
+        return self.resource.get_initial_body()
+
+    def __get_initial_parameters(self):
+        return self.resource.get_parameters()
 
 
 class EventList(object):

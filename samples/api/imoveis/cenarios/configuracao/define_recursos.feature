@@ -26,7 +26,7 @@ Funcionalidade: Definir os recursos da API
     Dado que quero definir o recurso imóvel
     E os campos são
       | apelido                   | tipo        | campo           | localização | valor |
-      | id do imóvel              | integer     | id_imovel       | body        |       |
+      | id do imóvel              | integer     | id_imovel       | path        |       |
       | id do usuário             | integer     | id_usuario      | body        |       |
       | endereço do imóvel        | string      | endereco        | body        |       |
       | características do imóvel | string_list | caracteristicas | body        |       |

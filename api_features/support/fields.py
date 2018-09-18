@@ -23,21 +23,29 @@ class Field(object):
         self.type = FieldType[type.upper()]
         self.json_name = json_name
         self.location = location
-        self.set_value(initial_value)
+        self.initial_value = None
+        self.has_initial_value = False
 
-    def set_value(self, value):
+        if initial_value != "":
+            self.initial_value = self.transform_value(initial_value)
+            self.has_initial_value = True
+
+    def transform_value(self, value):
         if self.type == FieldType.STRING:
-            self.value = self.__get_string_value(value)
+            return self.__get_string_value(value)
         elif self.type == FieldType.INTEGER:
-            self.value = self.__get_integer_value(value)
+            return self.__get_integer_value(value)
         elif self.type == FieldType.NUMBER:
-            self.value = self.__get_number_value(value)
+            return self.__get_number_value(value)
         elif self.type == FieldType.BOOL:
-            self.value = self.__get_bool_value(value)
+            return self.__get_bool_value(value)
         elif self.type == FieldType.STRING_LIST:
-            self.value = self.__get_string_list_value(value)
+            if value:
+                return self.__get_string_list_value(value)
+            else:
+                return None
         elif self.type == FieldType.DATE:
-            self.value = self.__get_date_value(value)
+            return self.__get_date_value(value)
         else:
             assert False, 'FieldType {} indefinido!'.format(self.type)
 
@@ -84,9 +92,6 @@ class Field(object):
 
     def __get_date_value(self, value):
         return value  # TODO: correto???
-
-    def get_value(self):
-        return self.value
 
 
 class Fields(object):

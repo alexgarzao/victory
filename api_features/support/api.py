@@ -3,45 +3,54 @@ import requests
 from .utils import pretty_json
 
 
+# TODO: Ou Request?
 class Api(object):
-    def __init__(self):
-        self.retorno = None
-        self.parameters = {}
-        self.url = ''
+    def __init__(self, headers, parameters, body):
+        self.__headers = headers
+        self.__parameters = parameters
+        self.__body = body
 
-    def get(self, headers, url):
+    def set_field_value(self, name, location, value):
+        if location == 'header':
+            self.__headers[name] = value
+        elif location == 'path':
+            self.__parameters[name] = value
+        elif location == 'body':
+            self.__body[name] = value
+        else:
+            assert False, "Undefined location {}!".format(location)
+
+    def get_parameters(self):
+        return self.__parameters
+
+    def get(self, url):
         try:
             self.url = url
-            self.parameters = {}
-            self.__headers = headers
-            self.retorno = requests.get(url, headers=self.__headers)
+            self.retorno = requests.get(self.url, headers=self.__headers)
             return self.retorno
         except Exception as e:
             raise e
 
-    def post(self, headers, url, parameters):
+    def post(self, url):
         try:
             self.url = url
-            self.parameters = parameters
-            self.retorno = requests.post(url, json=parameters)
+            self.retorno = requests.post(self.url, headers=self.__headers, json=self.__body)
             return self.retorno
         except Exception as e:
             raise e
 
-    def put(self, headers, url, parameters):
+    def put(self, url):
         try:
             self.url = url
-            self.parameters = parameters
-            self.retorno = requests.put(url, json=parameters)
+            self.retorno = requests.put(self.url, headers=self.__headers, json=self.__body)
             return self.retorno
         except Exception as e:
             raise e
 
-    def delete(self, headers, url, parameters):
+    def delete(self, url):
         try:
             self.url = url
-            self.parameters = parameters
-            self.retorno = requests.delete(url, json=parameters)
+            self.retorno = requests.delete(self.url, headers=self.__headers, json=self.__body)
             return self.retorno
         except Exception as e:
             raise e
@@ -57,7 +66,7 @@ class Api(object):
     #
 
     def validar_retorno(self, retorno_esperado):
-        json_enviado = json.dumps(self.parameters, indent=4, sort_keys=True, separators=(',', ': '))
+        json_enviado = json.dumps(self.__parameters, indent=4, sort_keys=True, separators=(',', ': '))
         if self.retorno.status_code >= 200 and self.retorno.status_code <= 201 and self.retorno.text:
             json_recebido = json.dumps(self.retorno.json(), indent=4, sort_keys=True, separators=(',', ': '))
         else:
@@ -72,7 +81,7 @@ class Api(object):
         return self.retorno.status_code >= 200 and self.retorno.status_code <= 204
 
     def assert_result(self, field_name, expected_result):
-        json_enviado = json.dumps(self.parameters, indent=4, sort_keys=True, separators=(',', ': '))
+        json_enviado = json.dumps(self.__parameters, indent=4, sort_keys=True, separators=(',', ': '))
         if self.retorno.status_code >= 200 and self.retorno.status_code <= 201:
             json_recebido = json.dumps(self.retorno.json(), indent=4, sort_keys=True, separators=(',', ': '))
         else:

@@ -32,6 +32,18 @@ class Resource(object):
     def find_event(self, alias):
         return self.event_list.find(alias)
 
+    def get_initial_headers(self):
+        fields = self.field_list.get_fields_in("header")
+        return {fields[alias].json_name: fields[alias].initial_value for alias in fields if fields[alias].has_initial_value}
+
+    def get_initial_body(self):
+        fields = self.field_list.get_fields_in("body")
+        return {fields[alias].json_name: fields[alias].initial_value for alias in fields if fields[alias].has_initial_value}
+
+    def get_parameters(self):
+        fields = self.field_list.get_fields_in("path")
+        return {fields[alias].json_name: fields[alias].initial_value for alias in fields if fields[alias].has_initial_value}
+
 
 class ResourceList(object):
     def __init__(self):

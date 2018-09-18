@@ -45,18 +45,14 @@ def step_impl(context, path):
 @given(u'que quero {event}')  # noqa: F811
 def step_impl(context, event):
     context.event = context.module.driver.find_event(event)
+    context.event.init()
     context.resource = context.event.resource
 
 
 @given(u'o campo {alias} é {field_value}')  # noqa: F811
 def step_impl(context, alias, field_value):
-    field = context.resource.get_field(alias)
-    assert field is not None, 'Alias %s nao encontrado' % alias
     field_value = context.module.variables.get_content(field_value)
-    field.set_value(field_value)
-    # TODO: acho que os parameters (body) deveria ser montado na hora de enviar, como o header
-    if field.location == 'body':
-        context.event.parameters[field.json_name] = field.get_value()
+    context.event.set_field_value(alias, field_value)
 
 
 @when(u'tento executar')  # noqa: F811
