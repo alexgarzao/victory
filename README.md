@@ -1,3 +1,8 @@
+<p align="right">
+English description | <a href="README_PT-BR.md">Descrição em Português</a>
+</p>
+
+
 # beeweb
 Web front test automation tool.
 
