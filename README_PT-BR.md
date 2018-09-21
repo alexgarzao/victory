@@ -87,9 +87,6 @@ Para executar o exemplo "google search", execute o seguinte comando:
 
     beeweb run web FEATURES_PATH=samples/google-search
 
-[![asciicast](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg.png)](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg?autoplay=1)
+Segue abaixo este exemplo sendo executado:
 
-
-
-<a href="https://asciinema.org/a/14?autoplay=1"><img src="https://asciinema.org/a/14.png" width="836"/></a>
-
+[![asciicast](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg.png)](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg)
