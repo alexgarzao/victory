@@ -1,10 +1,10 @@
 from setuptools import setup
 
 setup(
-    name='beeweb',
+    name='victory',
     version='0.1',
     py_modules=[
-        'beeweb', 'tfs_config', 'tfs_pull', 'tfs_list', 'tfs_integration', 'test_suite',
+        'victory', 'tfs_config', 'tfs_pull', 'tfs_list', 'tfs_integration', 'test_suite',
         'report_config', 'work_item', 'scenarios_result', 'smtp_email', 'report', 'webdriver_update',
         'behave_run'
     ],
@@ -30,6 +30,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        beeweb=beeweb:main
+        victory=victory:main
     ''',
 )
