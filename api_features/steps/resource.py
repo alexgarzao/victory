@@ -1,4 +1,5 @@
 from behave import given, then, when
+from hamcrest import assert_that, equal_to
 
 from api_features.support.utils import assert_equal
 
@@ -69,6 +70,6 @@ def step_impl(context, alias):
 @then(u'o campo {alias} tem o valor {field_value}')  # noqa: F811
 def step_impl(context, alias, field_value):
     field = context.resource.get_field(alias)
-    assert field is not None, 'Alias %s nao encontrado' % alias
+    assert_that(field is not None, 'Alias %s nao encontrado' % alias)
     field_value = context.module.variables.get_content(field_value)
     assert_equal(context, context.request.result[field.json_name], field_value, "Valor do campo difere do esperado")
