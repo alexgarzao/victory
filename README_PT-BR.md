@@ -59,7 +59,7 @@ Para executar o exemplo "google search", execute o seguinte comando:
 
 Segue abaixo o passo-a-passo desta instalação:
 
-[![asciicast](https://asciinema.org/a/W3iQHJZDFTDRd5wO60O5T2cfr.png)](https://asciinema.org/a/W3iQHJZDFTDRd5wO60O5T2cfr?autoplay=1)
+[![asciicast](https://asciinema.org/a/cZu5s6KbYpjQYMTSUR6TnMaL1.png)](https://asciinema.org/a/cZu5s6KbYpjQYMTSUR6TnMaL1?autoplay=1)
 
 ## Via Docker
 
