@@ -1,8 +1,14 @@
-# beeweb
+# Victory
 
-Ferramenta para automação de testes. O foco inicial foi WEB, mas temos um módulo para testar API's REST.
+É um framework para automação de testes usando BDD.
+Atualmente temos módulos para testar aplicações WEB e API's REST. Em breve será desenvolvido um módulo para testar aplicações Desktop (Windows).
+Além disso, já foi feita uma POC para automação de mobile, usando o Appium, mas isso será feito em um segundo momento.
 
-Existem três formas de executar o beeweb:
+No victory temos duas ferramentas para execução de cenários:
+* beeweb, para aplicativos WEB;
+* beeapi, para API's REST
+
+Existem três formas de executar as ferramentas do Victory:
 - Instalando localmente
 - Via Docker
 - Via Vagrant
