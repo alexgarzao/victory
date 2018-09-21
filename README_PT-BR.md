@@ -91,5 +91,5 @@ Para executar o exemplo "google search", execute o seguinte comando:
 
 
 
-<script src="https://asciinema.org/a/14.js" id="asciicast-14" async data-autoplay="true" data-size="big"></script>
+<a href="https://asciinema.org/a/14?autoplay=1"><img src="https://asciinema.org/a/14.png" width="836"/></a>
 
