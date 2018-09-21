@@ -89,3 +89,7 @@ Para executar o exemplo "google search", execute o seguinte comando:
 
 [![asciicast](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg.png)](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg?autoplay=1)
 
+
+
+<script src="https://asciinema.org/a/14.js" id="asciicast-14" async data-autoplay="true" data-size="big"></script>
+
