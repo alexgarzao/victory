@@ -89,4 +89,7 @@ Para executar o exemplo "google search", execute o seguinte comando:
 
 Segue abaixo este exemplo sendo executado:
 
-[![asciicast](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg.png)](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg)
+<a href="https://asciinema.org/a/14?autoplay=1"><img src="https://asciinema.org/a/14.png" width="836"/></a>
+
+
+[![asciicast](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg.png)](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg?autoplay=1)
