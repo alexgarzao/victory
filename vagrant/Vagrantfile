@@ -83,7 +83,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', privileged: false, path: 'provision/odbc.sh', name: 'odbc.sh'
   config.vm.provision 'shell', privileged: false, path: 'provision/sqlserver_driver.sh', name: 'sqlserver_driver.sh'
   config.vm.provision 'shell', privileged: false, path: 'provision/chrome.sh', name: 'chrome.sh'
-  config.vm.provision 'shell', privileged: false, path: 'provision/beeweb.sh', name: 'beeweb.sh'
+  config.vm.provision 'shell', privileged: false, path: 'provision/victory.sh', name: 'victory.sh'
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo reboot --no-wall

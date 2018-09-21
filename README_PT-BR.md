@@ -4,9 +4,9 @@
 Atualmente temos módulos para testar aplicações WEB e API's REST. Em breve será desenvolvido um módulo para testar aplicações Desktop (Windows).
 Além disso, já foi feita uma POC para automação de mobile, usando o Appium, mas isso será feito em um segundo momento.
 
-No victory temos duas ferramentas para execução de cenários:
-* beeweb, para aplicativos WEB;
-* beeapi, para API's REST
+No victory temos dois módulos para execução de cenários:
+* web, para aplicativos WEB;
+* api, para API's REST
 
 Existem três formas de executar as ferramentas do Victory:
 - Instalando localmente
@@ -25,13 +25,13 @@ Requisitos:
 Setup (Linux):
 
     cd <my-projects>
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory
     virtualenv -p <python-version> <myenv>
     source <myenv>/bin/activate
     pip install -r requirements.txt
-    cd beeweb; python setup.py install; cd ..
-    beeweb driverupdate
+    cd victory; python setup.py install; cd ..
+    victory driverupdate
 
 Onde:
 
@@ -42,19 +42,19 @@ Onde:
 Por exemplo:
 
     cd projects
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory
     virtualenv -p python3.7 .env
     source .env/bin/activate
     pip install -r requirements.txt
-    cd beeweb; python setup.py install; cd ..
-    beeweb driverupdate
+    cd victory; python setup.py install; cd ..
+    victory driverupdate
 
 Como executar:
 
 Para executar o exemplo "google search", execute o seguinte comando:
 
-    beeweb run web samples/google-search
+    victory run web samples/google-search
 
 
 Segue abaixo o passo-a-passo desta instalação:
@@ -72,7 +72,7 @@ Como executar:
 
 Para executar o exemplo "google search", execute o seguinte comando:
 
-    docker run -e "MODULE=web" -e "FEATURES_PATH=samples/google-search" alexgarzao/beeweb
+    docker run -e "MODULE=web" -e "FEATURES_PATH=samples/google-search" alexgarzao/victory
 
 ## Via Vagrant
 
@@ -85,17 +85,17 @@ Requisitos:
 Setup:
 
     cd projects
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb/vagrant
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory/vagrant
     vagrant up
 
 Sempre que iniciar a VM:
 
 Neste box do vagrant existe um Ubuntu 16.04, com o XFCE. No momento, a VM inicia em modo texto (isso vai ser ajustado), requisitando user (vagrant) e password (vagrant). Após isso, inicie o X (startx). Abrindo um console no ambiente gráfico, digite os seguintes comandos:
 
-    cd beeweb
+    cd victory
     source .env/bin/activate
 
 Para executar o exemplo "google search", execute o seguinte comando:
 
-    beeweb run web samples/google-search
+    victory run web samples/google-search

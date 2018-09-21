@@ -3,7 +3,7 @@ English description | <a href="README_PT-BR.md">Descrição em Português</a>
 </p>
 
 
-# beeweb
+# Victory
 Web front test automation tool.
 
 ## requirements
@@ -13,8 +13,8 @@ Web front test automation tool.
 
 ## setup (Linux)
     cd <my-projects>
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory
     virtualenv -p <python-version> <myenv>
     source <myenv>/bin/activate
     pip install -r requirements.txt
@@ -28,8 +28,8 @@ Where:
 For example:
 
     cd projects
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory
     virtualenv -p python3.7 .env
     source .env/bin/activate
     pip install -r requirements.txt
@@ -47,8 +47,8 @@ To install virtualenv:
     pip.exe install virtualenv
 
     cd <my-projects>
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory
     virtualenv.exe <myenv>
     <myenv>\scripts\activate.bat
     source <myenv>/bin/activate
@@ -63,8 +63,8 @@ Where:
 For example:
 
     cd projects
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory
     virtualenv.exe .env
     .env\scripts\activate.bat
     pip.exe install -r requirements.txt

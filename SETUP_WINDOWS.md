@@ -7,8 +7,8 @@ To install virtualenv:
     pip.exe install virtualenv
 
     cd <my-projects>
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory
     virtualenv.exe <myenv>
     <myenv>\scripts\activate.bat
     source <myenv>/bin/activate
@@ -23,8 +23,8 @@ Where:
 For example:
 
     cd projects
-    git clone https://github.com/alexgarzao/beeweb.git
-    cd beeweb
+    git clone https://github.com/alexgarzao/victory.git
+    cd victory
     virtualenv.exe .env
     .env\scripts\activate.bat
     pip.exe install -r requirements.txt
