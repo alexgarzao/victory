@@ -25,6 +25,7 @@ Setup (Linux):
     source <myenv>/bin/activate
     pip install -r requirements.txt
     cd beeweb; python setup.py install; cd ..
+    beeweb driverupdate
 
 Onde:
 
@@ -41,12 +42,18 @@ Por exemplo:
     source .env/bin/activate
     pip install -r requirements.txt
     cd beeweb; python setup.py install; cd ..
+    beeweb driverupdate
 
 Como executar:
 
 Para executar o exemplo "google search", execute o seguinte comando:
 
-    beeweb run web FEATURES_PATH=samples/google-search
+    beeweb run web samples/google-search
+
+
+Segue abaixo o passo-a-passo desta instalação:
+
+[![asciicast](https://asciinema.org/a/W3iQHJZDFTDRd5wO60O5T2cfr.png)](https://asciinema.org/a/W3iQHJZDFTDRd5wO60O5T2cfr?autoplay=1)
 
 ## Via Docker
 
@@ -85,8 +92,4 @@ Neste box do vagrant existe um Ubuntu 16.04, com o XFCE. No momento, a VM inicia
 
 Para executar o exemplo "google search", execute o seguinte comando:
 
-    beeweb run web FEATURES_PATH=samples/google-search
-
-Segue abaixo este exemplo sendo executado:
-
-[![asciicast](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg.png)](https://asciinema.org/a/zNvoWDIJpVYxmRYdSoO9G0yRg?autoplay=1)
+    beeweb run web samples/google-search
