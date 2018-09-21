@@ -1,0 +1,4 @@
+./setup/configuração.feature
+./setup/define_elementos.feature
+#./setup/files.feature
+./download/download.feature
