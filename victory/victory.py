@@ -88,11 +88,12 @@ def tfspull(ctx):
 @click.pass_context
 @click.argument('module')
 @click.argument('path')
+@click.argument('scenarios', nargs=-1, required=False)
 @click.option('--tags', multiple=True)
 @click.option('--headless/--no-headless', default=False)
-def run(ctx, module, path, tags, headless):
+def run(ctx, module, path, scenarios, tags, headless):
     behave_run = BehaveRun()
-    status_code = behave_run.run(module, path, ctx.obj['DEBUG'], ctx.obj['STOP-ON-ERROR'], tags, headless)
+    status_code = behave_run.run(module, path, scenarios, ctx.obj['DEBUG'], ctx.obj['STOP-ON-ERROR'], tags, headless)
     if status_code:
         exit(status_code)
 
