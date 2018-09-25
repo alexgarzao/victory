@@ -1,3 +1,7 @@
+<p align="right">
+Descrição em Português | <a href="README_EN.md">English description</a>
+</p>
+
 # Victory
 
 É um framework para automação de testes usando BDD.
