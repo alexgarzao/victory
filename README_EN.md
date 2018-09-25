@@ -1,5 +1,5 @@
 <p align="right">
-English description | <a href="README_PT-BR.md">Descrição em Português</a>
+English description | <a href="README.md">Descrição em Português</a>
 </p>
 
 
