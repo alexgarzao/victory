@@ -9,6 +9,7 @@ from tfs_config import TfsConfig
 from report_config import ReportConfig
 from webdriver_update import WebDriverUpdate
 from behave_run import BehaveRun
+from behave_steps_catalog import BehaveStepsCatalog
 
 
 TFS_FEATURES_PATH = "./tfs/"
@@ -120,6 +121,16 @@ def sendreport(ctx):
             branch_name='XXXYYYZZZ',
             last_commit='XXXYYYZZZ',
     )
+
+
+@cli.command()
+@click.pass_context
+@click.argument('module')
+def stepscatalog(ctx, module):
+    behave_steps_catalog = BehaveStepsCatalog()
+    status_code = behave_steps_catalog.run(module)
+    if status_code:
+        exit(status_code)
 
 
 def __get_tfs_connection():

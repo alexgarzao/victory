@@ -6,7 +6,7 @@ setup(
     py_modules=[
         'victory', 'tfs_config', 'tfs_pull', 'tfs_list', 'tfs_integration', 'test_suite',
         'report_config', 'work_item', 'scenarios_result', 'smtp_email', 'report', 'webdriver_update',
-        'behave_run'
+        'behave_run', 'behave_steps_catalog'
     ],
     install_requires=[
         'asn1crypto==0.24.0',
