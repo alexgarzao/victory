@@ -1,4 +1,4 @@
-from behave import given, then
+from behave import given, then, when
 
 
 @given(u'que estou na tela {screen}')  # noqa: F811
@@ -8,6 +8,8 @@ def step_impl(context, screen):
 
 @given(u'que vou para a tela {screen}')  # noqa: F811
 @given(u'vou para a tela {screen}')
+@when(u'vou para a tela {screen}')
+@then(u'vou para a tela {screen}')
 def step_impl(context, screen):
     context.module.driver.open_screen(screen)
 
