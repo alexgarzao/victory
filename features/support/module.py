@@ -48,3 +48,6 @@ class Module:
 
     def add_event_in_generic_action(self, action_name, event):
         self.generic_actions.add_event(action_name, event)
+
+    def get_steps_to_execute(self, action_name):
+        return self.generic_actions.get_steps_to_execute(action_name)
