@@ -223,6 +223,8 @@ def step_impl(context, name):
 
 @step(u'aguardo {seconds:Number} segundo')  # noqa: F811
 @step(u'aguardo {seconds:Number} segundos')
+@step(u'que aguardo {seconds:Number} segundo')
+@step(u'que aguardo {seconds:Number} segundos')
 def step_impl(context, seconds):
     time.sleep(seconds)
 

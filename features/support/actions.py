@@ -5,7 +5,9 @@ class Actions:
     def __init__(self):
         self.actions = {}
         self.unused = set()
+        self.used = set()
 
+    # TODO: Refactor: Deveria ter classe Action, e ela deveria ser retornada nesta funcao.
     def add_action(self, action_name):
         action_name = action_name.lower()
         if self.actions.get(action_name) is not None:
@@ -45,11 +47,15 @@ class Actions:
         unused_actions = list(self.unused)
         return unused_actions
 
+    def was_used(self, action_name):
+        return action_name in self.used
+
     def __match_action(self, action_name):
         for action_type in self.actions.keys():
             r = parse(action_type, action_name)
             if r:
                 self.unused.discard(action_type)
+                self.used.add(action_type)
                 return self.actions[action_type], r.named
 
         return None, None

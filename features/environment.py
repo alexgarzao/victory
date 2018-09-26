@@ -32,8 +32,13 @@ def __choose_module_class(context, module):
         assert False, "Undefined module {}".format(module)
 
 
+def before_feature(context, feature):
+    context.module.before_feature(feature)
+
+
 def before_scenario(context, scenario):
     context.config_scenario = False
+    context.module.before_scenario(scenario)
 
 
 def after_scenario(context, scenario):
