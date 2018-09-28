@@ -16,6 +16,6 @@ No victory temos dois módulos para execução de cenários:
 
 [Como executar](docs/RUN.md)
 
-[Dicas com boas práticas][docs/GOOD-PRACTICES.md]
+[Dicas com boas práticas](docs/GOOD-PRACTICES.md)
 
-[Livros interessantes][docs/BOOKS.md]
+[Livros interessantes](docs/BOOKS.md)
