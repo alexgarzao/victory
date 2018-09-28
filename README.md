@@ -13,6 +13,9 @@ No victory temos dois módulos para execução de cenários:
 * api, para API's REST
 
 [Como instalar](docs/INSTALL.md)
+
 [Como executar](docs/RUN.md)
+
 [Dicas com boas práticas][docs/GOOD-PRACTICES.md]
+
 [Livros interessantes][docs/BOOKS.md]
