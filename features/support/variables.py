@@ -30,9 +30,3 @@ class Variables (object):
             message += "Variables: Tentando obter a variavel '%s': struct='%s' field='%s'.\n" % \
                 (variable, struct, alias)
             assert False, message
-
-    def get_content(self, content):
-        if type(content) == str and content and content[0] == '$':
-            return self.get_variable_result(content[1:])
-
-        return content

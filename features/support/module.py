@@ -4,10 +4,10 @@ from features.support.variables import Variables
 
 class Module:
     def __init__(self, type, context):
-        self.type = type
-        self.context = context
-        self.generic_actions = Actions()
-        self.variables = Variables(context)
+        self.__type = type
+        self._context = context
+        self.__generic_actions = Actions()
+        self.__variables = Variables(context)
 
     def before_all(self):
         pass
@@ -23,15 +23,15 @@ class Module:
         for special_tag in special_tags:
             if special_tag.startswith('runonce.'):
                 action = special_tag[8:]
-                if self.generic_actions.was_used(action):
+                if self.__generic_actions.was_used(action):
                     continue
             elif special_tag.startswith('run.'):
                 action = special_tag[4:]
             else:
                 assert False, "Undefined special tag '{}'".format(special_tag)
 
-            steps_to_execute = self.generic_actions.get_steps_to_execute(action)
-            self.context.execute_steps(steps_to_execute)
+            steps_to_execute = self.__generic_actions.get_steps_to_execute(action)
+            self._context.execute_steps(steps_to_execute)
 
     def after_scenario(self, scenario):
         pass
@@ -46,10 +46,22 @@ class Module:
         return None
 
     def add_generic_action(self, action_name):
-        self.generic_actions.add_action(action_name)
+        self.__generic_actions.add_action(action_name)
 
     def add_event_in_generic_action(self, action_name, event):
-        self.generic_actions.add_event(action_name, event)
+        self.__generic_actions.add_event(action_name, event)
 
     def get_steps_to_execute(self, action_name):
-        return self.generic_actions.get_steps_to_execute(action_name)
+        return self.__generic_actions.get_steps_to_execute(action_name)
+
+    def get_content(self, value):
+        if type(value) == str and value and value[0] == '$':
+            return self.__variables.get_variable_result(value[1:])
+
+        return value
+
+    def set_variable_result(self, variable, value):
+        self.__variables.set_variable_result(variable, value)
+
+    def get_variable_result(self, variable):
+        return self.__variables.get_variable_result(variable)

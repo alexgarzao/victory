@@ -4,7 +4,7 @@ from datetime import date
 
 def assert_equal(context, result, expected_result, custom_message):
 
-    expected_result = context.module.variables.get_content(expected_result)
+    expected_result = context.module.get_content(expected_result)
 
     #TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
     if expected_result == 'sim':
@@ -88,7 +88,7 @@ def bigger_then(context, less_value, bigger_value):
 
 def define_value(context, value):
     #TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
-    defined_value = context.module.variables.get_content(value)
+    defined_value = context.module.get_content(value)
     return parse_value(defined_value)
 
 

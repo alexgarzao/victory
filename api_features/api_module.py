@@ -18,7 +18,7 @@ class ApiModule(Module):
         import steps  # noqa: F401
 
     def after_scenario(self, scenario):
-        if self.context.failed:
+        if self._context.failed:
             log = './output/LOG-EXECUCAO-{}.log'.format(strftime("%Y-%m-%d", gmtime()))
             message = "\nFeature:{}\n   Linha em que falhou:{}\n\n".format(
                     scenario.filename,
@@ -29,8 +29,8 @@ class ApiModule(Module):
             with open(log, 'a') as arq:
                 arq.write(message)
         else:
-            if self.context.config_scenario:
+            if self._context.config_scenario:
                 return
 
     def start(self):
-        self.driver.set_base_url(self.context.test_config.get_string('BASE_URL'))
+        self.driver.set_base_url(self._context.test_config.get_string('BASE_URL'))

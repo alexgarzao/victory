@@ -20,7 +20,7 @@ class WebModule(Module):
         import steps  # noqa: F401
 
     def after_scenario(self, scenario):
-        if self.context.failed:
+        if self._context.failed:
             log = './output/LOG-EXECUCAO-{}.log'.format(strftime("%Y-%m-%d", gmtime()))
             screen_name = self.__get_screenshot(scenario, "FALHA")
             message = "\nFeature:{}\n   Linha em que falhou:{}\n   Screenshot:{}\n\n".format(
@@ -33,21 +33,21 @@ class WebModule(Module):
             with open(log, 'a') as arq:
                 arq.write(message)
         else:
-            if self.context.config_scenario:
+            if self._context.config_scenario:
                 return
             screen_name = self.__get_screenshot(scenario, "SUCESSO")
 
     def after_step(self, step):
-        if self.context.config_scenario:
+        if self._context.config_scenario:
             return
 
-        sleep_time = self.context.test_config.get_number('SLEEP_BETWEEN_STEPS')
+        sleep_time = self._context.test_config.get_number('SLEEP_BETWEEN_STEPS')
         if sleep_time > 0:
             sleep(sleep_time/1000)
 
     def after_all(self):
-        if self.context.module.driver:
-            self.context.module.driver.quit()
+        if self._context.module.driver:
+            self._context.module.driver.quit()
 
     def get_unused_definitions(self):
         result = []
@@ -85,11 +85,11 @@ class WebModule(Module):
         return screen_name
 
     def start(self):
-        features_path = self.context.test_config.get_string("FEATURES_PATH")
-        path = features_path + "/" + self.context.test_config.get_string('FILES_PATH')
-        headless = self.context.test_config.get_bool('HEADLESS')
+        features_path = self._context.test_config.get_string("FEATURES_PATH")
+        path = features_path + "/" + self._context.test_config.get_string('FILES_PATH')
+        headless = self._context.test_config.get_bool('HEADLESS')
 
         if headless:
-            self.context.test_config.set('SLEEP_BETWEEN_STEPS', 0)
+            self._context.test_config.set('SLEEP_BETWEEN_STEPS', 0)
 
-        self.context.module.driver.open(headless, path)
+        self._context.module.driver.open(headless, path)
