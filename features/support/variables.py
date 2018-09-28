@@ -18,6 +18,7 @@ class Variables (object):
             if dot_position == -1:
                 struct = ""
                 field = variable
+                alias = variable[dot_position + 1:]
                 return self.variables[field]
 
             struct = variable[:dot_position]

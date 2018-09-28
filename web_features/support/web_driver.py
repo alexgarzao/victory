@@ -4,7 +4,6 @@ import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
-from features.support.queries import Queries
 from .screens import Screens
 from features.support.files import Files
 
@@ -15,7 +14,6 @@ class WebDriver:
         self.chrome_driver_path = None
         self.screens = Screens(None)
         self.__current_screen = None
-        self.queries = Queries()
         self.files = Files()
         self.retries = 10
 

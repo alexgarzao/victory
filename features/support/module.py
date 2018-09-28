@@ -1,5 +1,6 @@
 from features.support.actions import Actions
 from features.support.variables import Variables
+from features.support.queries import Queries
 
 
 class Module:
@@ -8,6 +9,7 @@ class Module:
         self._context = context
         self.__generic_actions = Actions()
         self.__variables = Variables(context)
+        self.queries = Queries()
 
     def before_all(self):
         pass
@@ -55,7 +57,14 @@ class Module:
         return self.__generic_actions.get_steps_to_execute(action_name)
 
     def get_content(self, value):
-        if type(value) == str and value and value[0] == '$':
+        if type(value) != str or not value:
+            return value
+
+        if value.startswith("$query:"):
+            query_name = value[7:]
+            return self.queries.run(query_name)
+
+        if value.startswith('$'):
             return self.__variables.get_variable_result(value[1:])
 
         return value

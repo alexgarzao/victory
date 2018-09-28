@@ -3,7 +3,7 @@ from behave import given, then
 
 @given(u'que quero definir a query {query_name} para o {db_type}')  # noqa: F811
 def step_impl(context, query_name, db_type):
-    context.new_query = context.module.driver.queries.add(db_type, query_name)
+    context.new_query = context.module.queries.add(db_type, query_name)
     context.config_scenario = True
 
 

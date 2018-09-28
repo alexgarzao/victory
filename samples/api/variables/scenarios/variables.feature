@@ -8,7 +8,7 @@ Funcionalidade: Variáveis
     Dado que quero consultar o valor de var1
     Então obtenho o valor valorvar1
 
-  Cenário: Definir e imprimir variáveis
+  Cenário: Definir e consultar variáveis
     Dado que var2 = valorvar2
     E que $var3 = valorvar3
     E que $var4 = $var3
@@ -18,6 +18,16 @@ Funcionalidade: Variáveis
     Então obtenho o valor valorvar3
     Quando consulto o valor de var4
     Então obtenho o valor valorvar3
+
+  Cenário: Obter dados de queries e guardar em variáveis
+    Dado que crio um banco para testar a execução de queries
+    E que $var11 = $query:palavra 1
+    E que $var12 = $query:palavra 2
+    Quando consulto o valor de $var11
+    Então obtenho o valor XXX10
+    Quando consulto o valor de $var12
+    Então obtenho o valor XXX20
+
 
   # TODO: exemplos com json, pegando subcampos, ...
 

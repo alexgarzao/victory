@@ -41,10 +41,11 @@ def assert_equal(context, result, expected_result, custom_message):
         message = custom_message + ' recebido "%s" difere do esperado "%s"'
         assert result == expected_result or str(result) == expected_result, message % (result, expected_result)
 
+
 def assert_not_equal(context, result, expected_result, custom_message):
 
     expected_result = context.global_data.get_content(expected_result)
-    #TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
+    # TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
     if expected_result == 'sim':
         expected_result = True
         message = custom_message + ' recebido "%s" não difere do esperado "%s"'
@@ -86,8 +87,9 @@ def bigger_then(context, less_value, bigger_value):
 
     assert isinstance(less_value, int) and isinstance(bigger_value, int) and bigger_value > less_value, 'O valor informado "%s" é menor que o esperado %s' % (bigger_value, less_value)
 
+
 def define_value(context, value):
-    #TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
+    # TODO Modificar para utilizar sinal de "menor", "maior". Exemplo: <sim> e <não>
     defined_value = context.module.get_content(value)
     return parse_value(defined_value)
 
@@ -96,13 +98,13 @@ def define_list_value(context, value):
     value = parse_value(value)
     if not value:
         return []
-        #return None
+        # return None
 
     return [int(x) if __is_valid(x) else define_value(context, x.strip()) for x in value]
 
 
 def __is_valid(value):
-    return (isinstance(value, str) and value.isdigit()) or isinstance(value,int)
+    return (isinstance(value, str) and value.isdigit()) or isinstance(value, int)
 
 
 def parse_value(value):

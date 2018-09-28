@@ -110,7 +110,7 @@ def step_impl(context, name, expected_value):
 @step(u'preencho a {component_name} com a consulta {query_name}')
 def step_impl(context, component_name, query_name):
     # REFACTOR: STEPs nao deveriam ter logica
-    value = context.module.driver.queries.run(query_name)
+    value = context.module.queries.run(query_name)
     element = context.module.driver.get_current_screen().find_element(component_name)
     element.clear()
     element.send_keys(value + Keys.TAB)
