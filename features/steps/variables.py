@@ -15,6 +15,7 @@ def step_impl(context, variable):
 @then(u'defino que {variable} igual a {value}')  # noqa: F811
 @when(u'defino que {variable} igual a {value}')  # noqa: F811
 def step_impl(context, variable, value):
+    value = context.module.variables.get_content(value)
     context.module.variables.set_variable_result(variable, value)
 
 
@@ -33,4 +34,5 @@ def step_impl(context, variable):
 
 @given(u'que {variable} = {value}')  # noqa: F811
 def step_impl(context, variable, value):
+    value = context.module.variables.get_content(value)
     context.module.variables.set_variable_result(variable, value)

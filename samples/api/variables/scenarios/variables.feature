@@ -11,9 +11,12 @@ Funcionalidade: Variáveis
   Cenário: Definir e imprimir variáveis
     Dado que var2 = valorvar2
     E que $var3 = valorvar3
+    E que $var4 = $var3
     Quando consulto o valor de $var2
     Então obtenho o valor valorvar2
     Quando consulto o valor de var3
+    Então obtenho o valor valorvar3
+    Quando consulto o valor de var4
     Então obtenho o valor valorvar3
 
   # TODO: exemplos com json, pegando subcampos, ...
