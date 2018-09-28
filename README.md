@@ -12,4 +12,4 @@ No victory temos dois módulos para execução de cenários:
 * web, para aplicativos WEB;
 * api, para API's REST
 
-[Como instalar](INSTALL.md)
+[Como instalar](docs/INSTALL.md)
