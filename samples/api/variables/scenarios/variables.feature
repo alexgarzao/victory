@@ -11,7 +11,7 @@ Funcionalidade: Variáveis
   Cenário: Definir e consultar variáveis
     Dado que var2 = valorvar2
     E que $var3 = valorvar3
-    E que $var4 = $var3
+    E que $var4 = $var:var3
     Quando consulto o valor de $var2
     Então obtenho o valor valorvar2
     Quando consulto o valor de var3

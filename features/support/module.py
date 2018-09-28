@@ -64,8 +64,9 @@ class Module:
             query_name = value[7:]
             return self.queries.run(query_name)
 
-        if value.startswith('$'):
-            return self.__variables.get_variable_result(value[1:])
+        if value.startswith('$var:'):
+            var = value[5:]
+            return self.__variables.get_variable_result(var)
 
         return value
 
