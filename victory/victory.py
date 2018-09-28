@@ -108,9 +108,16 @@ def run(ctx, module, path, scenarios, tags, headless):
 
 @cli.command()
 @click.pass_context
-def sendreport(ctx):
+@click.option('--project-name', required=False)
+@click.option('--smtp-server', required=False)
+@click.option('--smtp-from', required=False)
+@click.option('--smtp-to', multiple=True)
+@click.option('--username', required=False)
+@click.option('--password', required=False)
+def sendreport(ctx, project_name, smtp_server, smtp_from, smtp_to, username, password):
     config = ReportConfig("./config.ini", "REPORT")
     config.read()
+    config.replace_if_necessary(project_name, smtp_server, smtp_from, smtp_to, username, password)
 
     report = Report(config.smtp_server(), config.username(), config.password())
     report.send_by_email(

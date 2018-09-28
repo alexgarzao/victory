@@ -41,3 +41,22 @@ class ReportConfig():
 
     def password(self):
         return self.config[self.section]['password']
+
+    def replace_if_necessary(self, project_name, smtp_server, smtp_from, smtp_to, username, password):
+        if project_name:
+            self.config[self.section]['project_name'] = project_name
+
+        if smtp_server:
+            self.config[self.section]['smtp_server'] = smtp_server
+
+        if smtp_from:
+            self.config[self.section]['smtp_from'] = smtp_from
+
+        if smtp_to:
+            self.config[self.section]['smtp_to'] = smtp_to
+
+        if username:
+            self.config[self.section]['username'] = username
+
+        if password:
+            self.config[self.section]['password'] = password
