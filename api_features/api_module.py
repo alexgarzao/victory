@@ -2,14 +2,12 @@ from time import gmtime, strftime
 
 from features.support.module import Module
 from .support.api_driver import ApiDriver
-from .support.variables import Variables
 
 
 class ApiModule(Module):
     def __init__(self, context):
         super().__init__('api', context)
         self.driver = ApiDriver()
-        self.variables = Variables(context)
 
     def before_all(self):
         self.__load_steps()

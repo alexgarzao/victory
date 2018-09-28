@@ -7,6 +7,7 @@ def step_impl(context):
 
 
 @given(u'que quero consultar o valor de {variable}')  # noqa: F811
+@when(u'consulto o valor de {variable}')
 def step_impl(context, variable):
     context.variable_result = context.module.variables.get_variable_result(variable)
 
@@ -17,7 +18,7 @@ def step_impl(context, variable, value):
     context.module.variables.set_variable_result(variable, value)
 
 
-@then(u'obtenho {expected_value}')  # noqa: F811
+@then(u'obtenho o valor {expected_value}')  # noqa: F811
 def step_impl(context, expected_value):
     valor_variavel = context.variable_result
     assert valor_variavel == expected_value, \
@@ -28,3 +29,8 @@ def step_impl(context, expected_value):
 def step_impl(context, variable):
     assert context.request.success()
     context.module.variables.set_variable_result(variable, context.request.retorno.json())
+
+
+@given(u'que {variable} = {value}')  # noqa: F811
+def step_impl(context, variable, value):
+    context.module.variables.set_variable_result(variable, value)

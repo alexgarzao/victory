@@ -10,6 +10,9 @@ class Variables (object):
         self.variables[variable] = value
 
     def get_variable_result(self, variable):
+        if variable[0] == '$':
+            variable = variable[1:]
+
         try:
             dot_position = variable.find('.')
             if dot_position == -1:

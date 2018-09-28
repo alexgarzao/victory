@@ -1,4 +1,5 @@
 from features.support.actions import Actions
+from features.support.variables import Variables
 
 
 class Module:
@@ -6,6 +7,7 @@ class Module:
         self.type = type
         self.context = context
         self.generic_actions = Actions()
+        self.variables = Variables(context)
 
     def before_all(self):
         pass

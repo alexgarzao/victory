@@ -6,7 +6,15 @@ Funcionalidade: Variáveis
 
   Cenário: Obter o resultado de uma variável
     Dado que quero consultar o valor de var1
-    Então obtenho valorvar1
+    Então obtenho o valor valorvar1
+
+  Cenário: Definir e imprimir variáveis
+    Dado que var2 = valorvar2
+    E que $var3 = valorvar3
+    Quando consulto o valor de $var2
+    Então obtenho o valor valorvar2
+    Quando consulto o valor de var3
+    Então obtenho o valor valorvar3
 
   # TODO: exemplos com json, pegando subcampos, ...
 

@@ -1,1 +1,1 @@
-from . import common, variables, resource
+from . import common, resource
