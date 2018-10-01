@@ -9,7 +9,10 @@ class Sqlite:
         self.sql = ''
         self.field_name = ''
 
-    def query(self):
+    def query(self, field_name=''):
+        if not field_name:
+            field_name = self.field_name
+
         conn = self.__get_connection()
         cursor = conn.cursor()
         cursor.execute(self.sql)
@@ -18,11 +21,10 @@ class Sqlite:
         assert len(rows) == 1
         row = rows[0]
 
-        if self.field_name:
-            return row[self.field_name]
+        if field_name:
+            return row[field_name]
 
-        assert len(row.keys()) == 1
-        return row[0]
+        return row
 
     def run(self, sql):
         conn = self.__get_connection()

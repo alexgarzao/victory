@@ -24,12 +24,20 @@ class Queries:
 
     def run(self, name):
         name = name.lower()
-        query = self.query_list.get(name)
+        query_name, field_name = self.__split(name)
+        query = self.query_list.get(query_name)
         if not query:
             possible = ','.join(list(self.query_list))
             raise NotFoundQueryException("Query {} not found. Possible values: {}".format(name, possible))
 
-        return query.query()
+        return query.query(field_name)
+
+    def __split(self, name):
+        split = name.split('.')
+        if len(split) == 1:
+            return name, ''
+
+        return split[0], split[1]
 
 
 class InvalidDbTypeException(Exception):

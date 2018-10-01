@@ -42,7 +42,7 @@ Funcionalidade: Cadastro de imóveis
 
   Cenário: Como usuário quero alterar o imóvel do proprietario 2
     Dado que quero alterar um imóvel
-    E o campo id do imóvel é $imóvel2.id do imóvel
+    E o campo id do imóvel é $var:imóvel2.id do imóvel
     E o campo nome do proprietário é Novo Proprietário
     Quando tento executar
     Então recebo o status imóvel alterado com sucesso
@@ -59,7 +59,7 @@ Funcionalidade: Cadastro de imóveis
 
   Cenário: Como usuário quero consultar os dados do terceiro imóvel
     Dado que quero consultar um imóvel
-    E o campo id do imóvel é $imóvel3.id do imóvel
+    E o campo id do imóvel é $var:imóvel3.id do imóvel
     Quando tento executar
     Então recebo o status imóvel obtido com sucesso
     E o campo nome do proprietário tem o valor Proprietário 03
@@ -70,7 +70,7 @@ Funcionalidade: Cadastro de imóveis
 
   Cenário: Como usuário quero remover o segundo imóvel
     Dado que quero remover um imóvel
-    E o campo id do imóvel é $imóvel2.id do imóvel
+    E o campo id do imóvel é $var:imóvel2.id do imóvel
     Quando tento executar
     Então recebo o status imóvel removido com sucesso
 

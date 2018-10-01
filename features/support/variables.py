@@ -17,14 +17,14 @@ class Variables (object):
             dot_position = variable.find('.')
             if dot_position == -1:
                 struct = ""
-                field = variable
-                alias = variable[dot_position + 1:]
-                return self.variables[field]
+                field_name = variable
+                alias = ""
+                return self.variables[field_name].get_value(self.context, alias)
 
             struct = variable[:dot_position]
             alias = variable[dot_position + 1:]
-            field = self.context.resource.get_field(alias).json_name
-            return self.variables[struct][field]
+
+            return self.variables[struct].get_value(self.context, alias)
         except:
             message = "Variables: Erro ao tentar obter o conteudo da variavel.\n"
             message += "Variables: Variaveis definidas: %s\n" % self.variables.keys()

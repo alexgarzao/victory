@@ -1,5 +1,7 @@
 from behave import given, when, then
 
+from features.support.simple_result import SimpleResult
+
 
 @given(u'que quero definir variáveis')  # noqa: F811
 def step_impl(context):
@@ -16,7 +18,7 @@ def step_impl(context, variable):
 @when(u'defino que {variable} igual a {value}')  # noqa: F811
 def step_impl(context, variable, value):
     value = context.module.get_content(value)
-    context.module.set_variable_result(variable, value)
+    context.module.set_variable_result(variable, SimpleResult(value))
 
 
 @then(u'obtenho o valor {expected_value}')  # noqa: F811
@@ -26,13 +28,7 @@ def step_impl(context, expected_value):
         "O resultado esperado [%s] e diferente do retorno [%s]." % (expected_value, valor_variavel)
 
 
-@then(u'salvo o resultado em {variable}')  # noqa: F811
-def step_impl(context, variable):
-    assert context.request.success()
-    context.module.set_variable_result(variable, context.request.retorno.json())
-
-
 @given(u'que {variable} = {value}')  # noqa: F811
 def step_impl(context, variable, value):
     value = context.module.get_content(value)
-    context.module.set_variable_result(variable, value)
+    context.module.set_variable_result(variable, SimpleResult(value))

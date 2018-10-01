@@ -2,6 +2,7 @@ from behave import given, then, when
 from hamcrest import assert_that
 
 from api_features.support.utils import assert_equal
+from api_features.support.api_result import ApiResult
 
 
 @given(u'que quero definir o recurso {resource_name}')  # noqa: F811
@@ -73,3 +74,9 @@ def step_impl(context, alias, field_value):
     assert_that(field is not None, 'Alias %s nao encontrado' % alias)
     field_value = context.module.get_content(field_value)
     assert_equal(context, context.request.result[field.json_name], field_value, "Valor do campo difere do esperado")
+
+
+@then(u'salvo o resultado em {variable}')  # noqa: F811
+def step_impl(context, variable):
+    assert context.request.success()
+    context.module.set_variable_result(variable, ApiResult(context.request.retorno.json()))
