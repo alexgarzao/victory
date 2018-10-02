@@ -113,7 +113,7 @@ def step_impl(context, component_name, query_name):
     value = context.module.queries.run(query_name)
     element = context.module.driver.get_current_screen().find_element(component_name)
     element.clear()
-    element.send_keys(value + Keys.TAB)
+    element.send_keys(value.get_value() + Keys.TAB)
 
 
 @step(u'preencho o {name} com o valor {value}')  # noqa: F811

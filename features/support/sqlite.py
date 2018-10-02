@@ -1,5 +1,8 @@
 import sqlite3
 
+from features.support.simple_result import SimpleResult
+from features.support.query_result import QueryResult
+
 
 class Sqlite:
     connection_pool = {}
@@ -22,9 +25,9 @@ class Sqlite:
         row = rows[0]
 
         if field_name:
-            return row[field_name]
+            return SimpleResult(row[field_name])
 
-        return row
+        return QueryResult(row)
 
     def run(self, sql):
         conn = self.__get_connection()

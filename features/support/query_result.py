@@ -1,6 +1,10 @@
-class QueryResult:
+from .content_result import ContentResult
+from features.support.simple_result import SimpleResult
+
+
+class QueryResult(ContentResult):
     def __init__(self, json):
         self.json = json
 
-    def get_value(self, context, field_name):
-        return self.json[field_name]
+    def get_result(self, field_name):
+        return SimpleResult(self.json[field_name])

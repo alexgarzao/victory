@@ -1,6 +1,7 @@
 from features.support.actions import Actions
 from features.support.variables import Variables
 from features.support.queries import Queries
+from features.support.simple_result import SimpleResult
 
 
 class Module:
@@ -8,7 +9,7 @@ class Module:
         self.__type = type
         self._context = context
         self.__generic_actions = Actions()
-        self.__variables = Variables(context)
+        self.__variables = Variables()
         self.queries = Queries()
 
     def before_all(self):
@@ -58,7 +59,7 @@ class Module:
 
     def get_content(self, value):
         if type(value) != str or not value:
-            return value
+            return SimpleResult(value)
 
         if value.startswith("$query:"):
             query_name = value[7:]
@@ -68,7 +69,7 @@ class Module:
             var = value[5:]
             return self.__variables.get_variable_result(var)
 
-        return value
+        return SimpleResult(value)
 
     def set_variable_result(self, variable, value):
         self.__variables.set_variable_result(variable, value)

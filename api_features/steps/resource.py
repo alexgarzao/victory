@@ -53,7 +53,7 @@ def step_impl(context, event):
 
 @given(u'o campo {alias} é {field_value}')  # noqa: F811
 def step_impl(context, alias, field_value):
-    field_value = context.module.get_content(field_value)
+    field_value = context.module.get_content(field_value).get_value()
     context.request.set_field_value(alias, field_value)
 
 
@@ -72,11 +72,11 @@ def step_impl(context, alias):
 def step_impl(context, alias, field_value):
     field = context.resource.get_field(alias)
     assert_that(field is not None, 'Alias %s nao encontrado' % alias)
-    field_value = context.module.get_content(field_value)
+    field_value = context.module.get_content(field_value).get_value()
     assert_equal(context, context.request.result[field.json_name], field_value, "Valor do campo difere do esperado")
 
 
 @then(u'salvo o resultado em {variable}')  # noqa: F811
 def step_impl(context, variable):
     assert context.request.success()
-    context.module.set_variable_result(variable, ApiResult(context.request.retorno.json()))
+    context.module.set_variable_result(variable, ApiResult(context, context.request.retorno.json()))
