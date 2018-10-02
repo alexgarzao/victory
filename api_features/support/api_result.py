@@ -1,8 +1,7 @@
-from features.support.content_result import ContentResult
 from features.support.simple_result import SimpleResult
 
 
-class ApiResult(ContentResult):
+class ApiResult(SimpleResult):
     def __init__(self, context, json):
         self.context = context
         self.json = json

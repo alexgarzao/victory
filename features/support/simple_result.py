@@ -1,7 +1,4 @@
-from .content_result import ContentResult
-
-
-class SimpleResult(ContentResult):
+class SimpleResult:
     def __init__(self, value):
         self.value = value
 

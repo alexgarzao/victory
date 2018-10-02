@@ -1,8 +1,7 @@
-from .content_result import ContentResult
 from features.support.simple_result import SimpleResult
 
 
-class QueryResult(ContentResult):
+class QueryResult(SimpleResult):
     def __init__(self, json):
         self.json = json
 

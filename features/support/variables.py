@@ -1,4 +1,4 @@
-from .content_result import ContentResult
+from .simple_result import SimpleResult
 
 
 class Variables (object):
@@ -9,7 +9,7 @@ class Variables (object):
         # Se necessario remove o $ no inicio do nome da variavel.
         if variable[0] == '$':
             variable = variable[1:]
-        assert isinstance(value, ContentResult)
+        assert isinstance(value, SimpleResult)
         self.variables[variable] = value
 
     def get_variable_result(self, variable):
