@@ -23,6 +23,9 @@ class ScenariosResult:
         last_testcase_id = 0
 
         for feature_result in test_result:
+            if self.__must_ignore(feature_result['tags']):
+                continue
+
             last_us_id = self.__get_tag_id(feature_result['tags'], ScenariosResult.US_TAG_PREFIX, last_us_id)
             self.total_features += 1
             if feature_result['status'] == 'failed':
@@ -30,6 +33,9 @@ class ScenariosResult:
                 self.failed_features += 1
 
             for scenario in feature_result['elements']:
+                if self.__must_ignore(scenario['tags']):
+                    continue
+
                 last_testcase_id = self.__get_tag_id(
                         scenario['tags'], ScenariosResult.TESTCASE_TAG_PREFIX, last_testcase_id)
                 self.total_scenarios += 1
@@ -55,6 +61,9 @@ class ScenariosResult:
         f.close()
 
         return test_result
+
+    def __must_ignore(self, tags):
+        return 'setup' in tags
 
     def __get_tag_id(self, tags, tag_prefix, default_id):
         if len(tags) == 0:

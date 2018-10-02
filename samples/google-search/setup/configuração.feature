@@ -1,3 +1,4 @@
+@setup
 Funcionalidade: Configuração do teste
 
   Cenário: Setup do teste

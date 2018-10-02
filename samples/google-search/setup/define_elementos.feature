@@ -1,3 +1,4 @@
+@setup
 Funcionalidade: Definir o mapeamento dos elementos da interface
 
   Cenário: Definir os elementos da tela de busca
