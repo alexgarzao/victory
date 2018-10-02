@@ -1,7 +1,7 @@
-from behave import step, given, then
+from behave import given, when, then
 
 
-@step(u'a ação {action_name} é')  # noqa: F811
+@then(u'a ação {action_name} é')  # noqa: F811
 def step_impl(context, action_name):
     context.module.driver.get_current_screen().add_action(action_name)
 
@@ -9,14 +9,17 @@ def step_impl(context, action_name):
         context.module.driver.get_current_screen().add_event_in_action(action_name, event=row['evento'])
 
 
-@step(u'executo a ação genérica {action_name}')  # noqa: F811
+@when(u'executo a ação genérica {action_name}')  # noqa: F811
+@then(u'executo a ação genérica {action_name}')
 def step_impl(context, action_name):
     steps_to_execute = context.module.get_steps_to_execute(action_name)
     context.execute_steps(steps_to_execute)
 
 
-@step(u'executo a {action_name}')  # noqa: F811
-@step(u'executo o {action_name}')
+@when(u'executo a {action_name}')  # noqa: F811
+@when(u'executo o {action_name}')
+@then(u'executo a {action_name}')
+@then(u'executo o {action_name}')
 def step_impl(context, action_name):
     steps_to_execute = context.module.driver.get_current_screen().get_steps_to_execute(action_name)
     context.execute_steps(steps_to_execute)
