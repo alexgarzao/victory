@@ -69,6 +69,9 @@ class Module:
             var = value[5:]
             return self.__variables.get_variable_result(var)
 
+        if value.startswith('$'):
+            raise Exception("Invalid $ tag: {}".format(value))
+
         return SimpleResult(value)
 
     def set_variable_result(self, variable, value):
