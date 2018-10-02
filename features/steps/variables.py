@@ -1,5 +1,7 @@
 from behave import given, when, then
 
+from api_features.support.utils import assert_equal
+
 
 @given(u'que quero definir variáveis')  # noqa: F811
 def step_impl(context):
@@ -23,5 +25,7 @@ def step_impl(context, variable, value):
 @then(u'obtenho o valor {expected_value}')  # noqa: F811
 def step_impl(context, expected_value):
     valor_variavel = context.variable_result
-    assert valor_variavel == expected_value, \
+    assert_equal(
+        context, valor_variavel, expected_value,
         "O resultado esperado [%s] e diferente do retorno [%s]." % (expected_value, valor_variavel)
+    )
