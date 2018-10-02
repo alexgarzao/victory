@@ -24,19 +24,9 @@ def step_impl(context):
         context.execute_steps(u'Então o elemento {} tem o {} {}'.format(element, method, id))
 
 
-@then(u'o elemento {name} tem o id {internal_id} ignorando is_displayed')  # noqa: F811
-def step_impl(context, name, internal_id):
-    context.module.driver.get_current_screen().add_id_element(name, internal_id, ignore_displayed=True)
-
-
 @then(u'o elemento {name} tem o id {internal_id}')  # noqa: F811
 def step_impl(context, name, internal_id):
     context.module.driver.get_current_screen().add_id_element(name, internal_id, ignore_displayed=False)
-
-
-@then(u'o elemento {name} tem o nome {internal_name} ignorando is_displayed')  # noqa: F811
-def step_impl(context, name, internal_name):
-    context.module.driver.get_current_screen().add_name_element(name, internal_name, ignore_displayed=True)
 
 
 @then(u'o elemento {name} tem o nome {internal_name}')  # noqa: F811
@@ -44,30 +34,14 @@ def step_impl(context, name, internal_name):
     context.module.driver.get_current_screen().add_name_element(name, internal_name, ignore_displayed=False)
 
 
-@then(u'o elemento {name} tem o texto {internal_text} ignorando is_displayed')  # noqa: F811
-def step_impl(context, name, internal_text):
-    context.module.driver.get_current_screen().add_text_element(name, internal_text, ignore_displayed=True)
-
-
 @then(u'o elemento {name} tem o texto {internal_text}')  # noqa: F811
 def step_impl(context, name, internal_text):
     context.module.driver.get_current_screen().add_text_element(name, internal_text, ignore_displayed=False)
 
 
-@then(u'o elemento {name} tem o xpath {internal_xpath} ignorando is_displayed')  # noqa: F811
-def step_impl(context, name, internal_xpath):
-    context.module.driver.get_current_screen().add_xpath_element(name, internal_xpath, ignore_displayed=True)
-
-
 @then(u'o elemento {name} tem o xpath {internal_xpath}')  # noqa: F811
 def step_impl(context, name, internal_xpath):
     context.module.driver.get_current_screen().add_xpath_element(name, internal_xpath, ignore_displayed=False)
-
-
-@then(u'o elemento {name} tem o automation id {internal_automation_id} ignorando is_displayed')  # noqa: F811
-def step_impl(context, name, internal_automation_id):
-    context.module.driver.get_current_screen().add_automation_id_element(
-        name, internal_automation_id, ignore_displayed=True)
 
 
 @then(u'o elemento {name} tem o automation id {internal_automation_id}')  # noqa: F811
@@ -76,21 +50,10 @@ def step_impl(context, name, internal_automation_id):
         name, internal_automation_id, ignore_displayed=False)
 
 
-@then(u'o elemento {name} tem a classe {class_name} ignorando is_displayed')  # noqa: F811
-@then(u'o elemento {name} tem o classe {class_name} ignorando is_displayed')
-def step_impl(context, name, class_name):
-    context.module.driver.get_current_screen().add_class_name_element(name, class_name, ignore_displayed=True)
-
-
 @then(u'o elemento {name} tem a classe {class_name}')  # noqa: F811
-@then(u'o elemento {name} tem o classe {class_name}')
+@then(u'o elemento {name} tem o classe {class_name}')  # Necessario por causa das tabelas
 def step_impl(context, name, class_name):
     context.module.driver.get_current_screen().add_class_name_element(name, class_name, ignore_displayed=False)
-
-
-@then(u'o elemento {name} tem o css {css} ignorando is_displayed')  # noqa: F811
-def step_impl(context, name, css):
-    context.module.driver.get_current_screen().add_css_element(name, css, ignore_displayed=True)
 
 
 @then(u'o elemento {name} tem o css {css}')  # noqa: F811
@@ -98,7 +61,8 @@ def step_impl(context, name, css):
     context.module.driver.get_current_screen().add_css_selector_element(name, css, ignore_displayed=False)
 
 
-@step(u'vejo o {name} com o valor {expected_value}')  # noqa: F811
+@then(u'vejo o {name} com o valor {expected_value}')  # noqa: F811
+@then(u'vejo a {name} com o valor {expected_value}')
 def step_impl(context, name, expected_value):
     # REFACTOR: STEPs nao deveriam ter logica
     element = context.module.driver.get_current_screen().find_element(name)
@@ -106,8 +70,10 @@ def step_impl(context, name, expected_value):
     assert value == expected_value
 
 
-@step(u'preencho o {component_name} com a consulta {query_name}')  # noqa: F811
-@step(u'preencho a {component_name} com a consulta {query_name}')
+@given(u'preencho o {component_name} com a consulta {query_name}')  # noqa: F811
+@given(u'preencho a {component_name} com a consulta {query_name}')
+@when(u'preencho o {component_name} com a consulta {query_name}')
+@when(u'preencho a {component_name} com a consulta {query_name}')
 def step_impl(context, component_name, query_name):
     # REFACTOR: STEPs nao deveriam ter logica
     value = context.module.queries.run(query_name)
@@ -116,8 +82,12 @@ def step_impl(context, component_name, query_name):
     element.send_keys(value.get_value() + Keys.TAB)
 
 
-@step(u'preencho o {name} com o valor {value}')  # noqa: F811
-@step(u'preencho a {name} com o valor {value}')
+@given(u'preencho o {name} com o valor {value}')  # noqa: F811
+@given(u'preencho a {name} com o valor {value}')
+@when(u'preencho o {name} com o valor {value}')
+@when(u'preencho a {name} com o valor {value}')
+@then(u'preencho o {name} com o valor {value}')
+@then(u'preencho a {name} com o valor {value}')
 def step_impl(context, name, value):
     # REFACTOR: STEPs nao deveriam ter logica
     if value == "<ignora>":
@@ -129,7 +99,8 @@ def step_impl(context, name, value):
     element.send_keys(value + Keys.TAB)
 
 
-@step(u'faço o upload do arquivo {fileid} no {element_name}')  # noqa: F811
+@given(u'faço o upload do arquivo {fileid} no {element_name}')  # noqa: F811
+@when(u'faço o upload do arquivo {fileid} no {element_name}')
 def step_impl(context, fileid, element_name):
     # REFACTOR: STEPs nao deveriam ter logica
     element = context.module.driver.get_current_screen().find_element(element_name)
@@ -252,7 +223,7 @@ def step_impl(context, url):
     context.module.driver.get_current_screen().set_url(url)
 
 
-@then(u'eu aceito a popup')  # noqa: F811
+@then(u'aceito a popup')  # noqa: F811
 def step_impl(context):
     # REFACTOR: STEPs nao deveriam ter logica
     # Switch to alert.
@@ -263,12 +234,14 @@ def step_impl(context):
 
 
 @then(u'fica visível a {element_name}')  # noqa: F811
+@then(u'fica visível o {element_name}')
 def step_impl(context, element_name):
     # TODO: remover logica do step :-)
     assert context.module.driver.get_current_screen().find_element(element_name).is_displayed() is True
 
 
 @then(u'verifico que o {element_name} tem o valor {expected_value}')  # noqa: F811
+@then(u'verifico que a {element_name} tem o valor {expected_value}')
 def step_impl(context, element_name, expected_value):
     element = context.module.driver.get_current_screen().find_element(element_name)
     value = element.get_attribute('value')
