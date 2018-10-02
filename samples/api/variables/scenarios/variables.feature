@@ -1,8 +1,7 @@
 Funcionalidade: Variáveis
 
   Cenário: Armazenar o resultado de uma variável
-    Dado que quero definir variáveis
-    Então defino que var1 igual a valorvar1
+    Dado que var1 igual a valorvar1
 
   Cenário: Obter o resultado de uma variável
     Dado que quero consultar o valor de var1

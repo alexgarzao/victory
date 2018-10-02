@@ -3,18 +3,14 @@ from behave import given, when, then
 from api_features.support.utils import assert_equal
 
 
-@given(u'que quero definir variáveis')  # noqa: F811
-def step_impl(context):
-    pass
-
-
 @given(u'que quero consultar o valor de {variable}')  # noqa: F811
 @when(u'consulto o valor de {variable}')
 def step_impl(context, variable):
     context.variable_result = context.module.get_content("$var:" + variable).get_value()
 
 
-@then(u'defino que {variable} igual a {value}')  # noqa: F811
+@given(u'que {variable} igual a {value}')  # noqa: F811
+@then(u'defino que {variable} igual a {value}')
 @when(u'defino que {variable} igual a {value}')
 @given(u'que {variable} = {value}')
 def step_impl(context, variable, value):
