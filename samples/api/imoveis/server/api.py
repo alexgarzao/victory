@@ -114,6 +114,12 @@ class Imoveis(Resource):
         return IMOVEIS[imovel_id], 201
 
 
+# Tipos de Imoveis
+class TiposImoveis(Resource):
+    def post(self):
+        return '', 201
+
+
 #
 # Actually setup the Api resource routing here
 #
@@ -121,6 +127,7 @@ api.add_resource(Bdd, '/bdd-init')
 api.add_resource(Login, '/login')
 api.add_resource(Imoveis, '/imoveis')
 api.add_resource(Imovel, '/imoveis/<imovel_id>')
+api.add_resource(TiposImoveis, '/tipos-imoveis')
 
 
 if __name__ == '__main__':

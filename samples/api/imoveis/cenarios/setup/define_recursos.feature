@@ -65,3 +65,17 @@ Funcionalidade: Definir os recursos da API
     Quando o evento é remover um imóvel
     Então o método é DELETE
     E o path é /imoveis/{id do imóvel}
+
+  Cenário: Definindo o recurso tipos de imóveis
+    Dado que quero definir o recurso tipos de imóveis
+    E os campos são
+      | apelido           | tipo    | campo     | localização | valor |
+      | id do tipo        | integer | id        | body        |       |
+      | descrição do tipo | string  | descricao | body        |       |
+    E os códigos de retorno são
+      | código | status                    |
+      | 201    | tipos criados com sucesso |
+      | 400    | tipo inválido             |
+    Quando o evento é cadastrar os tipos de imóveis
+    Então o método é POST
+    E o path é /tipos-imoveis
