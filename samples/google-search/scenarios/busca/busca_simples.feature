@@ -1,6 +1,5 @@
 Funcionalidade: Realizar uma busca simples
 
-  @smoke
   Cenário: Como usuário quero fazer uma busca simples
     Dado que vou para a tela de busca
     E preencho a barra de busca com o valor XYZ
