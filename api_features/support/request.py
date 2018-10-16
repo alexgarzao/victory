@@ -28,6 +28,27 @@ class Request:
         else:
             assert False, "Undefined location {}!".format(location)
 
+    def add_table_field_list(self, object_name, table_field_list):
+        rows_to_add = []
+
+        for row in table_field_list.rows:
+            fields_to_add = {}
+
+            for alias, value in row.items():
+                field = self.__resource.get_field(alias)
+                assert field is not None, 'Alias %s nao encontrado' % alias
+
+                name = field.json_name
+                value = field.transform_value(value)
+                location = field.location
+
+                assert location == "body", "Location {} is invalid. Only body is accepted in arrays!".format(location)
+                fields_to_add[name] = value
+
+            rows_to_add.append(fields_to_add)
+
+        self._body[object_name] = rows_to_add
+
     def _define_result(self):
         if self.retorno.status_code >= 200 and self.retorno.status_code <= 201 and self.retorno.text:
             self.result = self.retorno.json()
@@ -62,14 +83,16 @@ class Request:
     #
 
     def validar_retorno(self, retorno_esperado):
-        json_enviado = json.dumps(self._parameters, indent=4, sort_keys=True, separators=(',', ': '))
+        headers_sent = json.dumps(self._headers, indent=4, sort_keys=True, separators=(',', ': '))
+        parameters_sent = json.dumps(self._parameters, indent=4, sort_keys=True, separators=(',', ': '))
+        body_sent = json.dumps(self._body, indent=4, sort_keys=True, separators=(',', ': '))
         if self.retorno.status_code >= 200 and self.retorno.status_code <= 201 and self.retorno.text:
             json_recebido = json.dumps(self.retorno.json(), indent=4, sort_keys=True, separators=(',', ': '))
         else:
             json_recebido = self.retorno.text
         assert self.retorno.status_code == retorno_esperado, \
-            "O resultado esperado [{}] e diferente do retorno [{}].\n\tURL={}\n\tParametros enviados={}\n\tRetorno={}".\
-            format(retorno_esperado, self.retorno.status_code, self.url, json_enviado, json_recebido)
+            "O resultado esperado [{}] e diferente do retorno [{}].\n\tURL={}\n\tHeaders enviados={}\n\tParametros enviados={}\n\tBody enviado={}\n\tRetorno={}".\
+            format(retorno_esperado, self.retorno.status_code, self.url, headers_sent, parameters_sent, body_sent, json_recebido)
 
         self._verify_error_response(self.retorno)
 
