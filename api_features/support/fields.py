@@ -61,7 +61,7 @@ class Field(object):
         if value == '<nulo>':
             return None
 
-        if value.isdigit():
+        if type(value) is str and value.isdigit():
             return int(value)
 
         return value
@@ -70,7 +70,7 @@ class Field(object):
         if value == '<nulo>':
             return None
 
-        if is_float(value):
+        if type(value) is str and is_float(value):
             return float(value)
 
         return value
