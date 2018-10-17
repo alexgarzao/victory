@@ -1,5 +1,8 @@
 import pyodbc
 
+from features.support.simple_result import SimpleResult
+from features.support.query_result import QueryResult
+
 
 class SqlServer:
     connection_pool = {}
@@ -12,19 +15,22 @@ class SqlServer:
         self.sql = ''
         self.field_name = ''
 
-    def query(self):
+    def query(self, field_name=''):
+        if not field_name:
+            field_name = self.field_name
+
         conn = self.__get_connection()
         cursor = conn.cursor()
         cursor.execute(self.sql)
         rows = cursor.fetchall()
+        cursor.close()
         assert len(rows) == 1
         row = rows[0]
 
-        if self.field_name:
-            return row.__getattribute__(self.field_name)
+        if field_name:
+            return SimpleResult(row.__getattribute__(field_name))
 
-        assert len(row.cursor_description) == 1
-        return row[0]
+        return QueryResult(row)
 
     def run(self, sql):
         conn = self.__get_connection()
