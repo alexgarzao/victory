@@ -82,6 +82,8 @@ def step_impl(context, variable):
     context.module.set_variable_result(variable, ApiResult(context, context.request.retorno.json()))
 
 
-@given(u'a lista de dados do campo {object_name} está na tabela abaixo')  # noqa: F811
-def step_impl(context, object_name):
+@given(u'a lista de dados do campo {object_alias} está na tabela abaixo')  # noqa: F811
+def step_impl(context, object_alias):
+    field = context.resource.get_field(object_alias)
+    object_name = field.json_name
     context.request.add_table_field_list(context.module.get_content, object_name, context.table)

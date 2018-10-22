@@ -69,9 +69,10 @@ Funcionalidade: Definir os recursos da API
   Cenário: Definindo o recurso tipos de imóveis
     Dado que quero definir o recurso tipos de imóveis
     E os campos são
-      | apelido           | tipo    | campo     | localização | valor |
-      | id do tipo        | integer | id        | body        |       |
-      | descrição do tipo | string  | descricao | body        |       |
+      | apelido           | tipo    | campo        | localização | valor |
+      | id do tipo        | integer | id           | body        |       |
+      | descrição do tipo | string  | descricao    | body        |       |
+      | tipos de imóveis  | list    | tiposImoveis | body        |       |
     E os códigos de retorno são
       | código | status                    |
       | 201    | tipos criados com sucesso |

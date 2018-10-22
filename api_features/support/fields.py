@@ -13,6 +13,7 @@ class FieldType(IntEnum):
     DATE = 5
     STRING_LIST = 6
     INTEGER_LIST = 7
+    LIST = 8
 
 
 # REFACTOR: Esta classe poderia se especializada conforme o tipo.
@@ -46,6 +47,8 @@ class Field(object):
                 return None
         elif self.type == FieldType.DATE:
             return self.__get_date_value(value)
+        elif self.type == FieldType.LIST:
+            return []
         else:
             assert False, 'FieldType {} indefinido!'.format(self.type)
 
