@@ -28,7 +28,8 @@ class Request:
         else:
             assert False, "Undefined location {}!".format(location)
 
-    def add_table_field_list(self, object_name, table_field_list):
+    # TODO: Refactor: Receber get_content nao me parece algo legal...
+    def add_table_field_list(self, get_content, object_name, table_field_list):
         rows_to_add = []
 
         for row in table_field_list.rows:
@@ -38,6 +39,7 @@ class Request:
                 field = self.__resource.get_field(alias)
                 assert field is not None, 'Alias %s nao encontrado' % alias
 
+                value = get_content(value).get_value()
                 name = field.json_name
                 value = field.transform_value(value)
                 location = field.location

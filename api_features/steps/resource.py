@@ -84,4 +84,4 @@ def step_impl(context, variable):
 
 @given(u'a lista de dados do campo {object_name} está na tabela abaixo')  # noqa: F811
 def step_impl(context, object_name):
-    context.request.add_table_field_list(object_name, context.table)
+    context.request.add_table_field_list(context.module.get_content, object_name, context.table)
