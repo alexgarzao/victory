@@ -1,6 +1,6 @@
 class SimpleResult:
     def __init__(self, value):
-        self.value = value
+        self.value = str(value)
 
     def get_result(self, unused):
         return SimpleResult(self.value)
