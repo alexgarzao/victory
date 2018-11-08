@@ -22,12 +22,16 @@ def before_all(context):
 
 
 def __choose_module_class(context, module):
+    # TODO: plugin architecture
     if module == 'web':
         from web_features.web_module import WebModule
         return WebModule(context)
     elif module == 'api':
         from api_features.api_module import ApiModule
         return ApiModule(context)
+    elif module == 'windesk':
+        from windesk_features.windesk_module import WindeskModule
+        return WindeskModule(context)
     else:
         assert False, "Undefined module {}".format(module)
 
