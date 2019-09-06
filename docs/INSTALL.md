@@ -13,6 +13,7 @@ Requisitos:
 - python 3.6 ou superior
 - pip
 - virtualenv
+- pacote python3-dev (ubuntu) ou similar
 
 Setup (Linux):
 
