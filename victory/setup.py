@@ -15,7 +15,7 @@ setup(
         'cffi==1.11.5',
         'chardet==3.0.4',
         'click==6.7',
-        'cryptography==2.3',
+        'cryptography==3.2',
         'dohq-tfs==1.0.81',
         'idna==2.7',
         'Jinja2==2.10',
