@@ -18,7 +18,7 @@ setup(
         'cryptography==2.3',
         'dohq-tfs==1.0.81',
         'idna==2.7',
-        'Jinja2==2.10',
+        'Jinja2==2.11.3',
         'MarkupSafe==1.0',
         'ntlm-auth==1.2.0',
         'prettytable==0.7.2',
