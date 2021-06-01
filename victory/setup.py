@@ -26,7 +26,7 @@ setup(
         'requests==2.19.1',
         'requests-ntlm==1.1.0',
         'six==1.11.0',
-        'urllib3==1.23',
+        'urllib3==1.26.5',
     ],
     entry_points='''
         [console_scripts]
