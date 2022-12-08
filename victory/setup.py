@@ -11,7 +11,7 @@ setup(
     install_requires=[
         'asn1crypto==0.24.0',
         'beautifulsoup4==4.6.1',
-        'certifi==2018.4.16',
+        'certifi==2022.12.7',
         'cffi==1.11.5',
         'chardet==3.0.4',
         'click==6.7',
